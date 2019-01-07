@@ -7,6 +7,9 @@ package privatemoviecollection.gui.model;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import privatemoviecollection.be.Movie;
 import privatemoviecollection.bll.PMCManager;
 
 /**
@@ -15,16 +18,25 @@ import privatemoviecollection.bll.PMCManager;
  */
 public class PMCModel
 {
-PMCManager pmcmanager;
+private final PMCManager pmcmanager;
+private ObservableList<Movie> allMovies;
 
-public PMCModel()
+
+public PMCModel() throws IOException, SQLException
 {
     pmcmanager = new PMCManager();
+    allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
+   
 }
 
     public void addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
-     pmcmanager.addMovie(filelink, title, IMDBrating);
+      pmcmanager.addMovie(filelink, title, IMDBrating);
+    }
+    
+    public ObservableList<Movie> getAllMovies() throws IOException, SQLException
+    {
+        return allMovies;
     }
     
 }

@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
@@ -59,9 +60,30 @@ public void removeMovie(Movie movToRemove)
     
 }
 
-public List<Movie> getAllMovies()
+public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLException
 {
-    return null;
+       
+            ArrayList<Movie> allMovies = new ArrayList<>();
+            DbConnection dc = new DbConnection();
+            
+            try(Connection con = dc.getConnection())
+            {
+            
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery("Select * FROM Movie;");
+            while (rs.next())
+            {
+                String title = rs.getString("name");
+                String path = rs.getString("filelink");
+                int id = rs.getInt("id");
+                BigDecimal r = rs.getBigDecimal("IMDBrating");
+             
+                
+                allMovies.add(new Movie(id, title, path, r.doubleValue()));
+            }
+            return allMovies;
+            }
+        
 }
 
 

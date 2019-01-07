@@ -28,9 +28,9 @@
       </TableView>
       <TableView fx:id="allMovies" layoutX="624.0" layoutY="140.0" prefHeight="385.0" prefWidth="302.0">
         <columns>
-          <TableColumn prefWidth="129.0" text="Title" />
-          <TableColumn prefWidth="97.0" text="IMDBRating" />
-            <TableColumn prefWidth="75.0" text="Rating" />
+          <TableColumn fx:id="allMovTitle" prefWidth="129.0" text="Title" />
+          <TableColumn fx:id="allMovIMDBRating" prefWidth="97.0" text="IMDBRating" />
+            <TableColumn fx:id="allMovRating" prefWidth="75.0" text="Rating" />
         </columns>
       </TableView>
       <Button fx:id="addCategory" layoutX="47.0" layoutY="544.0" mnemonicParsing="false" text="Add category" />
@@ -38,5 +38,6 @@
       <Button fx:id="addMovie" layoutX="511.0" layoutY="544.0" mnemonicParsing="false" text="Add movie to category" />
       <Button fx:id="addMovie" layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
       <Button fx:id="deleteMovie" layoutX="846.0" layoutY="582.0" mnemonicParsing="false" text="Delete Movie" />
+      <Button layoutX="249.0" layoutY="544.0" mnemonicParsing="false" onAction="#deleteFromCategory" text="Delete from category" />
    </children>
 </AnchorPane>

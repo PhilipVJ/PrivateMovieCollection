@@ -7,6 +7,8 @@ package privatemoviecollection.bll;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import privatemoviecollection.be.Movie;
 import privatemoviecollection.dal.MovieDbDAO;
 
 /**
@@ -15,16 +17,20 @@ import privatemoviecollection.dal.MovieDbDAO;
  */
 public class PMCManager
 {
-MovieDbDAO movieDbDAO;
+private MovieDbDAO movieDbDAO;
 
 public PMCManager()
 {
     movieDbDAO=new MovieDbDAO();
 }
 
-    public void addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
+    public Movie addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
-        movieDbDAO.addMovie(filelink, title, IMDBrating);
+        return movieDbDAO.addMovie(filelink, title, IMDBrating);
     }
     
+    public List<Movie> getAllMovies() throws IOException, SQLException
+    {
+        return movieDbDAO.getAllMovies();
+    }
 }

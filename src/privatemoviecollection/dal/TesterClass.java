@@ -7,7 +7,11 @@ package privatemoviecollection.dal;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import privatemoviecollection.be.Category;
+import privatemoviecollection.be.Movie;
+import privatemoviecollection.gui.model.PMCModel;
 
 /**
  *
@@ -18,7 +22,12 @@ public class TesterClass
    public static void main (String[] args) throws SQLException, IOException {
 
         MovieDbDAO m = new MovieDbDAO(); 
-        m.addMovie("link", "Big Hero 96", 9.4);
+        List<Movie> allMovies = m.getAllMovies();
+        for (Movie x:allMovies){
+            System.out.println(""+ x.getTitle()+"  "+x.getWebrating()+"  "+x.getPersonalrating());
+            
+        }
+
 
    
    }

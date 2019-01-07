@@ -6,6 +6,8 @@
 package privatemoviecollection.be;
 
 import java.util.Date;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -14,30 +16,31 @@ import java.util.Date;
 public class Movie
 {
 private int id;
-private String title;
-private double IMDBrating;
-private double personalRating;
+private SimpleStringProperty title;
+private SimpleDoubleProperty webrating;
+private SimpleStringProperty personalrating;
 private String filelink;
 private Date date;
 
 public Movie(int id, String title, String filelink)
 {
     this.id=id;
-    this.title=title;
+    this.title=new SimpleStringProperty(title);
     this.filelink=filelink;
 }
 
 public Movie(int id, String title, String filelink, double IMDBrating)
 {
     this.id=id;
-    this.title=title;
+    this.title=new SimpleStringProperty(title);
     this.filelink=filelink;
-    this.IMDBrating=IMDBrating;
+    this.webrating=new SimpleDoubleProperty(IMDBrating);
+    personalrating = new SimpleStringProperty("Not rated yet");
 }
 
 public String getTitle()
 {
-    return title;
+   return title.get();
 }
 
 public void setDate(Date date)
@@ -51,8 +54,20 @@ public String getFileLink()
 
 public void setPersonalRating(double rating)
 {
-    this.personalRating=rating;
+    personalrating.set(Double.toString(rating));
 }
 
+public Double getWebrating()
+ {
+     System.out.println(""+webrating.get());
+     return webrating.get(); 
+ }
+
+ 
+public String getPersonalrating()
+ {
+     
+     return personalrating.get();
+ }
 
 }
