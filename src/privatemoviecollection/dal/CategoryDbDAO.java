@@ -23,14 +23,15 @@ import privatemoviecollection.be.Movie;
 public class CategoryDbDAO
 {
     
-public Category addCategory(String name) throws IOException, SQLException 
+public Category addCategory(String name) throws IOException, SQLServerException, SQLException
 {
   
     DbConnection ds = new DbConnection();
-    Connection con = ds.getConnection();
-     Category addedCategory = null; 
-     
-     String SQL = "INSERT INTO Category VALUES (?)"; 
+    Category addedCategory = null;
+    
+    try(Connection con = ds.getConnection()){
+   
+            String SQL = "INSERT INTO Category VALUES (?)"; 
             PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1,name);
             pstmt.execute();
@@ -42,6 +43,8 @@ public Category addCategory(String name) throws IOException, SQLException
                 addedCategory= new Category(name, generatedKeys.getInt(1));
                 System.out.println("Following Category has been added to the database: "+addedCategory.getName());
             }
+    }
+
     return addedCategory;
     
 }
