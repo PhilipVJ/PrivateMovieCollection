@@ -53,4 +53,6 @@ public void setPersonalRating(double rating)
 {
     this.personalRating=rating;
 }
+
+
 }

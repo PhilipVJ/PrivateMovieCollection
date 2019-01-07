@@ -14,7 +14,7 @@
             <Font size="32.0" />
          </font>
       </Text>
-      <Button fx:id="findMovie" layoutX="426.0" layoutY="103.0" mnemonicParsing="false" text="Find movie" />
+      <Button layoutX="426.0" layoutY="103.0" mnemonicParsing="false" onAction="#findMovie" text="Find movie" />
       <Label layoutX="91.0" layoutY="108.0" prefHeight="21.0" prefWidth="39.0" text="Title" />
       <Label layoutX="91.0" layoutY="143.0" text="Filelink" />
       <Label layoutX="90.0" layoutY="238.0" text="IMDB Rating" />
