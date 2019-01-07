@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -35,6 +36,8 @@ private PMCModel pmcmodel;
     private TextField IMDBrating;
     @FXML
     private AnchorPane rootPane2;
+    @FXML
+    private Label info;
 
 
     /**
@@ -54,21 +57,32 @@ private PMCModel pmcmodel;
     @FXML
     private void saveMovie(ActionEvent event) throws IOException, SQLException
     {
-    if (filelink.getText().length()!=0 && title.getText().length()!=0 && IMDBrating.getText().length()!=0)
+    if (filelink.getText().length()==0)
     {
+        info.setText("Please select a movie");
+        return;
+    }
+    
+    if (title.getText().length()==0){
+        info.setText("Please type in a title");
+        return;
+    }
+    
+    if (IMDBrating.getText().length()==0){
+        info.setText("Please type in a IMDB rating");
+        return;
+    }
+        
+
     String rat = IMDBrating.getText();
     double ratDouble = Double.parseDouble(rat);
-    System.out.println("Rating:"+ratDouble);
     String movieTitle = title.getText();
-        System.out.println("Title: "+movieTitle);
     String movieFilelink = filelink.getText();
-        System.out.println("Filelink: "+movieFilelink);
-    
-    
-    pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
+     
+     pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
     Stage stage = (Stage) rootPane2.getScene().getWindow();
     stage.close();
-    }
+    
     }
 
     @FXML
