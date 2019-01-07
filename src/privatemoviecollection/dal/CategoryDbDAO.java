@@ -54,9 +54,18 @@ public Category addCategory(String name) throws IOException, SQLServerException,
     
 
 
-public void removeCategory (Category catToRemove)
+public void removeCategory (Category catToRemove) throws SQLException, IOException
 {
-    
+  DbConnection dc = new DbConnection();
+    try(Connection con = dc.getConnection();)
+        {
+            int CatagoryId = catToRemove.getId();
+            PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Catagory WHERE id=(?)");
+            pstmt2.setInt(1, CatagoryId);
+            pstmt2.execute();
+            System.out.println("Following Catagory has been deleted: "+CatagoryId);
+        } 
+       
 }
 
 public void addMovieToCat (Movie movToAdd)
