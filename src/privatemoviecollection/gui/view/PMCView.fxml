@@ -7,8 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="638.0" prefWidth="957.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="privatemoviecollection.gui.controller.PMCViewController">
+<AnchorPane id="AnchorPane" prefHeight="638.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PMCViewController">
    <children>
       <Text fill="#cd8d0d" layoutX="210.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Private Movie Collection" wrappingWidth="536.6708984375">
          <font>
@@ -37,7 +36,7 @@
       <Button fx:id="addCategory" layoutX="47.0" layoutY="544.0" mnemonicParsing="false" text="Add category" />
       <Button fx:id="removeCategory" layoutX="47.0" layoutY="582.0" mnemonicParsing="false" text="Remove category" />
       <Button fx:id="addMovie" layoutX="511.0" layoutY="544.0" mnemonicParsing="false" text="Add movie to category" />
-      <Button fx:id="addMovie" layoutX="861.0" layoutY="544.0" mnemonicParsing="false" text="Add Movie" />
+      <Button fx:id="addMovie" layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
       <Button fx:id="deleteMovie" layoutX="846.0" layoutY="582.0" mnemonicParsing="false" text="Delete Movie" />
    </children>
 </AnchorPane>
