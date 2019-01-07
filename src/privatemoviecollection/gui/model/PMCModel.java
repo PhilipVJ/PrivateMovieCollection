@@ -11,5 +11,10 @@ package privatemoviecollection.gui.model;
  */
 public class PMCModel
 {
+
+    public void addMovie(String filelink, String title, String IMDBrating)
+    {
+     
+    }
     
 }

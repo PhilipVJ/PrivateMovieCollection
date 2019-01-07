@@ -5,19 +5,16 @@
  */
 package privatemoviecollection.gui.controller;
 
-import java.io.IOException;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.lang.model.util.Elements;
 import privatemoviecollection.gui.model.PMCModel;
 
 /**
@@ -28,8 +25,6 @@ import privatemoviecollection.gui.model.PMCModel;
 public class AddMovieController implements Initializable
 {
 private PMCModel pmcmodel;
-    @FXML
-    private Button findMovie;
     @FXML
     private TextField title;
     @FXML
@@ -57,8 +52,12 @@ private PMCModel pmcmodel;
     @FXML
     private void saveMovie(ActionEvent event)
     {
+    if (filelink.getText().length()!=0 && title.getText().length()!=0 && IMDBrating.getText().length()!=0)
+    {    
+    pmcmodel.addMovie(filelink.getText(), title.getText(), IMDBrating.getText());
     Stage stage = (Stage) rootPane2.getScene().getWindow();
     stage.close();
+    }
     }
 
     @FXML
@@ -66,6 +65,18 @@ private PMCModel pmcmodel;
     {
     Stage stage = (Stage) rootPane2.getScene().getWindow();
     stage.close();
+    }
+
+    @FXML
+    private void findMovie(ActionEvent event)
+    {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Music File");
+    Stage stage = (Stage) rootPane2.getScene().getWindow();
+    File mediafile = fileChooser.showOpenDialog(stage);
+    String path = mediafile.toURI().toString();
+    filelink.setText(path);
+    
     }
 
 
