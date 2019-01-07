@@ -7,6 +7,7 @@ package privatemoviecollection.dal;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import privatemoviecollection.be.Category;
 
 /**
  *
@@ -16,6 +17,9 @@ public class testerClassDAL
 {
    public static void main (String[] args) throws SQLException, IOException {
         CategoryDbDAO m = new CategoryDbDAO(); 
-      m.addCategory("Horror"); 
+       
+      Category Action = new Category("Action", 2);
+      m.removeCategory(Action);
+      
    }
 }
