@@ -5,11 +5,26 @@
  */
 package privatemoviecollection.bll;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import privatemoviecollection.dal.MovieDbDAO;
+
 /**
  *
  * @author Philip
  */
 public class PMCManager
 {
+MovieDbDAO movieDbDAO;
+
+public PMCManager()
+{
+    movieDbDAO=new MovieDbDAO();
+}
+
+    public void addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
+    {
+        movieDbDAO.addMovie(filelink, title, IMDBrating);
+    }
     
 }

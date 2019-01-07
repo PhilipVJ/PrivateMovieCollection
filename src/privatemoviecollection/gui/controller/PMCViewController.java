@@ -53,7 +53,7 @@ public class PMCViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        pmcmodel = new PMCModel();
     }    
 
     @FXML

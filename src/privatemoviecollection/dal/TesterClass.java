@@ -12,10 +12,10 @@ import java.sql.SQLException;
  *
  * @author Christian Occhionero
  */
-public class testerClassDAL
+public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-        CategoryDbDAO m = new CategoryDbDAO(); 
-      m.addCategory("Horror"); 
+        MovieDbDAO m = new MovieDbDAO(); 
+        m.addMovie("link", "Big Hero 96", 9.4);
    }
 }

@@ -5,16 +5,26 @@
  */
 package privatemoviecollection.gui.model;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import privatemoviecollection.bll.PMCManager;
+
 /**
  *
  * @author Philip
  */
 public class PMCModel
 {
+PMCManager pmcmanager;
 
-    public void addMovie(String filelink, String title, String IMDBrating)
+public PMCModel()
+{
+    pmcmanager = new PMCManager();
+}
+
+    public void addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
-     
+     pmcmanager.addMovie(filelink, title, IMDBrating);
     }
     
 }

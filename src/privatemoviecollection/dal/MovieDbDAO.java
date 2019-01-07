@@ -7,6 +7,8 @@ package privatemoviecollection.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,16 +26,20 @@ public class MovieDbDAO
 {
 public Movie addMovie (String filelink, String titel, double IMDBrating) throws IOException, SQLServerException, SQLException
 {
-     DbConnection ds = new DbConnection();
+    DbConnection ds = new DbConnection();
     Movie addedMovie = null;
-    
+    BigDecimal imdbr = new BigDecimal(IMDBrating);
+    imdbr = imdbr.setScale(1, BigDecimal.ROUND_HALF_UP);
+    System.out.println(""+imdbr.toString());    
     try(Connection con = ds.getConnection()){
    
-            String SQL = "INSERT INTO Movie VALUES (?, ?, ?)"; 
+            String SQL = "INSERT INTO Movie VALUES (?, ?, ?, ?, ?)"; 
             PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1,titel);
-            pstmt.setFloat(2, (float) IMDBrating);
-            pstmt.setString(3, filelink);
+            pstmt.setBigDecimal(2, imdbr);
+            pstmt.setBigDecimal(3, null);
+            pstmt.setString(4, filelink);
+            pstmt.setDate(5, null);
             pstmt.execute();
             
             ResultSet generatedKeys = pstmt.getGeneratedKeys();

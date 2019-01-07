@@ -6,7 +6,9 @@
 package privatemoviecollection.gui.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,11 +52,20 @@ private PMCModel pmcmodel;
     }
 
     @FXML
-    private void saveMovie(ActionEvent event)
+    private void saveMovie(ActionEvent event) throws IOException, SQLException
     {
     if (filelink.getText().length()!=0 && title.getText().length()!=0 && IMDBrating.getText().length()!=0)
-    {    
-    pmcmodel.addMovie(filelink.getText(), title.getText(), IMDBrating.getText());
+    {
+    String rat = IMDBrating.getText();
+    double ratDouble = Double.parseDouble(rat);
+    System.out.println("Rating:"+ratDouble);
+    String movieTitle = title.getText();
+        System.out.println("Title: "+movieTitle);
+    String movieFilelink = filelink.getText();
+        System.out.println("Filelink: "+movieFilelink);
+    
+    
+    pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
     Stage stage = (Stage) rootPane2.getScene().getWindow();
     stage.close();
     }
