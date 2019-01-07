@@ -5,11 +5,34 @@
  */
 package privatemoviecollection.dal;
 
+import java.util.List;
+import privatemoviecollection.be.Movie;
+
 /**
  *
  * @author Philip
  */
 public class MovieDbDAO
 {
+public Movie addMovie (String filepath, String name, double IMDBrating)
+{
+    return null;
+}
+
+public void removeMovie(Movie movToRemove)
+{
     
+}
+
+public List<Movie> getAllMovies()
+{
+    return null;
+}
+
+
+public void addRating(double rating)
+{
+
+}
+
 }
