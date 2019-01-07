@@ -59,11 +59,11 @@ public void removeCategory (Category catToRemove) throws SQLException, IOExcepti
   DbConnection dc = new DbConnection();
     try(Connection con = dc.getConnection();)
         {
-            int CatagoryId = catToRemove.getId();
-            PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Catagory WHERE id=(?)");
-            pstmt2.setInt(1, CatagoryId);
+            int CategoryId = catToRemove.getId();
+            PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id=(?)");
+            pstmt2.setInt(1,CategoryId );
             pstmt2.execute();
-            System.out.println("Following Catagory has been deleted: "+CatagoryId);
+            System.out.println("Following Category has been deleted: "+CategoryId);
         } 
        
 }

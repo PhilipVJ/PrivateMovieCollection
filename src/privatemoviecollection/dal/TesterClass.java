@@ -7,6 +7,7 @@ package privatemoviecollection.dal;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import privatemoviecollection.be.Category;
 
 /**
  *
@@ -15,7 +16,10 @@ import java.sql.SQLException;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
+
         MovieDbDAO m = new MovieDbDAO(); 
         m.addMovie("link", "Big Hero 96", 9.4);
+
+   
    }
 }
