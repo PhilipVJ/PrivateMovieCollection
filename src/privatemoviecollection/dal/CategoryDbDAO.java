@@ -5,6 +5,13 @@
  */
 package privatemoviecollection.dal;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
@@ -16,10 +23,33 @@ import privatemoviecollection.be.Movie;
 public class CategoryDbDAO
 {
     
-public Category addCategory(String name)
+public Category addCategory(String name) throws IOException, SQLException 
 {
-return null;
+  
+    DbConnection ds = new DbConnection();
+    Connection con = ds.getConnection();
+     Category addedCategory = null; 
+     
+     String SQL = "INSERT INTO Category VALUES (?)"; 
+            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1,name);
+            pstmt.execute();
+            
+            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            
+            if (generatedKeys.next())
+            {
+                addedCategory= new Category(name, generatedKeys.getInt(1));
+                System.out.println("Following Category has been added to the database: "+addedCategory.getName());
+            }
+    return addedCategory;
+    
 }
+    
+
+         
+    
+
 
 public void removeCategory (Category catToRemove)
 {
