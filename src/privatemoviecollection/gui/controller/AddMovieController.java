@@ -96,11 +96,14 @@ private PMCModel pmcmodel;
     private void findMovie(ActionEvent event)
     {
     FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Music File");
+    fileChooser.setTitle("Open Movie File");
     Stage stage = (Stage) rootPane2.getScene().getWindow();
     File mediafile = fileChooser.showOpenDialog(stage);
+    if (mediafile!=null){
     String path = mediafile.toURI().toString();
     filelink.setText(path);
+    }
+    
     
     }
 
