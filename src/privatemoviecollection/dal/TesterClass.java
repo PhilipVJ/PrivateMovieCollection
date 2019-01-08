@@ -21,14 +21,14 @@ public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
 
-        MovieDbDAO m = new MovieDbDAO(); 
-        List<Movie> allMovies = m.getAllMovies();
-        for (Movie x:allMovies){
-            System.out.println(""+ x.getTitle()+"  "+x.getWebrating()+"  "+x.getPersonalrating());
-            
+      MovieDbDAO m = new MovieDbDAO(); 
+      m.addMovie("Sample","Sample", 2.0);
+         
+        CategoryDbDAO c = new CategoryDbDAO();
+//        c.addMovieToCat(movToAdd, chosenCategory);
         }
 
 
    
    }
-}
+
