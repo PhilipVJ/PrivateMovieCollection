@@ -5,7 +5,9 @@
  */
 package privatemoviecollection.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,13 +49,17 @@ public class AddCategoryController implements Initializable {
     }
     
     @FXML
-    private void saveBtn(ActionEvent event) 
+    private void saveBtn(ActionEvent event) throws IOException, SQLException 
     {
         if (addCategoryName.getText().length()==0)
         {
             info.setText("Please write a Category name");
             return;
         }
+        
+        String categoryName = addCategoryName.getText();
+        
+        pmcmodel.addCategory(categoryName);
         Stage stage = (Stage) rootPane3.getScene().getWindow();
         stage.close();
     }

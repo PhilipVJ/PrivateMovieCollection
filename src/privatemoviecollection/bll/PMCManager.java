@@ -50,7 +50,7 @@ public PMCManager()
     }
 
     
-    public Category addCategory(int id, String name) throws IOException, SQLException
+    public Category addCategory(String name) throws IOException, SQLException
     {
         return categoryDbDAO.addCategory(name); 
     }

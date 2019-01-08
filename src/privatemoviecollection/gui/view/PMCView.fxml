@@ -18,7 +18,7 @@
       </Text>
       <TableView fx:id="categories" layoutX="47.0" layoutY="140.0" prefHeight="385.0" prefWidth="170.0">
         <columns>
-          <TableColumn prefWidth="168.0" text="Categories" />
+          <TableColumn fx:id="allCategories" prefWidth="168.0" text="Categories" />
         </columns>
       </TableView>
       <TableView fx:id="catmovies" layoutX="249.0" layoutY="140.0" prefHeight="385.0" prefWidth="319.0">
