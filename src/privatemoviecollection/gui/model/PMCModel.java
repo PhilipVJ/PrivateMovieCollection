@@ -25,6 +25,7 @@ public class PMCModel
 private final PMCManager pmcmanager;
 private ObservableList<Movie> allMovies;
 private ObservableList<Category> allCategories;
+private ObservableList<Movie> catMovies;
 
 
 public PMCModel() throws IOException, SQLException
@@ -143,5 +144,14 @@ public PMCModel() throws IOException, SQLException
             return;
         }
         }
+    }
+
+    public void setCatMovies(Category chosenCategory)
+    {
+      ArrayList<Integer> movieIds = chosenCategory.getMovies();
+      
+      for (Integer x: movieIds){
+          
+      }
     }
 }

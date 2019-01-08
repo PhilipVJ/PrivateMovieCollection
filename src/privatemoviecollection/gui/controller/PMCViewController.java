@@ -45,9 +45,7 @@ public class PMCViewController implements Initializable
     @FXML
     private TableView<Category> categories;
     @FXML
-    private TableView<?> catmovies;
-    @FXML
-    private TableColumn<?, ?> title;
+    private TableView<Movie> catmovies;
     @FXML
     private TableView<Movie> allMovies;
     @FXML
@@ -71,7 +69,13 @@ public class PMCViewController implements Initializable
     @FXML
     private Label lastSeenLabel;
     @FXML
-    private TableColumn<?, ?> allCategories;
+    private TableColumn<Category, String> allCategories;
+    @FXML
+    private TableColumn<Movie, Double> catIMDBrating;
+    @FXML
+    private TableColumn<Movie, String> catTitle;
+    @FXML
+    private TableColumn<Movie, String> catPersonalrating;
 
     /**
      * Initializes the controller class.
@@ -97,6 +101,10 @@ public class PMCViewController implements Initializable
         allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
         
         categories.setItems(pmcmodel.getAllCategories());
+        
+        catTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
+        catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
         
         } catch (IOException ex)
         {
@@ -248,5 +256,16 @@ public class PMCViewController implements Initializable
     private void categoriesViewChosen(MouseEvent event)
     {
         chosenTableView=1;
+        Category chosenCategory= categories.getSelectionModel().getSelectedItem();
+        if (chosenCategory!=null)
+        {
+            pmcmodel.setCatMovies(chosenCategory);
+        }
+    }
+
+    @FXML
+    private void categoryMovieViewChosen(MouseEvent event)
+    {
+        chosenTableView=2;
     }
     }

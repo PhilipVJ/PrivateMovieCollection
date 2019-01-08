@@ -90,8 +90,19 @@ public class CategoryDbDAO
                 String name = rs.getString("name");
                 int id = rs.getInt("id");
              
+                Category cat = new Category(name, id);
+               
                 
-                allCategories.add(new Category(name, id ));
+                PreparedStatement pstmt = con.prepareStatement("Select * FROM CatMovie WHERE CategoryId = (?)");
+                pstmt.setInt(1, id);
+                ResultSet rs2 = pstmt.executeQuery();
+                while (rs2.next())
+                {
+                    int movieId = rs.getInt("MovieId");
+                    cat.addMovieWithID(movieId);
+                    
+                }
+                allCategories.add(cat);
             }
             return allCategories ;  
             }
