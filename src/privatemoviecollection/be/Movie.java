@@ -38,6 +38,8 @@ public Movie(int id, String title, String filelink, double IMDBrating)
     personalrating = new SimpleStringProperty("Not rated yet");
 }
 
+
+
 public String getTitle()
 {
    return title.get();
@@ -55,6 +57,7 @@ public String getFileLink()
 public void setPersonalRating(double rating)
 {
     personalrating.set(Double.toString(rating));
+    System.out.println("Rating is now: "+personalrating.get());
 }
 
 public Double getWebrating()

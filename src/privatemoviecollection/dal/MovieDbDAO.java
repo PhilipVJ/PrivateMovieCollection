@@ -85,9 +85,13 @@ public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLExc
                 String path = rs.getString("filelink");
                 int id = rs.getInt("id");
                 BigDecimal r = rs.getBigDecimal("IMDBrating");
-             
-                
-                allMovies.add(new Movie(id, title, path, r.doubleValue()));
+                BigDecimal pr = rs.getBigDecimal("personalrating");
+                Movie movToAdd = new Movie(id, title, path, r.doubleValue());
+                if (pr!=null)
+                {
+                    movToAdd.setPersonalRating(pr.doubleValue());
+                }
+                allMovies.add(movToAdd);
             }
             return allMovies;
             }
@@ -95,9 +99,21 @@ public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLExc
 }
 
 
-public void addRating(double rating)
+public void addRating(Movie movieToRate, double rating) throws IOException, SQLServerException, SQLException
 {
+            DbConnection dc = new DbConnection();
+            BigDecimal bigRating = new BigDecimal(rating);
+            bigRating = bigRating.setScale(1, BigDecimal.ROUND_HALF_UP);
+            
+            try(Connection con = dc.getConnection())
+            {
+            PreparedStatement pstmt = con.prepareStatement("UPDATE Movie SET personalrating = (?) WHERE id = (?)");
+            pstmt.setBigDecimal(1, bigRating);
+            pstmt.setInt(2, movieToRate.getId());
+            pstmt.execute();
+            pstmt.close();
+            }
+        }
 
-}
 
 }
