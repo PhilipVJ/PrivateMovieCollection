@@ -21,15 +21,7 @@ import privatemoviecollection.gui.model.PMCModel;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-      CategoryDbDAO c = new CategoryDbDAO(); 
-//       c.addCategory("Sci-Fi"); 
-//       c.addCategory("Comedy");
-       List<Category> allStuff=c.getAllCategories();
-       
-       for (Category x: allStuff) {
-       System.out.println(x.getName());
-       }
-       
+
        
         }
 
