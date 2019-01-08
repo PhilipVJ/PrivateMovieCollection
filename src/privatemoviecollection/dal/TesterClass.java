@@ -24,16 +24,9 @@ import privatemoviecollection.gui.model.PMCModel;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-   CategoryDbDAO t = new CategoryDbDAO();
-   List<Category> x = t.getAllCategories();
-   for (Category y: x)
-   {
-       ArrayList<Integer> k = y.getMovies();
-       for (Integer g: k)
-       {
-           System.out.println(""+g);
-       }
-   }
+   PMCModel t = new PMCModel();
+   ArrayList<Movie> test = t.checkForBadMovies();
+       System.out.println(""+test.size());
 
  
    }

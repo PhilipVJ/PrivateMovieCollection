@@ -89,7 +89,6 @@ public class CategoryDbDAO
             {
                 String name = rs.getString("name");
                 int id = rs.getInt("id");
-                System.out.println("Id: "+id);
                 Category cat = new Category(name, id);
                
                 try(PreparedStatement pstmt = con.prepareStatement("Select * FROM CatMovie WHERE CategoryId = (?)")){

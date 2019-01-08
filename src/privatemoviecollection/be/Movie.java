@@ -57,7 +57,6 @@ public void setPersonalRating(double rating)
 
 public Double getWebrating()
  {
-     System.out.println(""+webrating.get());
      return webrating.get(); 
  }
 
