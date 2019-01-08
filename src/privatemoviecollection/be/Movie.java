@@ -52,7 +52,7 @@ public String getFileLink()
 public void setPersonalRating(double rating)
 {
     personalrating.set(Double.toString(rating));
-    System.out.println("Rating is now: "+personalrating.get());
+
 }
 
 public Double getWebrating()
