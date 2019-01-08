@@ -190,5 +190,7 @@ public class PMCViewController implements Initializable
         pmcmodel.rateMovie(allMovies.getSelectionModel().getSelectedItem(), oneDigitRating);
         allMovies.refresh();
     }
+
+   
     
 }

@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
+import privatemoviecollection.dal.CategoryDbDAO;
 import privatemoviecollection.dal.MovieDbDAO;
 
 /**
@@ -19,10 +21,12 @@ import privatemoviecollection.dal.MovieDbDAO;
 public class PMCManager
 {
 private MovieDbDAO movieDbDAO;
+private CategoryDbDAO categoryDbDAO;
 
 public PMCManager()
 {
     movieDbDAO=new MovieDbDAO();
+    categoryDbDAO=new CategoryDbDAO(); 
 }
 
     public Movie addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
@@ -45,10 +49,29 @@ public PMCManager()
         movieDbDAO.addRating(movToRate, oneDigitRating);
     }
 
+    
+    public Category addCategory(int id, String name) throws IOException, SQLException
+    {
+        return categoryDbDAO.addCategory(name); 
+    }
+    
+    public List<Category> getAllCategories() throws SQLException, IOException
+    {
+        return categoryDbDAO.getAllCategories(); 
+    }
+    
+    public void removeCategory (Category categoryToRemove) throws SQLException, IOException
+    {
+        categoryDbDAO.removeCategory(categoryToRemove);
+    }
+        
+    
+
+
     public void setDate(Movie movieToPlay, Date date) throws IOException, SQLException
     {
    movieDbDAO.setDate(movieToPlay, date);
     }
-    
+
 
 }
