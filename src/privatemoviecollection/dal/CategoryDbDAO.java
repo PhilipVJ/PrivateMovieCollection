@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -77,32 +78,33 @@ public class CategoryDbDAO
 
     public List<Category> getAllCategories() throws SQLException, IOException
     {
-        ArrayList<Category> allCategories = new ArrayList<>();
+             ArrayList<Category> allCategories = new ArrayList<>();
             DbConnection dc = new DbConnection();
             
-            try(Connection con = dc.getConnection())
+            try(Connection con = dc.getConnection() ; Statement statement = con.createStatement();)
             {
-            
-            Statement statement = con.createStatement();
+                                    
             ResultSet rs = statement.executeQuery("Select * FROM Category;");
             while (rs.next())
             {
                 String name = rs.getString("name");
                 int id = rs.getInt("id");
-             
+                System.out.println("Id: "+id);
                 Category cat = new Category(name, id);
                
-                
-                PreparedStatement pstmt = con.prepareStatement("Select * FROM CatMovie WHERE CategoryId = (?)");
+                try(PreparedStatement pstmt = con.prepareStatement("Select * FROM CatMovie WHERE CategoryId = (?)")){
                 pstmt.setInt(1, id);
                 ResultSet rs2 = pstmt.executeQuery();
+               
                 while (rs2.next())
                 {
-                    int movieId = rs.getInt("MovieId");
+                    
+                    int movieId = rs2.getInt("MovieId");
                     cat.addMovieWithID(movieId);
                     
                 }
                 allCategories.add(cat);
+                }
             }
             return allCategories ;  
             }
