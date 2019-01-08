@@ -23,14 +23,13 @@ import privatemoviecollection.be.Movie;
 public class CategoryDbDAO
 {
     
-public Category addCategory(String name) throws IOException, SQLServerException, SQLException
-{
-  
-    DbConnection ds = new DbConnection();
-    Category addedCategory = null;
+    public Category addCategory(String name) throws IOException, SQLServerException, SQLException
+    {
+        DbConnection ds = new DbConnection();
+        Category addedCategory = null;
     
-    try(Connection con = ds.getConnection()){
-   
+        try(Connection con = ds.getConnection())
+        {
             String SQL = "INSERT INTO Category VALUES (?)"; 
             PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1,name);
@@ -43,21 +42,14 @@ public Category addCategory(String name) throws IOException, SQLServerException,
                 addedCategory= new Category(name, generatedKeys.getInt(1));
                 System.out.println("Following Category has been added to the database: "+addedCategory.getName());
             }
+        }
+        return addedCategory;
     }
-
-    return addedCategory;
     
-}
-    
-
-         
-    
-
-
-public void removeCategory (Category catToRemove) throws SQLException, IOException
-{
-  DbConnection dc = new DbConnection();
-    try(Connection con = dc.getConnection();)
+    public void removeCategory (Category catToRemove) throws SQLException, IOException
+    {
+        DbConnection dc = new DbConnection();
+        try(Connection con = dc.getConnection();)
         {
             int CategoryId = catToRemove.getId();
             PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id=(?)");
@@ -65,18 +57,27 @@ public void removeCategory (Category catToRemove) throws SQLException, IOExcepti
             pstmt2.execute();
             System.out.println("Following Category has been deleted: "+CategoryId);
         } 
-       
-}
+    }
 
-public void addMovieToCat (Movie movToAdd)
-{
-    
-}
+    public void addMovieToCat (Movie movToAdd, Category chosenCategory) throws IOException, SQLServerException, SQLException
+    {
+        DbConnection dc = new DbConnection();
+        try(Connection con = dc.getConnection();)
+        {
+            String SQL = "INSERT INTO CatMovie VALUES (?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(SQL);
+            pstmt.setInt(1,;
+            pstmt.setInt(2, chosenCategory.getId());
+            pstmt.setInt(3, movToAdd.get
+            pstmt.execute();
+        } 
 
-public List<Category> getAllCategories()
-{
-  return null;  
-}
+    }
+
+    public List<Category> getAllCategories()
+    {
+        return null;  
+    }
     
 
 
