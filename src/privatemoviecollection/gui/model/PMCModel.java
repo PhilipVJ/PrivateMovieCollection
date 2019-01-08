@@ -148,11 +148,11 @@ public PMCModel() throws IOException, SQLException
 
     public void setCatMovies(Category chosenCategory)
     {
-      ArrayList<Integer> movieIds = chosenCategory.getMovies();
-      
-      for (Integer x: movieIds){
-          
-      }
+//      ArrayList<Integer> movieIds = chosenCategory.getMovies();
+//      
+//      for (Integer x: movieIds){
+//          
+//      }
     }
 
     public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
