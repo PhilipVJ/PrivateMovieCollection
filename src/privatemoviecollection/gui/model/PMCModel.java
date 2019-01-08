@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.bll.PMCManager;
 
@@ -22,12 +23,14 @@ public class PMCModel
 {
 private final PMCManager pmcmanager;
 private ObservableList<Movie> allMovies;
+private ObservableList<Category> allCategories;
 
 
 public PMCModel() throws IOException, SQLException
 {
     pmcmanager = new PMCManager();
     allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
+    allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
    
 }
 
@@ -112,5 +115,11 @@ public PMCModel() throws IOException, SQLException
         }
 
         return moviesToDelete;
+    }
+    
+    public void addCategory(int id, String name) throws IOException, SQLException
+    {
+        Category categoryToAdd = pmcmanager.addCategory(id, name);
+        allCategories.add(categoryToAdd);
     }
 }

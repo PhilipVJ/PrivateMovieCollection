@@ -213,7 +213,7 @@ public class PMCViewController implements Initializable
     @FXML
     private void addCategory(ActionEvent event) throws IOException 
     {
-            {
+        {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/AddCategory.fxml"));
             Parent root = (Parent)loader.load();
             AddCategoryController addCategoryCon = loader.getController();
@@ -223,7 +223,7 @@ public class PMCViewController implements Initializable
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
-    }
+        }
     }
 
    
