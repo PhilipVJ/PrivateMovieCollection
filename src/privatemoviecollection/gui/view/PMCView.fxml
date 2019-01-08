@@ -35,7 +35,7 @@
             <TableColumn fx:id="allMovRating" prefWidth="75.0" text="Rating" />
         </columns>
       </TableView>
-      <Button fx:id="addCategory" layoutX="47.0" layoutY="544.0" mnemonicParsing="false" text="Add category" />
+      <Button layoutX="47.0" layoutY="544.0" mnemonicParsing="false" onAction="#addCategory" text="Add category" />
       <Button fx:id="removeCategory" layoutX="47.0" layoutY="582.0" mnemonicParsing="false" text="Remove category" />
       <Button fx:id="addMovie" layoutX="511.0" layoutY="544.0" mnemonicParsing="false" text="Add movie to category" />
       <Button fx:id="addMovie" layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
