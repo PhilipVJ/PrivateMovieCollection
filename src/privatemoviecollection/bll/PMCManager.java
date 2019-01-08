@@ -33,4 +33,9 @@ public PMCManager()
     {
         return movieDbDAO.getAllMovies();
     }
+
+    public void removeMovie(Movie movieToRemove) throws IOException, SQLException
+    {
+        movieDbDAO.removeMovie(movieToRemove);
+    }
 }

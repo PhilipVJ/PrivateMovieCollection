@@ -6,9 +6,11 @@
 package privatemoviecollection.gui.controller;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import static java.util.Locale.filter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import privatemoviecollection.gui.model.PMCModel;
 
 /**
@@ -96,6 +99,12 @@ private PMCModel pmcmodel;
     private void findMovie(ActionEvent event)
     {
     FileChooser fileChooser = new FileChooser();
+    // Adds filters to the FileChooser
+    FileChooser.ExtensionFilter mp4filter = new FileChooser.ExtensionFilter("MP4 files (*.mp4)", "*.mp4");
+    FileChooser.ExtensionFilter mpeg4filter = new FileChooser.ExtensionFilter("MPEG4 files (*.mpeg4)", "*.mpeg4");
+    fileChooser.getExtensionFilters().add(mp4filter);
+    fileChooser.getExtensionFilters().add(mpeg4filter);
+    
     fileChooser.setTitle("Open Movie File");
     Stage stage = (Stage) rootPane2.getScene().getWindow();
     File mediafile = fileChooser.showOpenDialog(stage);

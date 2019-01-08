@@ -55,9 +55,17 @@ public Movie addMovie (String filelink, String titel, double IMDBrating) throws 
     return addedMovie;
 }
 
-public void removeMovie(Movie movToRemove)
+public void removeMovie(Movie movToRemove) throws IOException, SQLServerException, SQLException
 {
-    
+            int movId = movToRemove.getId();
+            DbConnection dc = new DbConnection();
+            
+            try(Connection con = dc.getConnection()){
+            PreparedStatement pstmt = con.prepareStatement("DELETE FROM Movie WHERE id=(?)");
+            pstmt.setInt(1,movId); 
+            pstmt.execute();
+            System.out.println("Following movie has been deleted: "+movToRemove.getTitle());
+            }
 }
 
 public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLException

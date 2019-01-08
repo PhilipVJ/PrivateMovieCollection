@@ -5,6 +5,8 @@
  */
 package privatemoviecollection.gui.controller;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,8 +49,6 @@ public class PMCViewController implements Initializable
     private Button removeCategory;
     @FXML
     private Button addMovie;
-    @FXML
-    private Button deleteMovie;
     
     private PMCModel pmcmodel;
     @FXML
@@ -101,6 +101,24 @@ public class PMCViewController implements Initializable
     @FXML
     private void deleteFromCategory(ActionEvent event)
     {
+    }
+
+    @FXML
+    private void openMovie(ActionEvent event) throws IOException
+    {
+        Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
+        String path = movieToPlay.getFileLink();
+        String pathFormatted = path.substring(6);
+        Desktop.getDesktop().open(new File(pathFormatted));
+        
+    }
+
+    @FXML
+    private void deleteMovie(ActionEvent event) throws IOException, SQLException
+    {
+        Movie movieToRemove = allMovies.getSelectionModel().getSelectedItem();
+        pmcmodel.removeMovie(movieToRemove);
+        
     }
     
 }
