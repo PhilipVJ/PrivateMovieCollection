@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -90,6 +92,7 @@ public class PMCViewController implements Initializable
         allMovies.setItems(pmcmodel.getAllMovies());
         ratingSlider.setVisible(false);
         rateButton.setVisible(false);
+        checkForBadMovies();
         
         } catch (IOException ex)
         {
@@ -189,6 +192,24 @@ public class PMCViewController implements Initializable
         double oneDigitRating = Math.round(rating * 10) / 10.0;
         pmcmodel.rateMovie(allMovies.getSelectionModel().getSelectedItem(), oneDigitRating);
         allMovies.refresh();
+    }
+
+    private void checkForBadMovies()
+    {
+      ArrayList<Movie> badMovies = pmcmodel.checkForBadMovies();
+      if (badMovies.size()>0)
+      {
+          for(Movie x:badMovies)
+          {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Important information");
+                alert.setHeaderText("Bad movie detected");
+                alert.setContentText("You haven't seen "+x.getTitle()+
+                " in more than 2 years and you rated it 6 or less. You should consider deleting it"
+                 );
+                alert.showAndWait();
+          }
+      }
     }
 
    

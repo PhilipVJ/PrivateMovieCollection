@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
+import privatemoviecollection.bll.PMCManager;
 import privatemoviecollection.gui.model.PMCModel;
 
 /**
@@ -22,10 +23,6 @@ public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
 
-       
-        }
-
-
    
    }
-
+}

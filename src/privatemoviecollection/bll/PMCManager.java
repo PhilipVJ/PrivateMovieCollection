@@ -73,4 +73,5 @@ public PMCManager()
    movieDbDAO.setDate(movieToPlay, date);
     }
 
+
 }
