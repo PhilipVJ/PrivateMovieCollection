@@ -154,4 +154,9 @@ public PMCModel() throws IOException, SQLException
           
       }
     }
+
+    public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
+    {
+       pmcmanager.addMovieToCat(chosenCategory, chosenMovie);
+    }
 }

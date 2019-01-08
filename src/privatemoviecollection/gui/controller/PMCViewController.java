@@ -48,8 +48,6 @@ public class PMCViewController implements Initializable
     private TableView<Movie> catmovies;
     @FXML
     private TableView<Movie> allMovies;
-    @FXML
-    private Button addMovie;
     
     private PMCModel pmcmodel;
     @FXML
@@ -267,5 +265,15 @@ public class PMCViewController implements Initializable
     private void categoryMovieViewChosen(MouseEvent event)
     {
         chosenTableView=2;
+    }
+
+    @FXML
+    private void addMovieToCategory(ActionEvent event) throws IOException, SQLException
+    {
+    Category chosenCategory= categories.getSelectionModel().getSelectedItem();
+    Movie chosenMovie=allMovies.getSelectionModel().getSelectedItem();
+        if (chosenCategory!=null && chosenMovie!=null){
+            pmcmodel.addMovieToCat(chosenCategory, chosenMovie);
+        }
     }
     }

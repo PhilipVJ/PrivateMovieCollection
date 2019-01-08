@@ -73,5 +73,10 @@ public PMCManager()
    movieDbDAO.setDate(movieToPlay, date);
     }
 
+    public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
+    {
+  categoryDbDAO.addMovieToCat(chosenMovie, chosenCategory);
+    }
+
 
 }
