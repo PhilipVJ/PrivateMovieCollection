@@ -41,6 +41,7 @@ public String getTitle()
 
 public void setDate(Date date)
 {
+    
     this.date=date;
 }
 public String getFileLink()
@@ -70,6 +71,11 @@ public String getPersonalrating()
 public int getId()
 {
     return id;
+}
+
+public Date getDate()
+{
+    return date;
 }
 
 }

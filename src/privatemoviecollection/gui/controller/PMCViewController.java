@@ -9,6 +9,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -68,6 +69,8 @@ public class PMCViewController implements Initializable
     private int chosenTableView;
     @FXML
     private Button rateButton;
+    @FXML
+    private Label lastSeenLabel;
 
     /**
      * Initializes the controller class.
@@ -117,12 +120,17 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void openMovie(ActionEvent event) throws IOException
+    private void openMovie(ActionEvent event) throws IOException, SQLException
     {
         Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
         String path = movieToPlay.getFileLink();
         String pathFormatted = path.substring(6);
+        java.util.Date date=new java.util.Date(); 
+        pmcmodel.setDate(movieToPlay, date);
+        
         Desktop.getDesktop().open(new File(pathFormatted));
+        
+        
         
     }
 
@@ -162,7 +170,13 @@ public class PMCViewController implements Initializable
         if(allMovies.getSelectionModel().getSelectedItem()!=null){
             ratingSlider.setVisible(true);
             rateButton.setVisible(true);
-            
+            Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
+            if(chosenMov.getDate()!=null){
+            lastSeenLabel.setText(chosenMov.getTitle()+" was last seen: "+chosenMov.getDate());
+            }
+            else{
+            lastSeenLabel.setText("You haven't seen this movie yet");
+            }
         }
     }
 

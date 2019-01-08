@@ -10,11 +10,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
@@ -86,10 +88,17 @@ public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLExc
                 int id = rs.getInt("id");
                 BigDecimal r = rs.getBigDecimal("IMDBrating");
                 BigDecimal pr = rs.getBigDecimal("personalrating");
+                Date lastseen = rs.getDate("lastview");
                 Movie movToAdd = new Movie(id, title, path, r.doubleValue());
                 if (pr!=null)
                 {
                     movToAdd.setPersonalRating(pr.doubleValue());
+                }
+                
+                if (lastseen!=null)
+                {
+                    movToAdd.setDate(lastseen);
+                    System.out.println(""+lastseen);
                 }
                 allMovies.add(movToAdd);
             }
@@ -111,9 +120,23 @@ public void addRating(Movie movieToRate, double rating) throws IOException, SQLS
             pstmt.setBigDecimal(1, bigRating);
             pstmt.setInt(2, movieToRate.getId());
             pstmt.execute();
-            pstmt.close();
+           
             }
         }
 
+public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException, IOException, SQLException
+{
+            DbConnection dc = new DbConnection();
+            java.sql.Date sDate = new java.sql.Date(thisDate.getTime());
+                              
+            try(Connection con = dc.getConnection())
+            {
+            PreparedStatement pstmt = con.prepareStatement("UPDATE Movie SET lastview = (?) WHERE id = (?)");
+            pstmt.setDate(1, sDate);
+            pstmt.setInt(2, movieToDate.getId());
+            pstmt.execute();
+            
+            }
+}
 
 }

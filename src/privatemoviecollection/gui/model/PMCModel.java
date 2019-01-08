@@ -7,6 +7,7 @@ package privatemoviecollection.gui.model;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import privatemoviecollection.be.Movie;
@@ -62,5 +63,16 @@ public PMCModel() throws IOException, SQLException
     }
       
     }
+
+    public void setDate(Movie movieToPlay, Date date) throws IOException, SQLException
+    {
+      pmcmanager.setDate(movieToPlay, date);
+       for(Movie x:allMovies){
+        if(x.getId()==movieToPlay.getId()){
+            x.setDate(date);
+            return;
+        }
+    }
     
+    }
 }
