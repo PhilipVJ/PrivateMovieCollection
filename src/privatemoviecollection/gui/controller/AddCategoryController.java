@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import privatemoviecollection.gui.model.PMCModel;
 
 /**
  * FXML Controller class
@@ -22,7 +23,8 @@ public class AddCategoryController implements Initializable
 
     @FXML
     private TextField addCatName;
-
+    
+    private PMCModel pmcmodel;
     /**
      * Initializes the controller class.
      */
