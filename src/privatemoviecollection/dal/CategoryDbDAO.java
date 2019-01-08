@@ -30,11 +30,11 @@ public class CategoryDbDAO
     {
         DbConnection ds = new DbConnection();
         Category addedCategory = null;
+        String SQL = "INSERT INTO Category VALUES (?)"; 
     
-        try(Connection con = ds.getConnection())
+        try(Connection con = ds.getConnection() ; PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);)
         {
-            String SQL = "INSERT INTO Category VALUES (?)"; 
-            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+                  
             pstmt.setString(1,name);
             pstmt.execute();
             
@@ -52,10 +52,10 @@ public class CategoryDbDAO
     public void removeCategory (Category catToRemove) throws SQLException, IOException
     {
         DbConnection dc = new DbConnection();
-        try(Connection con = dc.getConnection();)
+        int CategoryId = catToRemove.getId();
+        try(Connection con = dc.getConnection();  PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id=(?)");)
         {
-            int CategoryId = catToRemove.getId();
-            PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id=(?)");
+                    
             pstmt2.setInt(1,CategoryId );
             pstmt2.execute();
             System.out.println("Following Category has been deleted: "+CategoryId);
@@ -65,10 +65,10 @@ public class CategoryDbDAO
     public void addMovieToCat (Movie movToAdd, Category chosenCategory) throws IOException, SQLServerException, SQLException
     {
         DbConnection dc = new DbConnection();
-        try(Connection con = dc.getConnection();)
+        String SQL = "INSERT INTO CatMovie VALUES (?, ?)";
+        try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);)
         {
-            String SQL = "INSERT INTO CatMovie VALUES (?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+                       
             pstmt.setInt(1, chosenCategory.getId());
             pstmt.setInt(2, movToAdd.getId());
             pstmt.execute();
@@ -78,7 +78,7 @@ public class CategoryDbDAO
 
     public List<Category> getAllCategories() throws SQLException, IOException
     {
-             ArrayList<Category> allCategories = new ArrayList<>();
+            ArrayList<Category> allCategories = new ArrayList<>();
             DbConnection dc = new DbConnection();
             
             try(Connection con = dc.getConnection() ; Statement statement = con.createStatement();)
