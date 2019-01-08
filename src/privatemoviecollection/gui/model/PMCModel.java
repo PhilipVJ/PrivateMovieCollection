@@ -123,9 +123,14 @@ public PMCModel() throws IOException, SQLException
         return moviesToDelete;
     }
     
-    public void addCategory(int id, String name) throws IOException, SQLException
+    public void addCategory(String name) throws IOException, SQLException
     {
-        Category categoryToAdd = pmcmanager.addCategory(id, name);
+        Category categoryToAdd = pmcmanager.addCategory(name);
         allCategories.add(categoryToAdd);
+    }
+    
+    public ObservableList<Category> getAllCategories() throws IOException, SQLException
+    {
+        return allCategories;
     }
 }

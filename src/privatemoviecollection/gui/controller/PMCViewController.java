@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.PMCModel;
 
@@ -42,7 +43,7 @@ public class PMCViewController implements Initializable
 {
 
     @FXML
-    private TableView<?> categories;
+    private TableView<Category> categories;
     @FXML
     private TableView<?> catmovies;
     @FXML
@@ -71,6 +72,8 @@ public class PMCViewController implements Initializable
     private Button rateButton;
     @FXML
     private Label lastSeenLabel;
+    @FXML
+    private TableColumn<?, ?> allCategories;
 
     /**
      * Initializes the controller class.
@@ -81,7 +84,8 @@ public class PMCViewController implements Initializable
         try
         {
             pmcmodel = new PMCModel();
-            pmcmodel.getAllMovies();
+
+           
             
         allMovTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         allMovIMDBRating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
@@ -91,6 +95,10 @@ public class PMCViewController implements Initializable
         ratingSlider.setVisible(false);
         rateButton.setVisible(false);
         checkForBadMovies();
+        
+        allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+        categories.setItems(pmcmodel.getAllCategories());
         
         } catch (IOException ex)
         {

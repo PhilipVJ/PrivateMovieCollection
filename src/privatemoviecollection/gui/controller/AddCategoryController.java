@@ -59,7 +59,7 @@ public class AddCategoryController implements Initializable {
         
         String categoryName = addCategoryName.getText();
         
-        pmcmodel.addCategory(0, categoryName);
+        pmcmodel.addCategory(categoryName);
         Stage stage = (Stage) rootPane3.getScene().getWindow();
         stage.close();
     }
