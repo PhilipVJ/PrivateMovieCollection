@@ -5,6 +5,7 @@
  */
 package privatemoviecollection.dal;
 
+import com.sun.javafx.geom.AreaOp;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,12 +21,16 @@ import privatemoviecollection.gui.model.PMCModel;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-
-      MovieDbDAO m = new MovieDbDAO(); 
-      m.addMovie("Sample","Sample", 2.0);
-         
-        CategoryDbDAO c = new CategoryDbDAO();
-//        c.addMovieToCat(movToAdd, chosenCategory);
+      CategoryDbDAO c = new CategoryDbDAO(); 
+//       c.addCategory("Sci-Fi"); 
+//       c.addCategory("Comedy");
+       List<Category> allStuff=c.getAllCategories();
+       
+       for (Category x: allStuff) {
+       System.out.println(x.getName());
+       }
+       
+       
         }
 
 

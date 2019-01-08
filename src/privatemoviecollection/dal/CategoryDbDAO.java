@@ -7,11 +7,13 @@ package privatemoviecollection.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
@@ -73,9 +75,28 @@ public class CategoryDbDAO
 
     }
 
-    public List<Category> getAllCategories()
+    public List<Category> getAllCategories() throws SQLException, IOException
     {
-        return null;  
+        ArrayList<Category> allCategories = new ArrayList<>();
+            DbConnection dc = new DbConnection();
+            
+            try(Connection con = dc.getConnection())
+            {
+            
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery("Select * FROM Category;");
+            while (rs.next())
+            {
+                String name = rs.getString("name");
+                int id = rs.getInt("id");
+             
+                
+                allCategories.add(new Category(name, id ));
+            }
+            return allCategories ;  
+            }
+        
+     
     }
     
 
