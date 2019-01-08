@@ -98,7 +98,7 @@ public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLExc
                 if (lastseen!=null)
                 {
                     movToAdd.setDate(lastseen);
-                    System.out.println(""+lastseen);
+                   
                 }
                 allMovies.add(movToAdd);
             }
