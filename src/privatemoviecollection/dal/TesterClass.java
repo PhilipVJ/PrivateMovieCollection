@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
+import privatemoviecollection.bll.PMCManager;
 import privatemoviecollection.gui.model.PMCModel;
 
 /**
@@ -21,19 +22,10 @@ import privatemoviecollection.gui.model.PMCModel;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-      CategoryDbDAO c = new CategoryDbDAO(); 
-//       c.addCategory("Sci-Fi"); 
-//       c.addCategory("Comedy");
-       List<Category> allStuff=c.getAllCategories();
-       
-       for (Category x: allStuff) {
-       System.out.println(x.getName());
-       }
-       
-       
-        }
-
+    PMCModel t = new PMCModel();
+    ArrayList<Movie> test = t.checkForBadMovies();
+       System.out.println(""+test.size());
 
    
    }
-
+}

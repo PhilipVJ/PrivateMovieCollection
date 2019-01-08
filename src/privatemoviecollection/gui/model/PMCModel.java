@@ -7,6 +7,7 @@ package privatemoviecollection.gui.model;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -74,5 +75,42 @@ public PMCModel() throws IOException, SQLException
         }
     }
     
+    }
+        /**
+     * Checks for movies with a personal score under 6.0 the user haven't seen in more than 2 years
+     * @return 
+     */
+    public ArrayList<Movie> checkForBadMovies()
+    {
+        java.util.Date date=new java.util.Date();
+        // Saves the number of miliseconds since January 1. 1970
+        long dateTime = date.getTime();
+        // Converts it to days
+        int days = (int) (dateTime / (1000*60*60*24));
+        
+        ArrayList<Movie> moviesToDelete = new ArrayList<Movie>();
+        
+        for(Movie x: allMovies)
+        {
+         double movieRating=10;   
+          // Checks weather the movie has been rated
+          if(!x.getPersonalrating().equals("Not rated yet")){
+          String rating = x.getPersonalrating();
+          movieRating = Double.parseDouble(rating);
+          }
+          // Checks weather the movie has been seen and if it has a rating equal to or below 6
+          if(x.getDate()!=null && movieRating<=6){
+            long movieTime = x.getDate().getTime();
+            int MovieTimeInDays = (int) (movieTime / (1000*60*60*24));
+               // Calculates if it has been 2 years since it was last seen.
+               if(days-MovieTimeInDays>730)
+               {
+               moviesToDelete.add(x);
+               }
+           }
+                    
+        }
+
+        return moviesToDelete;
     }
 }
