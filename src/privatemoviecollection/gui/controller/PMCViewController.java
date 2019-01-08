@@ -51,8 +51,6 @@ public class PMCViewController implements Initializable
     @FXML
     private TableView<Movie> allMovies;
     @FXML
-    private Button removeCategory;
-    @FXML
     private Button addMovie;
     
     private PMCModel pmcmodel;
@@ -233,6 +231,22 @@ public class PMCViewController implements Initializable
         }
     }
 
-   
+    @FXML
+    private void removeCategory(ActionEvent event) throws SQLException, IOException
+    {
+       if (chosenTableView==1 && categories.getSelectionModel().getSelectedItem()!=null){
+           pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
+           
+           
+       }
+    
+
     
 }
+
+    @FXML
+    private void categoriesViewChosen(MouseEvent event)
+    {
+        chosenTableView=1;
+    }
+    }

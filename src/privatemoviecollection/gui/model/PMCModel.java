@@ -133,4 +133,15 @@ public PMCModel() throws IOException, SQLException
     {
         return allCategories;
     }
+
+    public void removeCategory(Category selectedItem) throws SQLException, IOException
+    {
+       pmcmanager.removeCategory(selectedItem);
+        for(Category x:allCategories){
+        if(x.getId()==selectedItem.getId()){
+            allCategories.remove(x);
+            return;
+        }
+        }
+    }
 }

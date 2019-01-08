@@ -16,7 +16,7 @@
             <Font size="48.0" />
          </font>
       </Text>
-      <TableView fx:id="categories" layoutX="47.0" layoutY="140.0" prefHeight="385.0" prefWidth="170.0">
+      <TableView fx:id="categories" layoutX="47.0" layoutY="140.0" onMouseClicked="#categoriesViewChosen" prefHeight="385.0" prefWidth="170.0">
         <columns>
           <TableColumn fx:id="allCategories" prefWidth="168.0" text="Categories" />
         </columns>
@@ -36,7 +36,7 @@
         </columns>
       </TableView>
       <Button layoutX="47.0" layoutY="544.0" mnemonicParsing="false" onAction="#addCategory" text="Add category" />
-      <Button fx:id="removeCategory" layoutX="47.0" layoutY="582.0" mnemonicParsing="false" text="Remove category" />
+      <Button layoutX="47.0" layoutY="582.0" mnemonicParsing="false" onAction="#removeCategory" text="Remove category" />
       <Button fx:id="addMovie" layoutX="511.0" layoutY="544.0" mnemonicParsing="false" text="Add movie to category" />
       <Button fx:id="addMovie" layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
       <Button layoutX="846.0" layoutY="582.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" />
