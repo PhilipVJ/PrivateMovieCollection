@@ -7,6 +7,7 @@ package privatemoviecollection.bll;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.dal.MovieDbDAO;
@@ -42,5 +43,10 @@ public PMCManager()
     public void rateMovie(Movie movToRate, double oneDigitRating) throws IOException, SQLException
     {
         movieDbDAO.addRating(movToRate, oneDigitRating);
+    }
+
+    public void setDate(Movie movieToPlay, Date date) throws IOException, SQLException
+    {
+   movieDbDAO.setDate(movieToPlay, date);
     }
 }
