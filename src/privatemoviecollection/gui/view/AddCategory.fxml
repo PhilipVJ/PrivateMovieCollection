@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.view.AddCategoryController">
+   <children>
+      <TextField fx:id="addCatName" layoutX="185.0" layoutY="148.0" prefHeight="31.0" prefWidth="313.0" />
+      <Label layoutX="53.0" layoutY="153.0" text="Category Name:" />
+      <Label layoutX="154.0" layoutY="26.0" text="Add Category">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Button layoutX="405.0" layoutY="338.0" mnemonicParsing="false" onAction="#saveBtn" prefHeight="31.0" prefWidth="64.0" text="Save" />
+      <Button layoutX="498.0" layoutY="338.0" mnemonicParsing="false" onAction="#cancelBtn" text="Cancel" />
+   </children>
+</AnchorPane>
