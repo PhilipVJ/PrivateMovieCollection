@@ -10,38 +10,56 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import privatemoviecollection.gui.model.PMCModel;
 
 /**
  * FXML Controller class
  *
- * @author Caspe
+ * @author Henrik Ferrari
  */
-public class AddCategoryController implements Initializable
-{
+public class AddCategoryController implements Initializable {
 
     @FXML
-    private TextField addCatName;
+    private AnchorPane rootPane3;
     
     private PMCModel pmcmodel;
+    
+    @FXML
+    private Label info;
+    @FXML
+    private TextField addCategoryName;
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
     @FXML
-    private void saveBtn(ActionEvent event)
+    private void saveBtn(ActionEvent event) 
     {
+        if (addCategoryName.getText().length()==0)
+        {
+            info.setText("Please write a Category name");
+            return;
+        }
+        Stage stage = (Stage) rootPane3.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void cancelBtn(ActionEvent event)
     {
+        Stage stage = (Stage) rootPane3.getScene().getWindow();
+        stage.close();
     }
+
+
     
 }
