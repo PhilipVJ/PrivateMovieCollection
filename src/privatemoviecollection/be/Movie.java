@@ -22,12 +22,6 @@ private SimpleStringProperty personalrating;
 private String filelink;
 private Date date;
 
-public Movie(int id, String title, String filelink)
-{
-    this.id=id;
-    this.title=new SimpleStringProperty(title);
-    this.filelink=filelink;
-}
 
 public Movie(int id, String title, String filelink, double IMDBrating)
 {
