@@ -203,8 +203,7 @@ public class PMCViewController implements Initializable
                 alert.setTitle("Important information");
                 alert.setHeaderText("Bad movie detected");
                 alert.setContentText("You haven't seen "+x.getTitle()+
-                " in more than 2 years and you rated it 6 or less. You should consider deleting it"
-                 );
+                " in more than 2 years and you rated it 6 or less. You should consider deleting it");
                 alert.showAndWait();
           }
       }
