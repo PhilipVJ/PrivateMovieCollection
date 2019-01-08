@@ -70,4 +70,9 @@ public String getPersonalrating()
      return personalrating.get();
  }
 
+public int getId()
+{
+    return id;
+}
+
 }

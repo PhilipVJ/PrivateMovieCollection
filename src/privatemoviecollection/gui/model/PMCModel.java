@@ -38,5 +38,15 @@ public PMCModel() throws IOException, SQLException
     {
         return allMovies;
     }
+
+    public void removeMovie(Movie movieToRemove) throws IOException, SQLException
+    {
+    pmcmanager.removeMovie(movieToRemove);
+    for(Movie x:allMovies){
+        if(x.getId()==movieToRemove.getId()){
+            allMovies.remove(x);
+        }
+    }
+    }
     
 }

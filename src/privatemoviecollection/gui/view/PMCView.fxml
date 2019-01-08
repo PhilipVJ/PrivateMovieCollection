@@ -37,7 +37,8 @@
       <Button fx:id="removeCategory" layoutX="47.0" layoutY="582.0" mnemonicParsing="false" text="Remove category" />
       <Button fx:id="addMovie" layoutX="511.0" layoutY="544.0" mnemonicParsing="false" text="Add movie to category" />
       <Button fx:id="addMovie" layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
-      <Button fx:id="deleteMovie" layoutX="846.0" layoutY="582.0" mnemonicParsing="false" text="Delete Movie" />
+      <Button layoutX="846.0" layoutY="582.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" />
       <Button layoutX="249.0" layoutY="544.0" mnemonicParsing="false" onAction="#deleteFromCategory" text="Delete from category" />
+      <Button layoutX="653.0" layoutY="582.0" mnemonicParsing="false" onAction="#openMovie" text="Open selected movie" />
    </children>
 </AnchorPane>
