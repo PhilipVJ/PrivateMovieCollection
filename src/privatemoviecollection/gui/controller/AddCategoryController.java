@@ -41,6 +41,11 @@ public class AddCategoryController implements Initializable {
         // TODO
     }    
 
+    public void setModel(PMCModel model)
+    {
+    pmcmodel=model;
+    }
+    
     @FXML
     private void saveBtn(ActionEvent event) 
     {

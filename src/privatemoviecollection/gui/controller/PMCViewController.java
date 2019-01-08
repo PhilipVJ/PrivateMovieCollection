@@ -50,8 +50,6 @@ public class PMCViewController implements Initializable
     @FXML
     private TableView<Movie> allMovies;
     @FXML
-    private Button addCategory;
-    @FXML
     private Button removeCategory;
     @FXML
     private Button addMovie;
@@ -210,6 +208,22 @@ public class PMCViewController implements Initializable
                 alert.showAndWait();
           }
       }
+    }
+
+    @FXML
+    private void addCategory(ActionEvent event) throws IOException 
+    {
+            {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/AddCategory.fxml"));
+            Parent root = (Parent)loader.load();
+            AddCategoryController addCategoryCon = loader.getController();
+        
+            addCategoryCon.setModel(pmcmodel);
+        
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+    }
     }
 
    
