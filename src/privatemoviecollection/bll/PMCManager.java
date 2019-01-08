@@ -60,9 +60,9 @@ public PMCManager()
         return categoryDbDAO.getAllCategories(); 
     }
     
-    public void removeCategory (Category catecoryToRemove) throws SQLException, IOException
+    public void removeCategory (Category categoryToRemove) throws SQLException, IOException
     {
-        categoryDbDAO.removeCategory(catecoryToRemove);
+        categoryDbDAO.removeCategory(categoryToRemove);
     }
         
     
