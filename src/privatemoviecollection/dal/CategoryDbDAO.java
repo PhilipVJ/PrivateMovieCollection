@@ -64,11 +64,10 @@ public class CategoryDbDAO
         DbConnection dc = new DbConnection();
         try(Connection con = dc.getConnection();)
         {
-            String SQL = "INSERT INTO CatMovie VALUES (?, ?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(SQL);
-            pstmt.setInt(1,;
-            pstmt.setInt(2, chosenCategory.getId());
-            pstmt.setInt(3, movToAdd.get
+            String SQL = "INSERT INTO CatMovie VALUES (?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, chosenCategory.getId());
+            pstmt.setInt(2, movToAdd.getId());
             pstmt.execute();
         } 
 
