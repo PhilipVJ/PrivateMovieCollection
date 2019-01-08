@@ -31,7 +31,8 @@ public PMCModel() throws IOException, SQLException
 
     public void addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
-      pmcmanager.addMovie(filelink, title, IMDBrating);
+      Movie movToAdd = pmcmanager.addMovie(filelink, title, IMDBrating);
+      allMovies.add(movToAdd);
     }
     
     public ObservableList<Movie> getAllMovies() throws IOException, SQLException
@@ -45,6 +46,7 @@ public PMCModel() throws IOException, SQLException
     for(Movie x:allMovies){
         if(x.getId()==movieToRemove.getId()){
             allMovies.remove(x);
+            return;
         }
     }
     }
