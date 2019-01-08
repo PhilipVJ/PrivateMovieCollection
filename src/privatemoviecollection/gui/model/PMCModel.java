@@ -50,5 +50,17 @@ public PMCModel() throws IOException, SQLException
         }
     }
     }
+
+    public void rateMovie(Movie movToRate, double oneDigitRating) throws IOException, SQLException
+    {
+      pmcmanager.rateMovie(movToRate, oneDigitRating);
+       for(Movie x:allMovies){
+        if(x.getId()==movToRate.getId()){
+            x.setPersonalRating(oneDigitRating);
+            return;
+        }
+    }
+      
+    }
     
 }

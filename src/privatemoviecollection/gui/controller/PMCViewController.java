@@ -20,9 +20,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.gui.model.PMCModel;
@@ -57,6 +60,14 @@ public class PMCViewController implements Initializable
     private TableColumn<Movie, Double> allMovIMDBRating;
     @FXML
     private TableColumn<Movie, String> allMovRating;
+    @FXML
+    private Label scoreLabel;
+    @FXML
+    private Slider ratingSlider;
+    
+    private int chosenTableView;
+    @FXML
+    private Button rateButton;
 
     /**
      * Initializes the controller class.
@@ -74,6 +85,8 @@ public class PMCViewController implements Initializable
         allMovRating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
         
         allMovies.setItems(pmcmodel.getAllMovies());
+        ratingSlider.setVisible(false);
+        rateButton.setVisible(false);
         
         } catch (IOException ex)
         {
@@ -119,6 +132,49 @@ public class PMCViewController implements Initializable
         Movie movieToRemove = allMovies.getSelectionModel().getSelectedItem();
         pmcmodel.removeMovie(movieToRemove);
         
+    }
+
+    @FXML
+    private void setScore(MouseEvent event)
+    {
+      double rating = ratingSlider.getValue();
+        double oneDigitRating = Math.round(rating * 10) / 10.0;
+        scoreLabel.setText(Double.toString(oneDigitRating)); 
+
+        
+    }
+
+    @FXML
+    private void ratingDrag(MouseEvent event) 
+    {
+        
+        double rating = ratingSlider.getValue();
+        double oneDigitRating = Math.round(rating * 10) / 10.0;
+        scoreLabel.setText(Double.toString(oneDigitRating));
+        
+        
+    }
+
+    @FXML
+    private void allMoviesChosen(MouseEvent event)
+    {
+        chosenTableView=3;
+        if(allMovies.getSelectionModel().getSelectedItem()!=null){
+            ratingSlider.setVisible(true);
+            rateButton.setVisible(true);
+            
+        }
+    }
+
+  
+
+    @FXML
+    private void rateMovie(ActionEvent event)  throws IOException, SQLException
+    {
+        double rating = ratingSlider.getValue();
+        double oneDigitRating = Math.round(rating * 10) / 10.0;
+        pmcmodel.rateMovie(allMovies.getSelectionModel().getSelectedItem(), oneDigitRating);
+        allMovies.refresh();
     }
     
 }

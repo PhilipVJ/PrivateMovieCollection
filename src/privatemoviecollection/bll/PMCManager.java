@@ -38,4 +38,9 @@ public PMCManager()
     {
         movieDbDAO.removeMovie(movieToRemove);
     }
+
+    public void rateMovie(Movie movToRate, double oneDigitRating) throws IOException, SQLException
+    {
+        movieDbDAO.addRating(movToRate, oneDigitRating);
+    }
 }
