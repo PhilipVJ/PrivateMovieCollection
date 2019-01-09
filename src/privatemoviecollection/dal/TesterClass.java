@@ -21,8 +21,8 @@ public class TesterClass
    public static void main (String[] args) throws SQLException, IOException {
 
  MovieDbDAO tester = new MovieDbDAO();
- List<Movie> test2 = tester.IMDBintervalSearch(1, 4);
-       System.out.println(""+test2.size());
+List<Movie> tester5 = tester.getMoviesWithSearchWord("KING");
+       System.out.println(""+tester5.size());
 
    }
  
