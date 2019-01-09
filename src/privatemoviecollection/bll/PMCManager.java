@@ -52,6 +52,10 @@ public PMCManager()
         movieDbDAO.addRating(movToRate, oneDigitRating);
     }
 
+    public Movie getMovie(int movID) throws IOException, SQLException
+    {
+       return movieDbDAO.getMovie(movID);
+    }
     
     public Category addCategory(String name) throws IOException, SQLException
     {

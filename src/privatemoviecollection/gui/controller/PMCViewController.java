@@ -251,7 +251,7 @@ public class PMCViewController implements Initializable
 }
 
     @FXML
-    private void categoriesViewChosen(MouseEvent event)
+    private void categoriesViewChosen(MouseEvent event) throws IOException, SQLException
     {
         chosenTableView=1;
         Category chosenCategory= categories.getSelectionModel().getSelectedItem();
