@@ -104,6 +104,8 @@ public class PMCViewController implements Initializable
         catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
         catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
         
+        
+        
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);

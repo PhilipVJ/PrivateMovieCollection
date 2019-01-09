@@ -8,7 +8,9 @@ package privatemoviecollection.dal;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import privatemoviecollection.be.IMDBMovie;
+import privatemoviecollection.be.Movie;
 
 /**
  *
@@ -18,12 +20,10 @@ public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
 
-  IMDBDbDAO tester = new IMDBDbDAO();
-  ArrayList<IMDBMovie> tester2 = tester.getTitles("World");
-       System.out.println(""+tester2.size());
-  for(IMDBMovie x: tester2){
-      System.out.println(""+x.getMovieTitle());
-  }
+ MovieDbDAO tester = new MovieDbDAO();
+ List<Movie> test2 = tester.IMDBintervalSearch(1, 4);
+       System.out.println(""+test2.size());
+
    }
  
    
