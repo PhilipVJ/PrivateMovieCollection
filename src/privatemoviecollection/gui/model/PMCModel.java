@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -194,8 +195,8 @@ public PMCModel() throws IOException, SQLException
         return catMovies;
     }
     
- 
-
-    
-    
+    public List<Movie> IMDBintervalSearch (double low, double high) throws IOException, SQLException
+    {
+        return pmcmanager.IMDBintervalSearch(low, high);
+    }
 }
