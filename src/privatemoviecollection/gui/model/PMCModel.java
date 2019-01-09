@@ -161,11 +161,16 @@ public PMCModel() throws IOException, SQLException
     public void setCatMovies(Category chosenCategory) throws IOException, SQLException
     {
         ArrayList<Integer> movieIds = chosenCategory.getMovies();
+        ArrayList<Movie> categoryMovies = new ArrayList<>();
         
         for (Integer x: movieIds)
         {
-            
+            Movie catMovie = pmcmanager.getMovie(x);
+            categoryMovies.add(catMovie);
         }
+        
+        catMovies = FXCollections.observableList(categoryMovies);
+        
     }
 
     public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
@@ -181,6 +186,11 @@ public PMCModel() throws IOException, SQLException
     public ArrayList<IMDBMovie> getMovieSuggestions(String text)
     {
      return pmcmanager.getMovieSuggestions(text);
+    }
+
+    public ObservableList<Movie> getCatMovies()
+    {
+        return catMovies;
     }
     
  

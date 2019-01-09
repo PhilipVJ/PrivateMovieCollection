@@ -258,6 +258,7 @@ public class PMCViewController implements Initializable
         if (chosenCategory!=null)
         {
             pmcmodel.setCatMovies(chosenCategory);
+            catmovies.setItems(pmcmodel.getCatMovies());
         }
     }
 
