@@ -5,6 +5,8 @@
  */
 package privatemoviecollection.be;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Philip
@@ -13,10 +15,12 @@ public class Category
 {
     private String name; 
     private int id; 
+    private ArrayList<Integer> movieIdList;
 
     public Category (String name, int id) {
         this.name = name;
         this.id = id; 
+        movieIdList = new ArrayList<Integer>();
     }
     
     public String getName()
@@ -29,7 +33,15 @@ public class Category
         return id;
     }
 
-  
+    public void addMovieWithID(int movieId)
+    {
+      movieIdList.add(movieId);
+    }
+
+    public ArrayList<Integer> getMovies()
+    {
+        return movieIdList;
+    }
     
     
 }

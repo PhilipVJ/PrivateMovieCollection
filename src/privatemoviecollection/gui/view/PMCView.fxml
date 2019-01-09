@@ -21,11 +21,11 @@
           <TableColumn fx:id="allCategories" prefWidth="168.0" text="Categories" />
         </columns>
       </TableView>
-      <TableView fx:id="catmovies" layoutX="249.0" layoutY="140.0" prefHeight="385.0" prefWidth="319.0">
+      <TableView fx:id="catmovies" layoutX="249.0" layoutY="140.0" onMouseClicked="#categoryMovieViewChosen" prefHeight="385.0" prefWidth="319.0">
         <columns>
-          <TableColumn fx:id="title" prefWidth="140.0" text="Title" />
-          <TableColumn prefWidth="107.0" text="IMDB Rating" />
-            <TableColumn prefWidth="71.0" text="Rating" />
+          <TableColumn fx:id="catTitle" prefWidth="140.0" text="Title" />
+          <TableColumn fx:id="catIMDBrating" prefWidth="107.0" text="IMDB Rating" />
+            <TableColumn fx:id="catPersonalrating" prefWidth="71.0" text="Rating" />
         </columns>
       </TableView>
       <TableView fx:id="allMovies" layoutX="624.0" layoutY="140.0" onMouseClicked="#allMoviesChosen" prefHeight="385.0" prefWidth="302.0">
@@ -37,8 +37,8 @@
       </TableView>
       <Button layoutX="47.0" layoutY="544.0" mnemonicParsing="false" onAction="#addCategory" text="Add category" />
       <Button layoutX="47.0" layoutY="582.0" mnemonicParsing="false" onAction="#removeCategory" text="Remove category" />
-      <Button fx:id="addMovie" layoutX="511.0" layoutY="544.0" mnemonicParsing="false" text="Add movie to category" />
-      <Button fx:id="addMovie" layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
+      <Button layoutX="511.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovieToCategory" text="Add movie to category" />
+      <Button layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
       <Button layoutX="846.0" layoutY="582.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" />
       <Button layoutX="249.0" layoutY="544.0" mnemonicParsing="false" onAction="#deleteFromCategory" text="Delete from category" />
       <Button layoutX="653.0" layoutY="582.0" mnemonicParsing="false" onAction="#openMovie" text="Open selected movie" />

@@ -33,11 +33,10 @@ public Movie addMovie (String filelink, String titel, double IMDBrating) throws 
     Movie addedMovie = null;
     BigDecimal imdbr = new BigDecimal(IMDBrating);
     imdbr = imdbr.setScale(1, BigDecimal.ROUND_HALF_UP);
-    System.out.println(""+imdbr.toString());    
-    try(Connection con = ds.getConnection()){
-   
-            String SQL = "INSERT INTO Movie VALUES (?, ?, ?, ?, ?)"; 
-            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+    String SQL = "INSERT INTO Movie VALUES (?, ?, ?, ?, ?)";
+     
+    try(Connection con = ds.getConnection() ; PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);)
+    {
             pstmt.setString(1,titel);
             pstmt.setBigDecimal(2, imdbr);
             pstmt.setBigDecimal(3, null);
@@ -62,8 +61,8 @@ public void removeMovie(Movie movToRemove) throws IOException, SQLServerExceptio
             int movId = movToRemove.getId();
             DbConnection dc = new DbConnection();
             
-            try(Connection con = dc.getConnection()){
-            PreparedStatement pstmt = con.prepareStatement("DELETE FROM Movie WHERE id=(?)");
+            try(Connection con = dc.getConnection() ; PreparedStatement pstmt = con.prepareStatement("DELETE FROM Movie WHERE id=(?)");)
+            { 
             pstmt.setInt(1,movId); 
             pstmt.execute();
             System.out.println("Following movie has been deleted: "+movToRemove.getTitle());
@@ -76,10 +75,9 @@ public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLExc
             ArrayList<Movie> allMovies = new ArrayList<>();
             DbConnection dc = new DbConnection();
             
-            try(Connection con = dc.getConnection())
+            try(Connection con = dc.getConnection() ; Statement statement = con.createStatement();)
             {
             
-            Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery("Select * FROM Movie;");
             while (rs.next())
             {
@@ -114,9 +112,8 @@ public void addRating(Movie movieToRate, double rating) throws IOException, SQLS
             BigDecimal bigRating = new BigDecimal(rating);
             bigRating = bigRating.setScale(1, BigDecimal.ROUND_HALF_UP);
             
-            try(Connection con = dc.getConnection())
+            try(Connection con = dc.getConnection() ; PreparedStatement pstmt = con.prepareStatement("UPDATE Movie SET personalrating = (?) WHERE id = (?)");)
             {
-            PreparedStatement pstmt = con.prepareStatement("UPDATE Movie SET personalrating = (?) WHERE id = (?)");
             pstmt.setBigDecimal(1, bigRating);
             pstmt.setInt(2, movieToRate.getId());
             pstmt.execute();
@@ -129,9 +126,8 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
             DbConnection dc = new DbConnection();
             java.sql.Date sDate = new java.sql.Date(thisDate.getTime());
                               
-            try(Connection con = dc.getConnection())
+            try(Connection con = dc.getConnection() ;  PreparedStatement pstmt = con.prepareStatement("UPDATE Movie SET lastview = (?) WHERE id = (?)");)
             {
-            PreparedStatement pstmt = con.prepareStatement("UPDATE Movie SET lastview = (?) WHERE id = (?)");
             pstmt.setDate(1, sDate);
             pstmt.setInt(2, movieToDate.getId());
             pstmt.execute();

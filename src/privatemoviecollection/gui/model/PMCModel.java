@@ -8,6 +8,7 @@ package privatemoviecollection.gui.model;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import javafx.collections.FXCollections;
@@ -25,6 +26,7 @@ public class PMCModel
 private final PMCManager pmcmanager;
 private ObservableList<Movie> allMovies;
 private ObservableList<Category> allCategories;
+private ObservableList<Movie> catMovies;
 
 
 public PMCModel() throws IOException, SQLException
@@ -87,14 +89,15 @@ public PMCModel() throws IOException, SQLException
     public ArrayList<Movie> checkForBadMovies()
     {
       
-        java.util.Date date=new java.util.Date();
-       
+        Calendar calender = Calendar.getInstance();
+        
+            
         // Saves the number of miliseconds since January 1. 1970
-        double dateTime = date.getTime();
+        double dateTime = calender.getTimeInMillis();
         
         // Converts it to days
-        double days = Math.round(dateTime/(1000*60*60*24));
-      
+        double days = dateTime/(1000*60*60*24);
+        
         ArrayList<Movie> moviesToDelete = new ArrayList<Movie>();
         
         
@@ -109,10 +112,12 @@ public PMCModel() throws IOException, SQLException
           // Checks weather the movie has been seen and if it has a rating equal to or below 6
           if(x.getDate()!=null && movieRating<=6){
             double movieTime = x.getDate().getTime();
-            double movieDays = Math.round(movieTime/(1000*60*60*24));
+            double movieDays = movieTime/(1000*60*60*24);
+            double timeLapsed = days-movieDays;
+              System.out.println(""+timeLapsed);
            
                // Calculates if it has been 2 years since it was last seen.
-               if(days-movieDays>730)
+               if(timeLapsed>730)
                {
                moviesToDelete.add(x);
                }
@@ -143,5 +148,19 @@ public PMCModel() throws IOException, SQLException
             return;
         }
         }
+    }
+
+    public void setCatMovies(Category chosenCategory)
+    {
+//      ArrayList<Integer> movieIds = chosenCategory.getMovies();
+//      
+//      for (Integer x: movieIds){
+//          
+//      }
+    }
+
+    public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
+    {
+       pmcmanager.addMovieToCat(chosenCategory, chosenMovie);
     }
 }
