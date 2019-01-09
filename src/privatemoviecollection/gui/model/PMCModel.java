@@ -163,4 +163,9 @@ public PMCModel() throws IOException, SQLException
     {
        pmcmanager.addMovieToCat(chosenCategory, chosenMovie);
     }
+
+    public String getRating(String formattedMovieCode)
+    {
+      return pmcmanager.getRating(formattedMovieCode);
+    }
 }

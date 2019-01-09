@@ -24,10 +24,8 @@ import privatemoviecollection.gui.model.PMCModel;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-   PMCModel t = new PMCModel();
-   ArrayList<Movie> test = t.checkForBadMovies();
-       System.out.println(""+test.size());
 
- 
    }
+ 
+   
 }

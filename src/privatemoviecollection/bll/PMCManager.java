@@ -12,6 +12,7 @@ import java.util.List;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.dal.CategoryDbDAO;
+import privatemoviecollection.dal.IMDBDbDAO;
 import privatemoviecollection.dal.MovieDbDAO;
 
 /**
@@ -22,11 +23,13 @@ public class PMCManager
 {
 private MovieDbDAO movieDbDAO;
 private CategoryDbDAO categoryDbDAO;
+private IMDBDbDAO imdbDbDAO;
 
 public PMCManager()
 {
     movieDbDAO=new MovieDbDAO();
     categoryDbDAO=new CategoryDbDAO(); 
+    imdbDbDAO = new IMDBDbDAO();
 }
 
     public Movie addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
@@ -76,6 +79,11 @@ public PMCManager()
     public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
     {
   categoryDbDAO.addMovieToCat(chosenMovie, chosenCategory);
+    }
+
+    public String getRating(String formattedMovieCode)
+    {
+     return imdbDbDAO.getRating(formattedMovieCode);
     }
 
 
