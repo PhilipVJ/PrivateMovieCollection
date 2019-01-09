@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -47,6 +48,12 @@ private PMCModel pmcmodel;
     private Label info;
     @FXML
     private TextField imdbUrl;
+    @FXML
+    private Label updatedLabel;
+    @FXML
+    private Button updateIMDBdatabaseId;
+    @FXML
+    private Label lastUpdatedLabel;
 
 
     /**
@@ -55,12 +62,13 @@ private PMCModel pmcmodel;
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+      
     }    
     
     public void setModel(PMCModel model)
     {
     pmcmodel=model;
+    lastUpdatedLabel.setText(pmcmodel.getLastUpdatedData());
     }
 
     @FXML
@@ -201,6 +209,19 @@ private PMCModel pmcmodel;
       alert.setHeaderText("Duplicate movie");
       alert.setContentText("You already have this movie in your database");
       alert.showAndWait(); 
+    }
+
+    @FXML
+    private void updateIMDBdatabase(ActionEvent event) throws IOException
+    {
+        boolean done = pmcmodel.updateIMDBdatabase();
+        if (done == true)
+        {
+            updatedLabel.setText("IMDB data has been updated");
+            updateIMDBdatabaseId.setVisible(false);
+            lastUpdatedLabel.setText(pmcmodel.getLastUpdatedData());
+        }
+        
     }
 
 }

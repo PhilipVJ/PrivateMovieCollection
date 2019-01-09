@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -83,7 +84,7 @@ while ((row = parser.parseNext()) != null) {
 return allSearches;
 }
 
-public void updateIMDBDatabase() throws MalformedURLException, IOException
+public boolean updateIMDBDatabase() throws MalformedURLException, IOException
 {
         // Downloads and renames files
     
@@ -136,6 +137,8 @@ public void updateIMDBDatabase() throws MalformedURLException, IOException
         File f12 = new File("data/update/title.ratings.tsv.gz");
         f11.delete();
         f12.delete();
+        
+        return true;
 }
         
 public void gunzipRating()
@@ -185,7 +188,16 @@ public void gunzipTitles()
        ex.printStackTrace();   
     }
 }    
-      
+public String getLastUpdatedInfo()
+{
+    File data = new File("data/title.tsv");
+    long lastModified = data.lastModified();
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    String lastMod = "IMDB data files was last updated: "+sdf.format(lastModified);
+
+    
+    return lastMod;
+}
 
 }
 
