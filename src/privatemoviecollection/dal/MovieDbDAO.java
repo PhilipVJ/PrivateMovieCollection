@@ -135,10 +135,41 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
             }
 }
 
-    public Movie getMovie(int movieId)
+    public Movie getMovie(int movieId) throws SQLServerException, IOException, SQLException
     {
         
 
-        return null;
+
+        DbConnection dc = new DbConnection(); 
+        try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * FROM Movie WHERE id= (?)"); )
+        {
+            Movie movToGet = null;
+            pstmt.setInt(1, movieId);     
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next())
+            {
+                String title = rs.getString("name");
+                String path = rs.getString("filelink");
+                int id = rs.getInt("id");
+                BigDecimal IMDBratings = rs.getBigDecimal("IMDBrating");
+                BigDecimal pRatings = rs.getBigDecimal("personalrating");
+                Date date = rs.getDate("lastview");
+                movToGet = new Movie(id, title, path, IMDBratings.doubleValue());
+                if (pRatings!=null)
+                {
+                    movToGet.setPersonalRating(pRatings.doubleValue());
+                }
+                
+                if (date!=null)
+                {
+                    movToGet.setDate(date);
+                   
+                }
+                
+            }
+            return movToGet;
+        }
+
     }
 }
