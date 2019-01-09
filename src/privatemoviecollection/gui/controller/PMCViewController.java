@@ -137,11 +137,12 @@ public class PMCViewController implements Initializable
     {
         Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
         String path = movieToPlay.getFileLink();
-        String pathFormatted = path.substring(6);
+        
+//        String pathFormatted = path.substring(6);
         java.util.Date date=new java.util.Date(); 
         pmcmodel.setDate(movieToPlay, date);
         
-        Desktop.getDesktop().open(new File(pathFormatted));
+        Desktop.getDesktop().open(new File(path));
         
         
         
