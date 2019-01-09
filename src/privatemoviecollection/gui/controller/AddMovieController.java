@@ -41,6 +41,8 @@ private PMCModel pmcmodel;
     private AnchorPane rootPane2;
     @FXML
     private Label info;
+    @FXML
+    private TextField imdbUrl;
 
 
     /**
@@ -114,6 +116,31 @@ private PMCModel pmcmodel;
     }
     
     
+    }
+
+    @FXML
+    private void getRating(ActionEvent event)
+    {
+    if(imdbUrl.getText().length()!=0)
+    {
+        int size = imdbUrl.getText().length();
+        
+        char lastLetter = imdbUrl.getText().charAt(size-1);
+        String lastLetter2=String.valueOf(lastLetter);  
+        if(lastLetter2.equals("/")){
+            String deleteSlash = imdbUrl.getText().substring(0, size-1);
+            int lastIndexOfSlash = deleteSlash.lastIndexOf("/");
+            String formattedMovieCode = deleteSlash.substring(lastIndexOfSlash+1);
+            IMDBrating.setText(pmcmodel.getRating(formattedMovieCode));
+            
+        }
+        else{
+            int lastIndexOfSlash = imdbUrl.getText().lastIndexOf("/");
+            String formattedMovieCode = imdbUrl.getText().substring(lastIndexOfSlash+1);
+            IMDBrating.setText(pmcmodel.getRating(formattedMovieCode));
+        }
+        
+    }
     }
 
 
