@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -76,8 +77,17 @@ private PMCModel pmcmodel;
         return;
     }
     
-    if (IMDBrating.getText().length()==0){
-        info.setText("Please type in a IMDB rating");
+    if (IMDBrating.getText().equals("No rating found") || IMDBrating.getText().length()==0){
+        String movieTitle = title.getText();
+        String movieFilelink = filelink.getText();
+        boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, 1000);
+        if(checker==false){
+            duplicateAlarm();
+            return;
+            
+        }
+        Stage stage = (Stage) rootPane2.getScene().getWindow();
+        stage.close();
         return;
     }
         
@@ -87,7 +97,11 @@ private PMCModel pmcmodel;
     String movieTitle = title.getText();
     String movieFilelink = filelink.getText();
      
-     pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
+    boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
+    if(checker==false){
+        duplicateAlarm();
+        return;
+    }
     Stage stage = (Stage) rootPane2.getScene().getWindow();
     stage.close();
     
@@ -179,6 +193,14 @@ private PMCModel pmcmodel;
         title.setText(foundTitle);
         IMDBrating.setText(rating);
     }
-
+    
+    private void duplicateAlarm()
+    {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Important information");
+      alert.setHeaderText("Duplicate movie");
+      alert.setContentText("You already have this movie in your database");
+      alert.showAndWait(); 
+    }
 
 }

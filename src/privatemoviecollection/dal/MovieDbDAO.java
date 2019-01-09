@@ -31,8 +31,15 @@ public Movie addMovie (String filelink, String titel, double IMDBrating) throws 
 {
     DbConnection ds = new DbConnection();
     Movie addedMovie = null;
-    BigDecimal imdbr = new BigDecimal(IMDBrating);
+    BigDecimal imdbr;
+    if (IMDBrating!=1000){
+    imdbr = new BigDecimal(IMDBrating);
     imdbr = imdbr.setScale(1, BigDecimal.ROUND_HALF_UP);
+    }
+    else{
+    imdbr = null;
+    }
+    
     String SQL = "INSERT INTO Movie VALUES (?, ?, ?, ?, ?)";
      
     try(Connection con = ds.getConnection() ; PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);)
@@ -87,7 +94,12 @@ public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLExc
                 BigDecimal r = rs.getBigDecimal("IMDBrating");
                 BigDecimal pr = rs.getBigDecimal("personalrating");
                 Date lastseen = rs.getDate("lastview");
-                Movie movToAdd = new Movie(id, title, path, r.doubleValue());
+                Movie movToAdd = new Movie(id, title, path, 1000);   
+                        
+                if(r!=null){
+                movToAdd = new Movie(id, title, path, r.doubleValue());
+                }
+                 
                 if (pr!=null)
                 {
                     movToAdd.setPersonalRating(pr.doubleValue());
@@ -155,7 +167,12 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
                 BigDecimal IMDBratings = rs.getBigDecimal("IMDBrating");
                 BigDecimal pRatings = rs.getBigDecimal("personalrating");
                 Date date = rs.getDate("lastview");
+                movToGet = new Movie(id, title, path, 1000);
+                
+                if(IMDBratings!=null){
                 movToGet = new Movie(id, title, path, IMDBratings.doubleValue());
+                }
+                
                 if (pRatings!=null)
                 {
                     movToGet.setPersonalRating(pRatings.doubleValue());
@@ -171,5 +188,92 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
             return movToGet;
         }
 
+    }
+    
+    public List<Movie> IMDBintervalSearch(double low, double high) throws IOException, SQLServerException, SQLException
+    {
+        DbConnection dc = new DbConnection();
+        ArrayList<Movie> intervalMovies = new ArrayList<>();
+        BigDecimal lowBig = new BigDecimal(low);
+        BigDecimal highBig = new BigDecimal(high);
+        try(Connection con = dc.getConnection() ; PreparedStatement pstmt = con.prepareStatement("Select * FROM Movie WHERE IMDBrating BETWEEN (?) AND (?)"))
+        {
+                pstmt.setBigDecimal(1, lowBig);
+                pstmt.setBigDecimal(2, highBig);
+                ResultSet rs = pstmt.executeQuery();
+               
+                while (rs.next())
+                {
+                    
+                String title = rs.getString("name");
+                String path = rs.getString("filelink");
+                int id = rs.getInt("id");
+                BigDecimal r = rs.getBigDecimal("IMDBrating");
+                BigDecimal pr = rs.getBigDecimal("personalrating");
+                Date lastseen = rs.getDate("lastview");
+                Movie movToAdd = new Movie(id, title, path, 1000);   
+                        
+                if(r!=null){
+                movToAdd = new Movie(id, title, path, r.doubleValue());
+                }
+                 
+                if (pr!=null)
+                {
+                    movToAdd.setPersonalRating(pr.doubleValue());
+                }
+                
+                if (lastseen!=null)
+                {
+                    movToAdd.setDate(lastseen);
+                   
+                }
+                intervalMovies.add(movToAdd);
+                    
+                }
+                return intervalMovies;
+    
+        }
+    }
+    
+    public List<Movie> getMoviesWithSearchWord(String searchWord) throws IOException, SQLServerException, SQLException{
+    DbConnection dc = new DbConnection(); 
+    List<Movie> searchedMovies = new ArrayList<>();
+        try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * FROM Movie WHERE name LIKE (?)"); )
+        {
+            Movie movToGet = null;
+            pstmt.setString(1, "%"+searchWord+"%");  
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next())
+            {
+                String title = rs.getString("name");
+                System.out.println(""+title);
+                String path = rs.getString("filelink");
+                int id = rs.getInt("id");
+                BigDecimal IMDBratings = rs.getBigDecimal("IMDBrating");
+                BigDecimal pRatings = rs.getBigDecimal("personalrating");
+                Date date = rs.getDate("lastview");
+                movToGet = new Movie(id, title, path, 1000);
+                
+                if(IMDBratings!=null){
+                movToGet = new Movie(id, title, path, IMDBratings.doubleValue());
+                }
+                
+                if (pRatings!=null)
+                {
+                    movToGet.setPersonalRating(pRatings.doubleValue());
+                }
+                
+                if (date!=null)
+                {
+                    movToGet.setDate(date);
+                   
+                }
+                
+                searchedMovies.add(movToGet);
+                
+            }
+            return searchedMovies;
+        }
     }
 }

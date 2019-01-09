@@ -15,6 +15,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
@@ -45,10 +46,18 @@ public PMCModel() throws IOException, SQLException
    
 }
 
-    public void addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
+    public boolean addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
+      for (Movie x: allMovies){
+          if(x.getTitle().equals(title))
+          {
+                
+                return false;
+          }
+      }
       Movie movToAdd = pmcmanager.addMovie(filelink, title, IMDBrating);
       allMovies.add(movToAdd);
+      return true;
     }
     
     public ObservableList<Movie> getAllMovies() throws IOException, SQLException

@@ -62,7 +62,9 @@ ArrayList<IMDBMovie> allSearches = new ArrayList<>();
 
 String[] row;
 while ((row = parser.parseNext()) != null) {
-   if (row[3].contains(movieSearch)){
+  String lowerCaseSearch = row[3].toLowerCase();
+  String lowerCaseInput = movieSearch.toLowerCase();
+   if (lowerCaseSearch.contains(lowerCaseInput)){
        IMDBMovie movToAdd = new IMDBMovie(row[0], row[3]);
        allSearches.add(movToAdd);
    }     

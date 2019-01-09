@@ -17,7 +17,7 @@ public class Movie
 {
 private int id;
 private SimpleStringProperty title;
-private SimpleDoubleProperty webrating;
+private SimpleStringProperty webrating;
 private SimpleStringProperty personalrating;
 private String filelink;
 private Date date;
@@ -28,8 +28,9 @@ public Movie(int id, String title, String filelink, double IMDBrating)
     this.id=id;
     this.title=new SimpleStringProperty(title);
     this.filelink=filelink;
-    this.webrating=new SimpleDoubleProperty(IMDBrating);
-    personalrating = new SimpleStringProperty("Not rated yet");
+    String imdbrating = String.valueOf(IMDBrating);
+    this.webrating=new SimpleStringProperty(imdbrating);
+    this.personalrating = new SimpleStringProperty("Not rated yet");
 }
 
 
@@ -55,9 +56,15 @@ public void setPersonalRating(double rating)
 
 }
 
-public Double getWebrating()
+public String getWebrating()
  {
+     if(webrating.get().equals("1000.0"))
+     {
+         return "No IMDB rating";
+     }
+     else{
      return webrating.get(); 
+     }
  }
 
  
