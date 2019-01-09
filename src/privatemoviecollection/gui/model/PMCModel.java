@@ -194,8 +194,19 @@ public PMCModel() throws IOException, SQLException
         return catMovies;
     }
     
- 
+     public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
+    {
+        pmcmanager.deleteMovieFromCategory(selectedCategory, movToDelete);
+        for(Movie x:catMovies)
+        {
+            if(x.getId()==movToDelete.getId())
+            {
+                catMovies.remove(x);
+                return;
+            }
+        }
+    }   
 
-    
-    
-}
+
+
+}// end Class

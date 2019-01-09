@@ -73,7 +73,11 @@ public PMCManager()
     {
         categoryDbDAO.removeCategory(categoryToRemove);
     }
-        
+    
+    public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
+    {
+        categoryDbDAO.deleteMovieFromCategory(selectedCategory, movToDelete);
+    }
     
 
 

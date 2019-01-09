@@ -111,6 +111,26 @@ public class CategoryDbDAO
      
     }
     
+public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
+    {
+        DbConnection dc = new DbConnection();
+        try ( Connection con = dc.getConnection();)
+        {
+            int MovieId = movToDelete.getId();
+            int CategoryId = selectedCategory.getId();
+            int categorySize = getAllCategories().size();
+            
+           
+            try (PreparedStatement pstmt = con.prepareStatement("DELETE FROM CatMovie WHERE MovieId=(?) AND CategoryId=(?)"))
+            {
+                pstmt.setInt(1,MovieId);
+                pstmt.setInt(2,CategoryId);
+                pstmt.execute();
+            }
+            
+        
+        } 
 
+    }
 
 }
