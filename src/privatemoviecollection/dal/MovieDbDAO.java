@@ -232,4 +232,46 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
             return intervalMovies;
         }
     }
+    
+    public List<Movie> getMoviesWithSearchWord(String searchWord) throws IOException, SQLServerException, SQLException{
+    DbConnection dc = new DbConnection(); 
+    List<Movie> searchedMovies = new ArrayList<>();
+        try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * FROM Movie WHERE name LIKE (?)"); )
+        {
+            Movie movToGet = null;
+            pstmt.setString(1, "%"+searchWord+"%");  
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next())
+            {
+                String title = rs.getString("name");
+                System.out.println(""+title);
+                String path = rs.getString("filelink");
+                int id = rs.getInt("id");
+                BigDecimal IMDBratings = rs.getBigDecimal("IMDBrating");
+                BigDecimal pRatings = rs.getBigDecimal("personalrating");
+                Date date = rs.getDate("lastview");
+                movToGet = new Movie(id, title, path, 1000);
+                
+                if(IMDBratings!=null){
+                movToGet = new Movie(id, title, path, IMDBratings.doubleValue());
+                }
+                
+                if (pRatings!=null)
+                {
+                    movToGet.setPersonalRating(pRatings.doubleValue());
+                }
+                
+                if (date!=null)
+                {
+                    movToGet.setDate(date);
+                   
+                }
+                
+                searchedMovies.add(movToGet);
+                
+            }
+            return searchedMovies;
+        }
+    }
 }

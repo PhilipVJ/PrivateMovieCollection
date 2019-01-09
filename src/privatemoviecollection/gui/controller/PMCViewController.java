@@ -139,10 +139,18 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void deleteFromCategory(ActionEvent event)
+    private void deleteFromCategory(ActionEvent event) throws SQLException, IOException
     {
+        if ( catmovies.getSelectionModel().getSelectedItem()!=null)
+            {
+            Category selectedCategory = categories.getSelectionModel().getSelectedItem(); 
+            Movie movToDelete = catmovies.getSelectionModel().getSelectedItem(); 
+            
+                pmcmodel.deleteMovieFromCategory(selectedCategory, movToDelete);
+            }
+        
     }
-
+    
     @FXML
     private void openMovie(ActionEvent event) throws IOException, SQLException
     {
