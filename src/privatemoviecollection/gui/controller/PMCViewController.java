@@ -53,7 +53,7 @@ public class PMCViewController implements Initializable
     @FXML
     private TableColumn<Movie, String> allMovTitle;
     @FXML
-    private TableColumn<Movie, Double> allMovIMDBRating;
+    private TableColumn<Movie, String> allMovIMDBRating;
     @FXML
     private TableColumn<Movie, String> allMovRating;
     @FXML
@@ -69,7 +69,7 @@ public class PMCViewController implements Initializable
     @FXML
     private TableColumn<Category, String> allCategories;
     @FXML
-    private TableColumn<Movie, Double> catIMDBrating;
+    private TableColumn<Movie, String> catIMDBrating;
     @FXML
     private TableColumn<Movie, String> catTitle;
     @FXML

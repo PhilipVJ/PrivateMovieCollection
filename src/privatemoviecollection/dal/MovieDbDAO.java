@@ -31,8 +31,15 @@ public Movie addMovie (String filelink, String titel, double IMDBrating) throws 
 {
     DbConnection ds = new DbConnection();
     Movie addedMovie = null;
-    BigDecimal imdbr = new BigDecimal(IMDBrating);
+    BigDecimal imdbr;
+    if (IMDBrating!=1000){
+    imdbr = new BigDecimal(IMDBrating);
     imdbr = imdbr.setScale(1, BigDecimal.ROUND_HALF_UP);
+    }
+    else{
+    imdbr = null;
+    }
+    
     String SQL = "INSERT INTO Movie VALUES (?, ?, ?, ?, ?)";
      
     try(Connection con = ds.getConnection() ; PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);)
@@ -87,7 +94,12 @@ public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLExc
                 BigDecimal r = rs.getBigDecimal("IMDBrating");
                 BigDecimal pr = rs.getBigDecimal("personalrating");
                 Date lastseen = rs.getDate("lastview");
-                Movie movToAdd = new Movie(id, title, path, r.doubleValue());
+                Movie movToAdd = new Movie(id, title, path, 1000);   
+                        
+                if(r!=null){
+                movToAdd = new Movie(id, title, path, r.doubleValue());
+                }
+                 
                 if (pr!=null)
                 {
                     movToAdd.setPersonalRating(pr.doubleValue());
@@ -155,7 +167,12 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
                 BigDecimal IMDBratings = rs.getBigDecimal("IMDBrating");
                 BigDecimal pRatings = rs.getBigDecimal("personalrating");
                 Date date = rs.getDate("lastview");
+                movToGet = new Movie(id, title, path, 1000);
+                
+                if(IMDBratings!=null){
                 movToGet = new Movie(id, title, path, IMDBratings.doubleValue());
+                }
+                
                 if (pRatings!=null)
                 {
                     movToGet.setPersonalRating(pRatings.doubleValue());

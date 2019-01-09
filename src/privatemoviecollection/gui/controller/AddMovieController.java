@@ -76,8 +76,12 @@ private PMCModel pmcmodel;
         return;
     }
     
-    if (IMDBrating.getText().length()==0){
-        info.setText("Please type in a IMDB rating");
+    if (IMDBrating.getText().equals("No rating found") || IMDBrating.getText().length()==0){
+        String movieTitle = title.getText();
+        String movieFilelink = filelink.getText();
+        pmcmodel.addMovie(movieFilelink, movieTitle, 1000);
+        Stage stage = (Stage) rootPane2.getScene().getWindow();
+        stage.close();
         return;
     }
         
