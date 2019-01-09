@@ -203,6 +203,14 @@ public class PMCViewController implements Initializable
         double oneDigitRating = Math.round(rating * 10) / 10.0;
         pmcmodel.rateMovie(allMovies.getSelectionModel().getSelectedItem(), oneDigitRating);
         allMovies.refresh();
+        
+        Category chosenCategory= categories.getSelectionModel().getSelectedItem();
+        if (chosenCategory!=null)
+        {
+            pmcmodel.setCatMovies(chosenCategory);
+            catmovies.setItems(pmcmodel.getCatMovies());
+        }
+        
     }
 
     private void checkForBadMovies()
