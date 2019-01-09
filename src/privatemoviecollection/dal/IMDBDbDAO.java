@@ -5,10 +5,13 @@
  */
 package privatemoviecollection.dal;
 
+import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import privatemoviecollection.be.IMDBMovie;
 
 /**
  *
@@ -23,7 +26,7 @@ public class IMDBDbDAO
  */
 public String getRating (String url)
 {
-TsvParserSettings settings = new TsvParserSettings(); //you will find MANY options here
+TsvParserSettings settings = new TsvParserSettings(); 
 settings.getFormat().setLineSeparator("\n");
 
 TsvParser parser = new TsvParser(settings);
@@ -43,5 +46,28 @@ for (String[] x: allRows)
 return "No rating found";
 
 }
-    
+
+public ArrayList<IMDBMovie> getTitles(String movieSearch)
+{
+TsvParserSettings settings = new TsvParserSettings(); 
+settings.getFormat().setLineSeparator("\n");
+
+TsvParser parser = new TsvParser(settings);
+String source = "data/title.tsv";
+File title = new File(source);
+
+
+parser.beginParsing(title);
+ArrayList<IMDBMovie> allSearches = new ArrayList<>();
+
+String[] row;
+while ((row = parser.parseNext()) != null) {
+   if (row[3].contains(movieSearch)){
+       IMDBMovie movToAdd = new IMDBMovie(row[0], row[3]);
+       allSearches.add(movToAdd);
+   }     
+}
+
+return allSearches;
+}
 }

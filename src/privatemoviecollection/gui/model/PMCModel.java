@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import privatemoviecollection.be.Category;
+import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.bll.PMCManager;
 
@@ -28,12 +31,17 @@ private ObservableList<Movie> allMovies;
 private ObservableList<Category> allCategories;
 private ObservableList<Movie> catMovies;
 
+ 
+
+
+
 
 public PMCModel() throws IOException, SQLException
 {
     pmcmanager = new PMCManager();
     allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
     allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
+  
    
 }
 
@@ -168,4 +176,14 @@ public PMCModel() throws IOException, SQLException
     {
       return pmcmanager.getRating(formattedMovieCode);
     }
+
+    public ArrayList<IMDBMovie> getMovieSuggestions(String text)
+    {
+     return pmcmanager.getMovieSuggestions(text);
+    }
+    
+ 
+
+    
+    
 }

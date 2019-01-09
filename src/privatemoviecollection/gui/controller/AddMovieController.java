@@ -14,7 +14,10 @@ import static java.util.Locale.filter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -141,6 +144,34 @@ private PMCModel pmcmodel;
         }
         
     }
+    }
+
+    @FXML
+    private void findIMDBsuggestion(ActionEvent event) throws IOException
+    {
+            
+            
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/IMDBsuggestions.fxml"));
+            Parent root = (Parent)loader.load();
+            IMDBsuggestionsController imdbController = loader.getController();
+        
+            imdbController.setModel(pmcmodel);
+            imdbController.setPrevController(this);
+            
+            imdbController.setSearch(title.getText());
+        
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            
+            
+    }
+    
+    public void setTitleAndRating(String foundTitle, String rating)
+    {
+        title.setText(foundTitle);
+        IMDBrating.setText(rating);
     }
 
 

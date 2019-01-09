@@ -138,23 +138,7 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
     public Movie getMovie(int movieId)
     {
         
-        DbConnection dc = new DbConnection(); 
-        try(Connection con = dc.getConnection();)
-        {
-            Movie movToGet = null;
-            Statement statement = con.createStatement();
-            PreparedStatement pstmt = con.prepareStatement("Select * FROM Movies WHERE id= (?)");
-            pstmt.setInt(1, movieId);     
-            ResultSet rs = pstmt.executeQuery();
-            
-            while (rs.next())
-            {
-                String title = rs.getString("Title");
-                String path = rs.getString("Filepath");
-                int id = rs.getInt("MovieID");
-                movToGet =new Movie(title, path, id);
-            }
-            return movToGet;
-        }
+
+        return null;
     }
 }
