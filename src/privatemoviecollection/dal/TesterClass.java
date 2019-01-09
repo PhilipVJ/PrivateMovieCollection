@@ -8,7 +8,7 @@ package privatemoviecollection.dal;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import privatemoviecollection.be.Category;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
 
@@ -19,9 +19,6 @@ import privatemoviecollection.be.Movie;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-
-IMDBDbDAO tester = new IMDBDbDAO();
-tester.updateIMDBDatabase();
 
    }
  

@@ -5,11 +5,12 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="638.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PMCViewController">
+<AnchorPane id="AnchorPane" prefHeight="679.0" prefWidth="1116.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PMCViewController">
    <children>
       <Text fill="#cd8d0d" layoutX="210.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Private Movie Collection" wrappingWidth="536.6708984375">
          <font>
@@ -49,5 +50,15 @@
          </font></Label>
       <Button fx:id="rateButton" layoutX="692.0" layoutY="103.0" mnemonicParsing="false" onAction="#rateMovie" text="Rate" />
       <Label fx:id="lastSeenLabel" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="319.0" />
+      <TextField fx:id="lowRating" layoutX="936.0" layoutY="194.0" prefHeight="31.0" prefWidth="61.0" />
+      <Label layoutX="1007.0" layoutY="171.0" prefHeight="64.0" prefWidth="19.0" text="-">
+         <font>
+            <Font name="System Bold" size="45.0" />
+         </font>
+      </Label>
+      <TextField fx:id="highRating" layoutX="1034.0" layoutY="194.0" prefHeight="31.0" prefWidth="61.0" />
+      <Button fx:id="searchRatings" layoutX="984.0" layoutY="269.0" mnemonicParsing="false" onAction="#searchIMDBRating" text="Search" />
+      <Label layoutX="936.0" layoutY="161.0" text="Search IMDB ratings here:" />
+      <Label fx:id="ratingWarning" layoutX="937.0" layoutY="237.0" />
    </children>
 </AnchorPane>

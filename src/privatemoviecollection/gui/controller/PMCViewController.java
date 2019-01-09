@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -74,6 +75,14 @@ public class PMCViewController implements Initializable
     private TableColumn<Movie, String> catTitle;
     @FXML
     private TableColumn<Movie, String> catPersonalrating;
+    @FXML
+    private TextField lowRating;
+    @FXML
+    private Button searchRatings;
+    @FXML
+    private TextField highRating;
+    @FXML
+    private Label ratingWarning;
 
     /**
      * Initializes the controller class.
@@ -130,10 +139,18 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void deleteFromCategory(ActionEvent event)
+    private void deleteFromCategory(ActionEvent event) throws SQLException, IOException
     {
+        if ( catmovies.getSelectionModel().getSelectedItem()!=null)
+            {
+            Category selectedCategory = categories.getSelectionModel().getSelectedItem(); 
+            Movie movToDelete = catmovies.getSelectionModel().getSelectedItem(); 
+            
+                pmcmodel.deleteMovieFromCategory(selectedCategory, movToDelete);
+            }
+        
     }
-
+    
     @FXML
     private void openMovie(ActionEvent event) throws IOException, SQLException
     {
@@ -288,4 +305,22 @@ public class PMCViewController implements Initializable
             pmcmodel.addMovieToCat(chosenCategory, chosenMovie);
         }
     }
+
+    @FXML
+    private void searchIMDBRating(ActionEvent event)
+    {
+        
+        
+        
+        try 
+        {
+        int lowS = Integer.parseInt(lowRating.getText());
+        int highS = Integer.parseInt(highRating.getText());
+        } 
+        catch (NumberFormatException nfe) 
+        {
+        ratingWarning.setText("Try 3 - 6");
+        }
     }
+    
+}

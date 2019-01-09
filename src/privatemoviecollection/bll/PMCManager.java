@@ -73,7 +73,11 @@ public PMCManager()
     {
         categoryDbDAO.removeCategory(categoryToRemove);
     }
-        
+    
+    public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
+    {
+        categoryDbDAO.deleteMovieFromCategory(selectedCategory, movToDelete);
+    }
     
 
 
@@ -97,5 +101,9 @@ public PMCManager()
       return imdbDbDAO.getTitles(text);
     }
 
+    public List<Movie> IMDBintervalSearch(double low, double high) throws IOException, SQLException
+    {
+        return movieDbDAO.IMDBintervalSearch(low, high);
+    }
 
 }
