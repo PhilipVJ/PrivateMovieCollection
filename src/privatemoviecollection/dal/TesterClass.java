@@ -20,9 +20,8 @@ public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
 
- MovieDbDAO tester = new MovieDbDAO();
-List<Movie> tester5 = tester.getMoviesWithSearchWord("KING");
-       System.out.println(""+tester5.size());
+IMDBDbDAO tester = new IMDBDbDAO();
+tester.updateIMDBDatabase();
 
    }
  

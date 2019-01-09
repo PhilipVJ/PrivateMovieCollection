@@ -8,9 +8,19 @@ package privatemoviecollection.dal;
 import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
+import org.apache.commons.io.FileUtils;
 import privatemoviecollection.be.IMDBMovie;
 
 /**
@@ -72,4 +82,110 @@ while ((row = parser.parseNext()) != null) {
 
 return allSearches;
 }
+
+public void updateIMDBDatabase() throws MalformedURLException, IOException
+{
+        // Downloads and renames files
+    
+        String fromFile = "https://datasets.imdbws.com/title.ratings.tsv.gz";
+        String toFile = "data/update/title.ratings.tsv.gz";
+
+        FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
+                
+        String fromFile2 = "https://datasets.imdbws.com/title.basics.tsv.gz";
+        String toFile2 = "data/update/title.basics.tsv.gz";
+
+        FileUtils.copyURLToFile(new URL(fromFile2), new File(toFile2), 10000, 10000);
+                        
+        gunzipRating();
+        
+        File f1 = new File("data/update/data.tsv");
+        File f2 = new File("data/update/rating.tsv");
+        f1.renameTo(f2);
+        
+        gunzipTitles();
+        
+        File f3 = new File("data/update/data.tsv");
+        File f4 = new File("data/update/title.tsv");
+        f3.renameTo(f4);
+        
+        // Delete old files
+        
+        File f5 = new File("data/rating.tsv");
+        File f6 = new File("data/title.tsv");
+        f5.delete();
+        f6.delete();
+                
+        //Move new updated files
+        
+        File f7 = new File("data/update/title.tsv"); 
+        File f8 = new File("data/title.tsv");
+        
+        
+        FileUtils.moveFile(f7, f8);
+        
+        File f9 = new File("data/update/rating.tsv"); 
+        File f10 = new File("data/rating.tsv");
+        
+        
+        FileUtils.moveFile(f9, f10);
+        
+        // Delete zip containers
+        
+        File f11 = new File("data/update/title.basics.tsv.gz"); 
+        File f12 = new File("data/update/title.ratings.tsv.gz");
+        f11.delete();
+        f12.delete();
 }
+        
+public void gunzipRating()
+{
+ 
+     byte[] buffer = new byte[1024];
+ 
+     try{GZIPInputStream gzis = new GZIPInputStream(new FileInputStream("data/update/title.ratings.tsv.gz"));
+ 
+    	 FileOutputStream out = 
+            new FileOutputStream("data/update/data.tsv");
+ 
+        int len;
+        while ((len = gzis.read(buffer)) > 0) {
+        	out.write(buffer, 0, len);
+        }
+ 
+        gzis.close();
+    	out.close();
+ 
+    	System.out.println("Done");
+    	
+    }catch(IOException ex){
+       ex.printStackTrace();   
+    }
+}
+public void gunzipTitles()
+{
+     byte[] buffer = new byte[1024];
+ 
+     try{GZIPInputStream gzis = new GZIPInputStream(new FileInputStream("data/update/title.basics.tsv.gz"));
+ 
+    	 FileOutputStream out = 
+            new FileOutputStream("data/update/data.tsv");
+ 
+        int len;
+        while ((len = gzis.read(buffer)) > 0) {
+        	out.write(buffer, 0, len);
+        }
+ 
+        gzis.close();
+    	out.close();
+ 
+    	System.out.println("Done");
+    	
+    }catch(IOException ex){
+       ex.printStackTrace();   
+    }
+}    
+      
+
+}
+
