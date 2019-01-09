@@ -7,9 +7,11 @@ package privatemoviecollection.bll;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import privatemoviecollection.be.Category;
+import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.dal.CategoryDbDAO;
 import privatemoviecollection.dal.IMDBDbDAO;
@@ -88,6 +90,11 @@ public PMCManager()
     public String getRating(String formattedMovieCode)
     {
      return imdbDbDAO.getRating(formattedMovieCode);
+    }
+
+    public ArrayList<IMDBMovie> getMovieSuggestions(String text)
+    {
+      return imdbDbDAO.getTitles(text);
     }
 
 

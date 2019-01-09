@@ -138,6 +138,8 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
     public Movie getMovie(int movieId) throws SQLServerException, IOException, SQLException
     {
         
+
+
         DbConnection dc = new DbConnection(); 
         try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * FROM Movie WHERE id= (?)"); )
         {
@@ -168,5 +170,6 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
             }
             return movToGet;
         }
+
     }
 }
