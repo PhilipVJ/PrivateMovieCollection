@@ -150,24 +150,28 @@ private PMCModel pmcmodel;
 
     @FXML
     private void findIMDBsuggestion(ActionEvent event) throws IOException
-    {
-            
-            
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/IMDBsuggestions.fxml"));
-            Parent root = (Parent)loader.load();
-            IMDBsuggestionsController imdbController = loader.getController();
+    {    
+        String textIMDB = title.getText();
+        if(textIMDB.length() == 0)
+        {
+            title.setText("Please write something");
+            return;
+        }    
+        if(!textIMDB.isEmpty())
+        {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/IMDBsuggestions.fxml"));
+        Parent root = (Parent)loader.load();
+        IMDBsuggestionsController imdbController = loader.getController();
         
-            imdbController.setModel(pmcmodel);
-            imdbController.setPrevController(this);
+        imdbController.setModel(pmcmodel);
+        imdbController.setPrevController(this);
             
-            imdbController.setSearch(title.getText());
+        imdbController.setSearch(title.getText());
         
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-            
-            
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        }
     }
     
     public void setTitleAndRating(String foundTitle, String rating)
