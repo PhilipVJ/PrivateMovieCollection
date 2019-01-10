@@ -51,13 +51,17 @@ public class CategoryDbDAO
         return addedCategory;
     }
     
-    public void removeCategory (Category catToRemove) throws SQLException, IOException
+    public void removeCategory (Category catToRemove) throws SQLException, IOException, SQLServerException
     {
         DbConnection dc = new DbConnection();
         int CategoryId = catToRemove.getId();
-        try(Connection con = dc.getConnection();  PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id=(?)");)
+        try(Connection con = dc.getConnection();  
+                PreparedStatement pstmt1 = con.prepareStatement("DELETE FROM CatMovie WHERE CategoryId= ?"); 
+                PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id= ?");)
         {
-                    
+           
+            pstmt1.setInt(1,CategoryId);
+            pstmt1.execute();
             pstmt2.setInt(1,CategoryId );
             pstmt2.execute();
             System.out.println("Following Category has been deleted: "+CategoryId);
@@ -113,7 +117,7 @@ public class CategoryDbDAO
      
     }
     
-public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
+    public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
     {
         DbConnection dc = new DbConnection();
         try ( Connection con = dc.getConnection();)
