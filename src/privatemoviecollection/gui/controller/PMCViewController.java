@@ -218,12 +218,14 @@ public class PMCViewController implements Initializable
     {
         ratingSlider.setVisible(true);
         rateButton.setVisible(true);
+        scoreLabel.setVisible(true);
+        
     }
-
     public void makeRatingInvisible()
     {
         ratingSlider.setVisible(false);
         rateButton.setVisible(false);
+        scoreLabel.setVisible(false);
     }
   
 
@@ -232,8 +234,19 @@ public class PMCViewController implements Initializable
     {
         double rating = ratingSlider.getValue();
         double oneDigitRating = Math.round(rating * 10) / 10.0;
+        if(chosenTableView==3 && allMovies.getSelectionModel().getSelectedItem()!=null){
         pmcmodel.rateMovie(allMovies.getSelectionModel().getSelectedItem(), oneDigitRating);
         allMovies.refresh();
+        catmovies.refresh();
+        return;
+        }
+        
+        if(chosenTableView==2 && catmovies.getSelectionModel().getSelectedItem()!=null){
+        pmcmodel.rateMovie(catmovies.getSelectionModel().getSelectedItem(), oneDigitRating);
+        allMovies.refresh();   
+        catmovies.refresh();
+        }
+       
 
     }
 
@@ -303,6 +316,12 @@ public class PMCViewController implements Initializable
     private void categoryMovieViewChosen(MouseEvent event)
     {
         chosenTableView=2;
+        Movie chosenMovie= catmovies.getSelectionModel().getSelectedItem();
+        if (chosenMovie!=null)
+        {
+            
+            makeRatingVisible();
+        }
     }
 
     @FXML

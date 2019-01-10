@@ -83,8 +83,20 @@ public PMCModel() throws IOException, SQLException
       pmcmanager.rateMovie(movToRate, oneDigitRating);
        for(Movie x:allMovies){
         if(x.getId()==movToRate.getId()){
+            System.out.println("Sets rating in allMovies");
             x.setPersonalRating(oneDigitRating);
-            return;
+            break;
+        }
+       }
+           System.out.println("Next step");
+       if(catMovies!=null){
+        for(Movie y:catMovies){
+            if(y.getId()==movToRate.getId())
+            {
+                System.out.println("Sets rating in catMovies");
+                y.setPersonalRating(oneDigitRating);
+                return;
+            }
         }
     }
       
