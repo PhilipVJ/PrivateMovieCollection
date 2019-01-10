@@ -116,4 +116,9 @@ public PMCManager()
      return imdbDbDAO.getLastUpdatedInfo();
     }
 
+    public List<Movie> getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
+    {
+     return movieDbDAO.getMoviesWithSearchWord(searchWord);
+    }
+
 }

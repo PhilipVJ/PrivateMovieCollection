@@ -83,6 +83,8 @@ public class PMCViewController implements Initializable
     private TextField highRating;
     @FXML
     private Label ratingWarning;
+    @FXML
+    private TextField searchField;
 
     /**
      * Initializes the controller class.
@@ -90,42 +92,53 @@ public class PMCViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        
+        
         try
         {
             pmcmodel = new PMCModel();
-
-           
             
-        allMovTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        allMovIMDBRating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
-        allMovRating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
-        
-        allMovies.setItems(pmcmodel.getAllMovies());
-        ratingSlider.setVisible(false);
-        rateButton.setVisible(false);
-        checkForBadMovies();
-        
-        allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-        categories.setItems(pmcmodel.getAllCategories());
-        
-        catTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
-        catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
-        
-                
+            
+            
+            allMovTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+            allMovIMDBRating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
+            allMovRating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
+            
+            allMovies.setItems(pmcmodel.getAllMovies());
+            ratingSlider.setVisible(false);
+            rateButton.setVisible(false);
+            checkForBadMovies();
+            
+            allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
+            
+            categories.setItems(pmcmodel.getAllCategories());
+            
+            catTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+            catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
+            catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("Database.info could not be located");
+            
+            
         } catch (SQLException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("Could not get access to the SQL database");
         }
+     
+     
+        
+      
     }    
 
     @FXML
-    private void addMovie(ActionEvent event) throws IOException
+    private void addMovie(ActionEvent event)
     {
+       
+        try
+        {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/AddMovie.fxml"));
             Parent root = (Parent)loader.load();
             AddMovieController addMovieCon = loader.getController();
@@ -135,36 +148,68 @@ public class PMCViewController implements Initializable
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("The AddMovie.fxml file could not be located");
+        }
+ 
     }
 
     @FXML
-    private void deleteFromCategory(ActionEvent event) throws SQLException, IOException
+    private void deleteFromCategory(ActionEvent event)
     {
         if ( catmovies.getSelectionModel().getSelectedItem()!=null)
             {
-            Category selectedCategory = categories.getSelectionModel().getSelectedItem(); 
-            Movie movToDelete = catmovies.getSelectionModel().getSelectedItem(); 
             
+            try {
+                Category selectedCategory = categories.getSelectionModel().getSelectedItem();
+                Movie movToDelete = catmovies.getSelectionModel().getSelectedItem();
+                
                 pmcmodel.deleteMovieFromCategory(selectedCategory, movToDelete);
                 categories.setItems(pmcmodel.getAllCategories());
-                
-                
+            } catch (IOException ex) {
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                generateErrorAlarm("Database.info could not be located");
+            } catch (SQLException ex) {
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                generateErrorAlarm("Could not get access to the SQL database");
             }
+           
+            }
+                
+                
+            
         
     }
     
     @FXML
-    private void openMovie(ActionEvent event) throws IOException, SQLException
+    private void openMovie(ActionEvent event) 
     {
-        Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
-        String path = movieToPlay.getFileLink();
+       
+        try
+        {
+            Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
+            String path = movieToPlay.getFileLink();
+            
+            java.util.Date date=new java.util.Date();
+            pmcmodel.setDate(movieToPlay, date);
+            setLastSeenInfo(movieToPlay);
+            
+            Desktop.getDesktop().open(new File(path));
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("Could not locate media file");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("Could not get access to the SQL database");
+        }
         
-//        String pathFormatted = path.substring(6);
-        java.util.Date date=new java.util.Date(); 
-        pmcmodel.setDate(movieToPlay, date);
-        
-        Desktop.getDesktop().open(new File(path));
-        
+    
+ 
+      
         
         
     }
@@ -205,12 +250,8 @@ public class PMCViewController implements Initializable
         if(allMovies.getSelectionModel().getSelectedItem()!=null){
             makeRatingVisible();
             Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
-            if(chosenMov.getDate()!=null){
-            lastSeenLabel.setText(chosenMov.getTitle()+" was last seen: "+chosenMov.getDate());
-            }
-            else{
-            lastSeenLabel.setText("You haven't seen this movie yet");
-            }
+            setLastSeenInfo(chosenMov);
+
         }
     }
 
@@ -287,7 +328,7 @@ public class PMCViewController implements Initializable
     private void removeCategory(ActionEvent event) throws SQLException, IOException
     {
        if (chosenTableView==1 && categories.getSelectionModel().getSelectedItem()!=null){
-           pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
+            pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
            
            
        }
@@ -301,6 +342,7 @@ public class PMCViewController implements Initializable
     {
         chosenTableView=1;
         makeRatingInvisible();
+        makeLastSeenInfoInvisible();
         Category chosenCategory= categories.getSelectionModel().getSelectedItem();
         if (chosenCategory!=null)
         {
@@ -319,7 +361,7 @@ public class PMCViewController implements Initializable
         Movie chosenMovie= catmovies.getSelectionModel().getSelectedItem();
         if (chosenMovie!=null)
         {
-            
+            setLastSeenInfo(chosenMovie);
             makeRatingVisible();
         }
     }
@@ -358,4 +400,49 @@ public class PMCViewController implements Initializable
         }
     }
     
+    private void setLastSeenInfo(Movie chosenMov)
+    {
+            if(chosenMov.getDate()!=null){
+            lastSeenLabel.setText(chosenMov.getTitle()+" was last seen: "+chosenMov.getDate());
+            }
+            else{
+            lastSeenLabel.setText("You haven't seen this movie yet");
+            }
+    }
+    
+    private void makeLastSeenInfoInvisible()
+    {
+        lastSeenLabel.setText("");
+    }
+
+    @FXML
+    private void searchButton(ActionEvent event) throws IOException, SQLException
+    {
+        String searchWord = searchField.getText();
+        if (searchWord.length()!=0)
+        {
+            pmcmodel.getMoviesWithSearchWord(searchWord);
+            
+        }
+        
+        
+    }
+
+    @FXML
+    private void clearSearches(ActionEvent event) throws IOException, SQLException
+    {
+        pmcmodel.clearSearches();
+        searchField.clear();
+        lowRating.clear();
+        highRating.clear();
+    }
+    
+    private void generateErrorAlarm(String message)
+    {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Important information");
+      alert.setHeaderText("An error has occured");
+      alert.setContentText(""+message);
+      alert.showAndWait(); 
+    }
 }

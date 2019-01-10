@@ -76,7 +76,7 @@ public void removeMovie(Movie movToRemove) throws IOException, SQLServerExceptio
             }
 }
 
-public List<Movie> getAllMovies() throws IOException, SQLServerException, SQLException
+public List<Movie> getAllMovies() throws SQLServerException, SQLException, IOException
 {
        
             ArrayList<Movie> allMovies = new ArrayList<>();

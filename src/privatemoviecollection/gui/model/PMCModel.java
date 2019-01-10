@@ -107,7 +107,8 @@ public PMCModel() throws IOException, SQLException
       pmcmanager.setDate(movieToPlay, date);
        for(Movie x:allMovies){
         if(x.getId()==movieToPlay.getId()){
-            x.setDate(date);
+            java.sql.Date sDate = new java.sql.Date(date.getTime());
+            x.setDate(sDate);
             return;
         }
     }
@@ -173,12 +174,10 @@ public PMCModel() throws IOException, SQLException
     public void removeCategory(Category selectedItem) throws SQLException, IOException
     {
        pmcmanager.removeCategory(selectedItem);
-        for(Category x:allCategories){
-        if(x.getId()==selectedItem.getId()){
-            allCategories.remove(x);
-            return;
-        }
-        }
+       allCategories.remove(selectedItem);
+       catMovies.clear();
+        
+        
     }
 
     public void setCatMovies(Category chosenCategory) throws IOException, SQLException
@@ -276,6 +275,29 @@ public PMCModel() throws IOException, SQLException
      return pmcmanager.getLastUpdatedData();
     }
 
+    public void getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
+    {
+       List<Movie> searchResults = pmcmanager.getMoviesWithSearchWord(searchWord);
+       allMovies.clear();
+       for(Movie x:searchResults)
+       {
+           allMovies.add(x);
+       }
+       
+    }
+
+    public void clearSearches() throws IOException, SQLException
+    {
+       allMovies.clear();
+       List<Movie> clearedSearch = pmcmanager.getAllMovies();
+       for(Movie x:clearedSearch)
+       {
+           allMovies.add(x);
+       }
+    }
+    
+
+    
 
 }
 // end Class
