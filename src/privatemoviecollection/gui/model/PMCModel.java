@@ -277,6 +277,27 @@ public PMCModel() throws IOException, SQLException
      return pmcmanager.getLastUpdatedData();
     }
 
+    public void getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
+    {
+       List<Movie> searchResults = pmcmanager.getMoviesWithSearchWord(searchWord);
+       allMovies.clear();
+       for(Movie x:searchResults)
+       {
+           allMovies.add(x);
+       }
+       
+    }
+
+    public void clearSearches() throws IOException, SQLException
+    {
+       allMovies.clear();
+       List<Movie> clearedSearch = pmcmanager.getAllMovies();
+       for(Movie x:clearedSearch)
+       {
+           allMovies.add(x);
+       }
+    }
+
 
 }
 // end Class

@@ -83,6 +83,8 @@ public class PMCViewController implements Initializable
     private TextField highRating;
     @FXML
     private Label ratingWarning;
+    @FXML
+    private TextField searchField;
 
     /**
      * Initializes the controller class.
@@ -159,7 +161,6 @@ public class PMCViewController implements Initializable
         Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
         String path = movieToPlay.getFileLink();
         
-//        String pathFormatted = path.substring(6);
         java.util.Date date=new java.util.Date(); 
         pmcmodel.setDate(movieToPlay, date);
         setLastSeenInfo(movieToPlay);
@@ -361,6 +362,28 @@ public class PMCViewController implements Initializable
     private void makeLastSeenInfoInvisible()
     {
         lastSeenLabel.setText("");
+    }
+
+    @FXML
+    private void searchButton(ActionEvent event) throws IOException, SQLException
+    {
+        String searchWord = searchField.getText();
+        if (searchWord.length()!=0)
+        {
+            pmcmodel.getMoviesWithSearchWord(searchWord);
+            
+        }
+        
+        
+    }
+
+    @FXML
+    private void clearSearches(ActionEvent event) throws IOException, SQLException
+    {
+        pmcmodel.clearSearches();
+        searchField.clear();
+        lowRating.clear();
+        highRating.clear();
     }
     
 }

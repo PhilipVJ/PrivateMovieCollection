@@ -57,8 +57,11 @@
          </font>
       </Label>
       <TextField fx:id="highRating" layoutX="1034.0" layoutY="194.0" prefHeight="31.0" prefWidth="61.0" />
-      <Button fx:id="searchRatings" layoutX="984.0" layoutY="269.0" mnemonicParsing="false" onAction="#searchIMDBRating" text="Search" />
+      <Button fx:id="searchRatings" layoutX="984.0" layoutY="243.0" mnemonicParsing="false" onAction="#searchIMDBRating" text="Search" />
       <Label layoutX="936.0" layoutY="161.0" text="Search IMDB ratings here:" />
       <Label fx:id="ratingWarning" layoutX="937.0" layoutY="237.0" />
+      <TextField fx:id="searchField" layoutX="941.0" layoutY="309.0" prefHeight="31.0" prefWidth="151.0" promptText="Search by title" />
+      <Button layoutX="984.0" layoutY="353.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
+      <Button layoutX="959.0" layoutY="457.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
    </children>
 </AnchorPane>
