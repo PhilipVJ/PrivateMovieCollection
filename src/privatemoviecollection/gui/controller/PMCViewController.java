@@ -200,12 +200,16 @@ public class PMCViewController implements Initializable
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("Could not locate media file");
+            generateErrorAlarm("Database.info could not be located");
         } catch (SQLException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             generateErrorAlarm("Could not get access to the SQL database");
+        } catch (IllegalArgumentException ex){
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("Could not locate mediafile");
         }
+        
         
     
  
