@@ -2,45 +2,45 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane2" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.AddMovieController">
+<AnchorPane id="AnchorPane" fx:id="rootPane2" prefHeight="411.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.AddMovieController">
    <children>
-      <Text layoutX="37.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Movie" wrappingWidth="192.37060546875">
+      <ImageView fitHeight="421.0" fitWidth="673.0" layoutX="-14.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/cinema.jpg" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.5" />
+         </effect>
+      </ImageView>
+      <Text fill="#e4d900" layoutX="37.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Movie" wrappingWidth="192.37060546875">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
       <Button layoutX="409.0" layoutY="149.0" mnemonicParsing="false" onAction="#findMovie" text="Find movie file" />
-      <Label layoutX="91.0" layoutY="108.0" prefHeight="21.0" prefWidth="39.0" text="Title" />
-      <Label layoutX="91.0" layoutY="143.0" text="Filelink" />
-      <Label layoutX="90.0" layoutY="238.0" text="IMDB Rating" />
+      <Label layoutX="91.0" layoutY="108.0" prefHeight="21.0" prefWidth="39.0" text="Title" textFill="#e4d900" />
+      <Label layoutX="91.0" layoutY="143.0" text="Filelink" textFill="#e4d900" />
+      <Label layoutX="90.0" layoutY="238.0" text="IMDB Rating" textFill="#e4d900" />
       <TextField fx:id="title" layoutX="193.0" layoutY="103.0" />
       <TextField fx:id="filelink" editable="false" layoutX="193.0" layoutY="149.0" />
       <TextField fx:id="IMDBrating" layoutX="193.0" layoutY="233.0" prefHeight="31.0" prefWidth="185.0" />
       <Button layoutX="89.0" layoutY="348.0" mnemonicParsing="false" onAction="#saveMovie" text="Save" />
       <Button layoutX="255.0" layoutY="348.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
-      <Label fx:id="info" layoutX="93.0" layoutY="311.0" prefHeight="21.0" prefWidth="293.0" />
-      <Label layoutX="89.0" layoutY="190.0" text="IMDB Url" />
+      <Label fx:id="info" layoutX="93.0" layoutY="311.0" prefHeight="21.0" prefWidth="293.0" textFill="#e4d900" />
+      <Label layoutX="89.0" layoutY="190.0" text="IMDB Url" textFill="#e4d900" />
       <TextField fx:id="imdbUrl" layoutX="193.0" layoutY="185.0" />
       <Button layoutX="409.0" layoutY="185.0" mnemonicParsing="false" onAction="#getRating" text="Get rating from IMDB url" />
-      <TabPane layoutX="-18.0" layoutY="-75.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
       <Button layoutX="403.0" layoutY="103.0" mnemonicParsing="false" onAction="#findIMDBsuggestion" text="Find IMDB title suggestions" />
-      <Button fx:id="updateIMDBdatabaseId" layoutX="423.0" layoutY="348.0" mnemonicParsing="false" onAction="#updateIMDBdatabase" text="Update IMDB Database files" />
-      <Label fx:id="updatedLabel" layoutX="404.0" layoutY="311.0" prefHeight="21.0" prefWidth="215.0" />
-      <Label fx:id="lastUpdatedLabel" layoutX="246.0" layoutY="15.0" prefHeight="21.0" prefWidth="351.0" />
+      <Button fx:id="updateIMDBdatabaseId" layoutX="399.0" layoutY="348.0" mnemonicParsing="false" onAction="#updateIMDBdatabase" text="Update IMDB Database files" />
+      <Label fx:id="updatedLabel" layoutX="404.0" layoutY="311.0" prefHeight="21.0" prefWidth="215.0" textFill="#e4d900" />
+      <Label fx:id="lastUpdatedLabel" layoutX="246.0" layoutY="15.0" prefHeight="21.0" prefWidth="351.0" textFill="#e4d900" />
    </children>
 </AnchorPane>

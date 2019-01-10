@@ -6,62 +6,73 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="679.0" prefWidth="1116.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PMCViewController">
+<AnchorPane id="AnchorPane" prefHeight="677.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PMCViewController">
    <children>
-      <Text fill="#cd8d0d" layoutX="210.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Private Movie Collection" wrappingWidth="536.6708984375">
+      <ImageView fitHeight="777.0" fitWidth="1109.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/background.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.75" />
+         </effect>
+      </ImageView>
+      <Text fill="#cd8d0d" layoutX="115.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Private Movie Collection" textAlignment="CENTER" wrappingWidth="803.6708984375">
          <font>
-            <Font size="48.0" />
+            <Font name="System Bold" size="63.0" />
          </font>
       </Text>
-      <TableView fx:id="categories" layoutX="47.0" layoutY="140.0" onMouseClicked="#categoriesViewChosen" prefHeight="385.0" prefWidth="170.0">
+      <TableView fx:id="categories" layoutX="69.0" layoutY="142.0" onMouseClicked="#categoriesViewChosen" prefHeight="385.0" prefWidth="192.0">
         <columns>
           <TableColumn fx:id="allCategories" prefWidth="168.0" text="Categories" />
         </columns>
       </TableView>
-      <TableView fx:id="catmovies" layoutX="249.0" layoutY="140.0" onMouseClicked="#categoryMovieViewChosen" prefHeight="385.0" prefWidth="319.0">
+      <TableView fx:id="catmovies" layoutX="321.0" layoutY="142.0" onMouseClicked="#categoryMovieViewChosen" prefHeight="385.0" prefWidth="319.0">
         <columns>
           <TableColumn fx:id="catTitle" prefWidth="140.0" text="Title" />
           <TableColumn fx:id="catIMDBrating" prefWidth="107.0" text="IMDB Rating" />
             <TableColumn fx:id="catPersonalrating" prefWidth="71.0" text="Rating" />
         </columns>
       </TableView>
-      <TableView fx:id="allMovies" layoutX="624.0" layoutY="140.0" onMouseClicked="#allMoviesChosen" prefHeight="385.0" prefWidth="302.0">
+      <TableView fx:id="allMovies" layoutX="700.0" layoutY="142.0" onMouseClicked="#allMoviesChosen" prefHeight="385.0" prefWidth="302.0">
         <columns>
           <TableColumn fx:id="allMovTitle" prefWidth="129.0" text="Title" />
           <TableColumn fx:id="allMovIMDBRating" prefWidth="97.0" text="IMDBRating" />
             <TableColumn fx:id="allMovRating" prefWidth="75.0" text="Rating" />
         </columns>
       </TableView>
-      <Button layoutX="47.0" layoutY="544.0" mnemonicParsing="false" onAction="#addCategory" text="Add category" />
-      <Button layoutX="47.0" layoutY="582.0" mnemonicParsing="false" onAction="#removeCategory" text="Remove category" />
-      <Button layoutX="511.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovieToCategory" text="Add movie to category" />
-      <Button layoutX="861.0" layoutY="544.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
-      <Button layoutX="846.0" layoutY="582.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" />
-      <Button layoutX="249.0" layoutY="544.0" mnemonicParsing="false" onAction="#deleteFromCategory" text="Delete from category" />
-      <Button layoutX="653.0" layoutY="582.0" mnemonicParsing="false" onAction="#openMovie" text="Open selected movie" />
-      <Slider fx:id="ratingSlider" layoutX="786.0" layoutY="109.0" max="10.0" onMouseClicked="#setScore" onMouseDragged="#ratingDrag" />
-      <Label fx:id="scoreLabel" layoutX="819.0" layoutY="62.0" prefHeight="21.0" prefWidth="75.0">
+      <Button layoutX="89.0" layoutY="536.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="31.0" prefWidth="151.0" text="Add category" />
+      <Button layoutX="89.0" layoutY="579.0" mnemonicParsing="false" onAction="#removeCategory" prefHeight="31.0" prefWidth="151.0" text="Remove category" />
+      <Button layoutX="395.0" layoutY="536.0" mnemonicParsing="false" onAction="#addMovieToCategory" text="Add movie to category" />
+      <Button layoutX="700.0" layoutY="536.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="31.0" prefWidth="108.0" text="Add Movie" />
+      <Button layoutX="700.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" />
+      <Button layoutX="395.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteFromCategory" prefHeight="31.0" prefWidth="172.0" text="Delete from category" />
+      <Button layoutX="700.0" layoutY="615.0" mnemonicParsing="false" onAction="#openMovie" prefHeight="31.0" prefWidth="108.0" text="Play Movie" />
+      <Slider fx:id="ratingSlider" layoutX="867.0" layoutY="586.0" max="10.0" onMouseClicked="#setScore" onMouseDragged="#ratingDrag" />
+      <Label fx:id="scoreLabel" layoutX="897.0" layoutY="536.0" prefHeight="21.0" prefWidth="75.0" textFill="#fbda02">
          <font>
             <Font size="32.0" />
          </font></Label>
-      <Button fx:id="rateButton" layoutX="692.0" layoutY="103.0" mnemonicParsing="false" onAction="#rateMovie" text="Rate" />
-      <Label fx:id="lastSeenLabel" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="319.0" />
-      <TextField fx:id="lowRating" layoutX="936.0" layoutY="194.0" prefHeight="31.0" prefWidth="61.0" />
-      <Label layoutX="1007.0" layoutY="171.0" prefHeight="64.0" prefWidth="19.0" text="-">
+      <Button fx:id="rateButton" layoutX="912.0" layoutY="615.0" mnemonicParsing="false" onAction="#rateMovie" text="Rate" />
+      <Label fx:id="lastSeenLabel" layoutX="321.0" layoutY="98.0" prefHeight="18.0" prefWidth="319.0" textFill="#fbda02" />
+      <TextField fx:id="lowRating" layoutX="723.0" layoutY="696.0" prefHeight="31.0" prefWidth="61.0" />
+      <Label layoutX="810.0" layoutY="672.0" prefHeight="64.0" prefWidth="19.0" text="-">
          <font>
             <Font name="System Bold" size="45.0" />
          </font>
       </Label>
-      <TextField fx:id="highRating" layoutX="1034.0" layoutY="194.0" prefHeight="31.0" prefWidth="61.0" />
-      <Button fx:id="searchRatings" layoutX="984.0" layoutY="243.0" mnemonicParsing="false" onAction="#searchIMDBRating" text="Search" />
-      <Label layoutX="936.0" layoutY="161.0" text="Search IMDB ratings here:" />
+      <TextField fx:id="highRating" layoutX="854.0" layoutY="696.0" prefHeight="31.0" prefWidth="61.0" />
+      <Button fx:id="searchRatings" layoutX="934.0" layoutY="696.0" mnemonicParsing="false" onAction="#searchIMDBRating" text="Search" />
+      <Label layoutX="723.0" layoutY="668.0" text="Search by IMDB ratings here:" textFill="#fbda02" />
       <Label fx:id="ratingWarning" layoutX="937.0" layoutY="237.0" />
-      <TextField fx:id="searchField" layoutX="941.0" layoutY="309.0" prefHeight="31.0" prefWidth="151.0" promptText="Search by title" />
-      <Button layoutX="984.0" layoutY="353.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
-      <Button layoutX="959.0" layoutY="457.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
+      <TextField fx:id="searchField" layoutX="792.0" layoutY="104.0" prefHeight="31.0" prefWidth="151.0" promptText="Search by title" />
+      <Button layoutX="700.0" layoutY="104.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
+      <Button layoutX="424.0" layoutY="696.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
    </children>
 </AnchorPane>
