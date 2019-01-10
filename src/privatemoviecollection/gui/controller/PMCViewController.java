@@ -113,8 +113,7 @@ public class PMCViewController implements Initializable
         catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
         catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
         
-        
-        
+                
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,6 +146,9 @@ public class PMCViewController implements Initializable
             Movie movToDelete = catmovies.getSelectionModel().getSelectedItem(); 
             
                 pmcmodel.deleteMovieFromCategory(selectedCategory, movToDelete);
+                categories.setItems(pmcmodel.getAllCategories());
+                
+                
             }
         
     }
@@ -201,8 +203,7 @@ public class PMCViewController implements Initializable
     {
         chosenTableView=3;
         if(allMovies.getSelectionModel().getSelectedItem()!=null){
-            ratingSlider.setVisible(true);
-            rateButton.setVisible(true);
+            makeRatingVisible();
             Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
             if(chosenMov.getDate()!=null){
             lastSeenLabel.setText(chosenMov.getTitle()+" was last seen: "+chosenMov.getDate());
@@ -213,6 +214,17 @@ public class PMCViewController implements Initializable
         }
     }
 
+    public void makeRatingVisible()
+    {
+        ratingSlider.setVisible(true);
+        rateButton.setVisible(true);
+    }
+
+    public void makeRatingInvisible()
+    {
+        ratingSlider.setVisible(false);
+        rateButton.setVisible(false);
+    }
   
 
     @FXML
@@ -222,14 +234,7 @@ public class PMCViewController implements Initializable
         double oneDigitRating = Math.round(rating * 10) / 10.0;
         pmcmodel.rateMovie(allMovies.getSelectionModel().getSelectedItem(), oneDigitRating);
         allMovies.refresh();
-        
-        Category chosenCategory= categories.getSelectionModel().getSelectedItem();
-        if (chosenCategory!=null)
-        {
-            pmcmodel.setCatMovies(chosenCategory);
-            catmovies.setItems(pmcmodel.getCatMovies());
-        }
-        
+
     }
 
     private void checkForBadMovies()
@@ -282,11 +287,15 @@ public class PMCViewController implements Initializable
     private void categoriesViewChosen(MouseEvent event) throws IOException, SQLException
     {
         chosenTableView=1;
+        makeRatingInvisible();
         Category chosenCategory= categories.getSelectionModel().getSelectedItem();
         if (chosenCategory!=null)
         {
+            System.out.println("Setting up category movies");
             pmcmodel.setCatMovies(chosenCategory);
             catmovies.setItems(pmcmodel.getCatMovies());
+            
+            
         }
     }
 
@@ -303,6 +312,7 @@ public class PMCViewController implements Initializable
     Movie chosenMovie=allMovies.getSelectionModel().getSelectedItem();
         if (chosenCategory!=null && chosenMovie!=null){
             pmcmodel.addMovieToCat(chosenCategory, chosenMovie);
+
         }
     }
 

@@ -44,6 +44,7 @@ public PMCModel() throws IOException, SQLException
     allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
     allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
   
+  
    
 }
 
@@ -171,14 +172,16 @@ public PMCModel() throws IOException, SQLException
     public void setCatMovies(Category chosenCategory) throws IOException, SQLException
     {
         ArrayList<Integer> movieIds = chosenCategory.getMovies();
+        System.out.println("Number of movies from database:"+movieIds.size());
         ArrayList<Movie> categoryMovies = new ArrayList<>();
+        
         
         for (Integer x: movieIds)
         {
             Movie catMovie = pmcmanager.getMovie(x);
             categoryMovies.add(catMovie);
         }
-        
+        System.out.println("Number of movies:"+categoryMovies.size());
         catMovies = FXCollections.observableList(categoryMovies);
         
     }
@@ -187,6 +190,14 @@ public PMCModel() throws IOException, SQLException
     {
        pmcmanager.addMovieToCat(chosenCategory, chosenMovie);
        catMovies.add(chosenMovie);
+       for (Category x:allCategories)
+       {
+           if(x.getId()==chosenCategory.getId())
+           {
+               x.addMovieWithID(chosenMovie.getId());
+               return;
+           }
+       }
     }
 
     public String getRating(String formattedMovieCode)
@@ -214,14 +225,33 @@ public PMCModel() throws IOException, SQLException
      public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
     {
         pmcmanager.deleteMovieFromCategory(selectedCategory, movToDelete);
+               
         for(Movie x:catMovies)
         {
+          
             if(x.getId()==movToDelete.getId())
             {
-                catMovies.remove(x);
+                System.out.println("Deletes from category");
+                catMovies.remove(x); 
+                break;
+          
+            }
+     
+        }
+        
+        System.out.println("Deletes from category object");
+        
+        for (Category y:allCategories){
+            if(y.getId()==selectedCategory.getId())
+            {
+                System.out.println("Found object");
+                y.removeMovieWithID(movToDelete.getId());
+                System.out.println("Deletes from object");
                 return;
             }
         }
+        
+
     }   
 
     public boolean updateIMDBdatabase() throws IOException

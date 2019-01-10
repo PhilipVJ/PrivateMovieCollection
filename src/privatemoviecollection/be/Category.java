@@ -43,5 +43,16 @@ public class Category
         return movieIdList;
     }
     
+    public void removeMovieWithID(int movieId)
+    {
+        for (Integer x:movieIdList)
+        {
+            if(x==movieId){
+                movieIdList.remove(x);
+                return;
+            }
+        }
+    }
+    
     
 }
