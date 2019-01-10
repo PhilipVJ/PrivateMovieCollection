@@ -186,7 +186,7 @@ public class PMCViewController implements Initializable
     @FXML
     private void openMovie(ActionEvent event) 
     {
-       
+        System.out.println("Opens movie");
         try
         {
             Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
@@ -215,10 +215,21 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void deleteMovie(ActionEvent event) throws IOException, SQLException
+    private void deleteMovie(ActionEvent event)
     {
-        Movie movieToRemove = allMovies.getSelectionModel().getSelectedItem();
-        pmcmodel.removeMovie(movieToRemove);
+        try
+        {
+            Movie movieToRemove = allMovies.getSelectionModel().getSelectedItem();
+            pmcmodel.removeMovie(movieToRemove);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("Database.info could not be located");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            generateErrorAlarm("Could not get access to the SQL database");
+        }
         
     }
 
