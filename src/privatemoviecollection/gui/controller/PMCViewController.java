@@ -307,19 +307,17 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void searchIMDBRating(ActionEvent event)
+    private void searchIMDBRating(ActionEvent event) throws IOException, SQLException
     {
-        
-        
-        
         try 
         {
-        int lowS = Integer.parseInt(lowRating.getText());
-        int highS = Integer.parseInt(highRating.getText());
+            int lowS = Integer.parseInt(lowRating.getText());
+            int highS = Integer.parseInt(highRating.getText());
+            pmcmodel.IMDBintervalSearch(lowS, highS);
         } 
         catch (NumberFormatException nfe) 
         {
-        ratingWarning.setText("Try 3 - 6");
+            ratingWarning.setText("Try 3 - 6");
         }
     }
     
