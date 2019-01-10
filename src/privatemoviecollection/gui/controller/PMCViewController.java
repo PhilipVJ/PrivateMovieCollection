@@ -162,6 +162,7 @@ public class PMCViewController implements Initializable
 //        String pathFormatted = path.substring(6);
         java.util.Date date=new java.util.Date(); 
         pmcmodel.setDate(movieToPlay, date);
+        setLastSeenInfo(movieToPlay);
         
         Desktop.getDesktop().open(new File(path));
         
@@ -205,12 +206,8 @@ public class PMCViewController implements Initializable
         if(allMovies.getSelectionModel().getSelectedItem()!=null){
             makeRatingVisible();
             Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
-            if(chosenMov.getDate()!=null){
-            lastSeenLabel.setText(chosenMov.getTitle()+" was last seen: "+chosenMov.getDate());
-            }
-            else{
-            lastSeenLabel.setText("You haven't seen this movie yet");
-            }
+            setLastSeenInfo(chosenMov);
+
         }
     }
 
@@ -301,6 +298,7 @@ public class PMCViewController implements Initializable
     {
         chosenTableView=1;
         makeRatingInvisible();
+        makeLastSeenInfoInvisible();
         Category chosenCategory= categories.getSelectionModel().getSelectedItem();
         if (chosenCategory!=null)
         {
@@ -319,7 +317,7 @@ public class PMCViewController implements Initializable
         Movie chosenMovie= catmovies.getSelectionModel().getSelectedItem();
         if (chosenMovie!=null)
         {
-            
+            setLastSeenInfo(chosenMovie);
             makeRatingVisible();
         }
     }
@@ -348,6 +346,21 @@ public class PMCViewController implements Initializable
         {
             ratingWarning.setText("Try 3 - 6");
         }
+    }
+    
+    private void setLastSeenInfo(Movie chosenMov)
+    {
+            if(chosenMov.getDate()!=null){
+            lastSeenLabel.setText(chosenMov.getTitle()+" was last seen: "+chosenMov.getDate());
+            }
+            else{
+            lastSeenLabel.setText("You haven't seen this movie yet");
+            }
+    }
+    
+    private void makeLastSeenInfoInvisible()
+    {
+        lastSeenLabel.setText("");
     }
     
 }

@@ -107,7 +107,8 @@ public PMCModel() throws IOException, SQLException
       pmcmanager.setDate(movieToPlay, date);
        for(Movie x:allMovies){
         if(x.getId()==movieToPlay.getId()){
-            x.setDate(date);
+            java.sql.Date sDate = new java.sql.Date(date.getTime());
+            x.setDate(sDate);
             return;
         }
     }
