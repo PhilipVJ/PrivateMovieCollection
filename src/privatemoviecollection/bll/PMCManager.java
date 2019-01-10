@@ -106,4 +106,14 @@ public PMCManager()
         return movieDbDAO.IMDBintervalSearch(low, high);
     }
 
+    public boolean updateIMDBdatabase() throws IOException
+    {
+      return imdbDbDAO.updateIMDBDatabase();
+    }
+
+    public String getLastUpdatedData()
+    {
+     return imdbDbDAO.getLastUpdatedInfo();
+    }
+
 }

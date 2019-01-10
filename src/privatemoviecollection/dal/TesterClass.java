@@ -19,13 +19,7 @@ import privatemoviecollection.be.Movie;
 public class TesterClass
 {
    public static void main (String[] args) throws SQLException, IOException {
-//
-//  CategoryDbDAO m = new CategoryDbDAO();
-//  
-//  Category d = new Category("horror", 9); 
-//  Movie m = new Movie(9, DamDam, filelink, 0); 
-//  m.deleteMovieFromCategory(7, 2);
-  
+
    }
  
    

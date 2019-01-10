@@ -224,6 +224,16 @@ public PMCModel() throws IOException, SQLException
         }
     }   
 
+    public boolean updateIMDBdatabase() throws IOException
+    {
+      return pmcmanager.updateIMDBdatabase();
+    }
+
+    public String getLastUpdatedData()
+    {
+     return pmcmanager.getLastUpdatedData();
+    }
+
 
 }
 // end Class
