@@ -285,7 +285,7 @@ public class PMCViewController implements Initializable
     private void removeCategory(ActionEvent event) throws SQLException, IOException
     {
        if (chosenTableView==1 && categories.getSelectionModel().getSelectedItem()!=null){
-           pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
+            pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
            
            
        }

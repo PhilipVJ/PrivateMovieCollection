@@ -174,12 +174,10 @@ public PMCModel() throws IOException, SQLException
     public void removeCategory(Category selectedItem) throws SQLException, IOException
     {
        pmcmanager.removeCategory(selectedItem);
-        for(Category x:allCategories){
-        if(x.getId()==selectedItem.getId()){
-            allCategories.remove(x);
-            return;
-        }
-        }
+       allCategories.remove(selectedItem);
+       catMovies.clear();
+        
+        
     }
 
     public void setCatMovies(Category chosenCategory) throws IOException, SQLException
