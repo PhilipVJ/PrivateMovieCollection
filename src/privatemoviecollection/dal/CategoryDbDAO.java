@@ -26,6 +26,8 @@ import privatemoviecollection.be.Movie;
 public class CategoryDbDAO
 {
     
+    
+    
     public Category addCategory(String name) throws IOException, SQLServerException, SQLException
     {
         DbConnection ds = new DbConnection();
