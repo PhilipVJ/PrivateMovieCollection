@@ -30,7 +30,8 @@
       </Text>
       <TableView fx:id="categories" layoutX="69.0" layoutY="142.0" onMouseClicked="#categoriesViewChosen" prefHeight="385.0" prefWidth="192.0">
         <columns>
-          <TableColumn fx:id="allCategories" prefWidth="168.0" text="Categories" />
+          <TableColumn fx:id="allCategories" prefWidth="97.0" text="Categories" />
+            <TableColumn fx:id="catCheck" prefWidth="146.0" text="View" />
         </columns>
       </TableView>
       <TableView fx:id="catmovies" layoutX="321.0" layoutY="142.0" onMouseClicked="#categoryMovieViewChosen" prefHeight="385.0" prefWidth="319.0">
@@ -74,5 +75,6 @@
       <Button layoutX="700.0" layoutY="104.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
       <Button layoutX="424.0" layoutY="696.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
       <Label fx:id="ratingWarning" layoutX="723.0" layoutY="738.0" textFill="#fbda02" />
+      <Button layoutX="69.0" layoutY="93.0" mnemonicParsing="false" onAction="#refreshCatMovies" text="Refresh" />
    </children>
 </AnchorPane>

@@ -25,6 +25,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -83,6 +84,8 @@ public class PMCViewController implements Initializable
     private Label ratingWarning;
     @FXML
     private TextField searchField;
+    @FXML
+    private TableColumn<Category, Boolean> catCheck;
 
     /**
      * Initializes the controller class.
@@ -106,8 +109,17 @@ public class PMCViewController implements Initializable
             ratingSlider.setVisible(false);
             rateButton.setVisible(false);
           
-            allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));            
+            allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));      
+            
+            catCheck.setCellValueFactory( new PropertyValueFactory<>( "select" ));
+            catCheck.setEditable(true);
+            
+      
             categories.setItems(pmcmodel.getAllCategories());
+            
+            catmovies.setItems(pmcmodel.getCatMovies());
+            
+            
             
             catTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
             catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
@@ -375,26 +387,16 @@ public class PMCViewController implements Initializable
 }
 
     @FXML
-    private void categoriesViewChosen(MouseEvent event)
+    private void categoriesViewChosen(MouseEvent event) 
     {
         chosenTableView=1;
         makeRatingInvisible();
         makeLastSeenInfoInvisible();
-        Category chosenCategory= categories.getSelectionModel().getSelectedItem();
-        if (chosenCategory!=null)
-        {
-            try {
-                pmcmodel.setCatMovies(chosenCategory);
-                catmovies.setItems(pmcmodel.getCatMovies());
-                } catch (IOException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("A problem occurred within the SQL database");
-                }
-            
-        }
+        
+        
+
+
+        
     }
 
     @FXML
@@ -516,6 +518,24 @@ public class PMCViewController implements Initializable
                 pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
                 }
     }
+
+    @FXML
+    private void refreshCatMovies(ActionEvent event)
+    {
+        try
+        {
+            pmcmodel.setCategoryMovies();
+                } catch (IOException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
+                } catch (SQLException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+                }
+        
+    }
+
+
     
 
 }

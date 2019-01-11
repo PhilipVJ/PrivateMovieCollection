@@ -6,6 +6,7 @@
 package privatemoviecollection.be;
 
 import java.util.ArrayList;
+import javafx.scene.control.CheckBox;
 
 /**
  *
@@ -16,11 +17,13 @@ public class Category
     private String name; 
     private int id; 
     private ArrayList<Integer> movieIdList;
+    private CheckBox select;
 
     public Category (String name, int id) {
         this.name = name;
         this.id = id; 
         movieIdList = new ArrayList<Integer>();
+        select= new CheckBox();
     }
     
     public String getName()
@@ -53,6 +56,22 @@ public class Category
             }
         }
     }
+
+    public CheckBox getSelect()
+    {
+        
+        return select;
+        
+    }
+
+    public void setSelect(CheckBox select)
+    {
+        
+        this.select = select;
+        
+    }
+    
+    
     
     
 }

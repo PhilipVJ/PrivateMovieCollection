@@ -40,6 +40,9 @@ public PMCModel() throws IOException, SQLException
     pmcmanager = new PMCManager();
     allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
     allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
+    
+    ArrayList<Movie> Test= new ArrayList<Movie>();
+    catMovies = FXCollections.observableList(Test);
   
   
    
@@ -190,22 +193,7 @@ public PMCModel() throws IOException, SQLException
         
     }
 
-    public void setCatMovies(Category chosenCategory) throws IOException, SQLException
-    {
-        ArrayList<Integer> movieIds = chosenCategory.getMovies();
-        System.out.println("Number of movies from database:"+movieIds.size());
-        ArrayList<Movie> categoryMovies = new ArrayList<>();
-        
-        
-        for (Integer x: movieIds)
-        {
-            Movie catMovie = pmcmanager.getMovie(x);
-            categoryMovies.add(catMovie);
-        }
-        System.out.println("Number of movies:"+categoryMovies.size());
-        catMovies = FXCollections.observableList(categoryMovies);
-        
-    }
+
 
     public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
     {
@@ -332,8 +320,29 @@ public PMCModel() throws IOException, SQLException
       alert.setContentText("You already have this movie in your database");
       alert.showAndWait(); 
     }
+      
+      public void getChosenCategoryMovies(List<Category> chosenCategories)
+      {
+          
+      }
     
-
+      public void setCategoryMovies() throws IOException, SQLException
+      {
+//       ArrayList<Movie> catMoviesChosen = new ArrayList<>();
+       
+       catMovies.clear();
+         for(Category x:allCategories){
+             if(x.getSelect().isSelected()==true){
+             for(Integer y:x.getMovies()){
+             catMovies.add(pmcmanager.getMovie(y));
+                     }
+             }
+         }
+          System.out.println("Size: "+catMovies.size());
+        
+      }
+      
+  
     
 
 }
