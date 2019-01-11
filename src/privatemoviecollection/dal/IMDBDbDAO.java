@@ -9,6 +9,7 @@ import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -16,9 +17,13 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
+import javafx.scene.control.Alert;
 import org.apache.commons.io.FileUtils;
 import privatemoviecollection.be.IMDBMovie;
+import privatemoviecollection.gui.model.PMCModel;
 
 /**
  *
@@ -148,52 +153,63 @@ public boolean updateIMDBDatabase() throws MalformedURLException, IOException
 /**
  * Unzips the .gz files from the IMDB interface.
  */        
-public void gunzipRating()
+private void gunzipRating()
 {
  
      byte[] buffer = new byte[1024];
  
-     try{GZIPInputStream gzis = new GZIPInputStream(new FileInputStream("data/update/title.ratings.tsv.gz"));
- 
-    	 FileOutputStream out = 
-            new FileOutputStream("data/update/data.tsv");
- 
+     
+    try (GZIPInputStream gzis = new GZIPInputStream(new FileInputStream("data/update/title.ratings.tsv.gz")) ; FileOutputStream out = new FileOutputStream("data/update/data.tsv");)
+    {
+        
         int len;
         while ((len = gzis.read(buffer)) > 0) {
-        	out.write(buffer, 0, len);
+            out.write(buffer, 0, len);
         }
- 
-        gzis.close();
+    
+    
     	out.close();
  
     	System.out.println("Done");
-    	
-    }catch(IOException ex){
-       ex.printStackTrace();   
+        
+    } catch (IOException ex)
+    {
+        Logger.getLogger(IMDBDbDAO.class.getName()).log(Level.SEVERE, null, ex);
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Important information");
+      alert.setHeaderText("An error has occured");
+      alert.setContentText("The files could not be located");
+      alert.showAndWait(); 
     }
+    	
+
 }
-public void gunzipTitles()
+private void gunzipTitles() 
 {
      byte[] buffer = new byte[1024];
  
-     try{GZIPInputStream gzis = new GZIPInputStream(new FileInputStream("data/update/title.basics.tsv.gz"));
- 
-    	 FileOutputStream out = 
-            new FileOutputStream("data/update/data.tsv");
- 
+     
+    try (GZIPInputStream gzis = new GZIPInputStream(new FileInputStream("data/update/title.basics.tsv.gz")) ; FileOutputStream out = new FileOutputStream("data/update/data.tsv");)
+    {
+        
         int len;
         while ((len = gzis.read(buffer)) > 0) {
-        	out.write(buffer, 0, len);
+            out.write(buffer, 0, len);
         }
- 
-        gzis.close();
+    
     	out.close();
  
     	System.out.println("Done");
-    	
-    }catch(IOException ex){
-       ex.printStackTrace();   
+    } catch (IOException ex)
+    {
+        Logger.getLogger(IMDBDbDAO.class.getName()).log(Level.SEVERE, null, ex);
+       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Important information");
+      alert.setHeaderText("An error has occured");
+      alert.setContentText("The files could not be located");
+      alert.showAndWait(); 
     }
+
 }    
 /**
  * Returns the last time the database files were updated.

@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -29,8 +26,8 @@ import privatemoviecollection.bll.PMCManager;
 public class PMCModel
 {
 private final PMCManager pmcmanager;
-private ObservableList<Movie> allMovies;
-private ObservableList<Category> allCategories;
+private final ObservableList<Movie> allMovies;
+private final ObservableList<Category> allCategories;
 private ObservableList<Movie> catMovies;
 
  
@@ -314,7 +311,10 @@ public PMCModel() throws IOException, SQLException
            allMovies.add(x);
        }
     }
-    
+    /**
+     * Generates an alert with the specified String
+     * @param message 
+     */
      public void generateErrorAlarm(String message)
     {
       Alert alert = new Alert(Alert.AlertType.INFORMATION);

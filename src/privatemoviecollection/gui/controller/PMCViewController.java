@@ -190,6 +190,7 @@ public class PMCViewController implements Initializable
         try
         {
             Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
+            if(movieToPlay!=null){
             String path = movieToPlay.getFileLink();
             
             java.util.Date date=new java.util.Date();
@@ -197,6 +198,7 @@ public class PMCViewController implements Initializable
             setLastSeenInfo(movieToPlay);
             
             Desktop.getDesktop().open(new File(path));
+            }
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
