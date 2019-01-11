@@ -84,6 +84,8 @@ public class AddCategoryController implements Initializable {
         Stage stage = (Stage) rootPane3.getScene().getWindow();
         stage.close();
     }
+    
+    
 
 
     

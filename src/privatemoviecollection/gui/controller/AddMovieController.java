@@ -212,7 +212,7 @@ private PMCModel pmcmodel;
                 IMDBsuggestionsController imdbController = loader.getController();
                 
                 imdbController.setModel(pmcmodel);
-                imdbController.setAddMovieController(this);
+                imdbController.SetTextFields(title, IMDBrating);
                 
                 imdbController.setSearch(title.getText());
                 
