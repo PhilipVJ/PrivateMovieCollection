@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import privatemoviecollection.be.IMDBMovie;
@@ -32,7 +33,9 @@ public class IMDBsuggestionsController implements Initializable
     private PMCModel pmcmodel;
     @FXML
     private AnchorPane rootPane2;
-    private AddMovieController addMovieController;
+    private TextField title;
+    private TextField IMDBrating;
+    
     
     
 
@@ -62,7 +65,8 @@ public class IMDBsuggestionsController implements Initializable
     {
         IMDBMovie chosenMovie = suggestions.getSelectionModel().getSelectedItem();
         
-        addMovieController.setTitleAndRating(chosenMovie.getMovieTitle(), pmcmodel.getRating(chosenMovie.getMovieId()));
+        title.setText(chosenMovie.getMovieTitle());
+        IMDBrating.setText(pmcmodel.getRating(chosenMovie.getMovieId()));
         Stage stage = (Stage) rootPane2.getScene().getWindow();
         stage.close();
     }
@@ -74,9 +78,11 @@ public class IMDBsuggestionsController implements Initializable
     stage.close();
     }
     
-    public void setAddMovieController(AddMovieController controller)
+    
+    public void SetTextFields(TextField title, TextField IMDBrating)
     {
-        this.addMovieController=controller;
+        this.title=title;
+        this.IMDBrating=IMDBrating;
     }
     
 }
