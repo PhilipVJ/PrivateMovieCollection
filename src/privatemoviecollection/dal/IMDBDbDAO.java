@@ -9,7 +9,6 @@ import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -23,7 +22,6 @@ import java.util.zip.GZIPInputStream;
 import javafx.scene.control.Alert;
 import org.apache.commons.io.FileUtils;
 import privatemoviecollection.be.IMDBMovie;
-import privatemoviecollection.gui.model.PMCModel;
 
 /**
  *

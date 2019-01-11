@@ -23,9 +23,9 @@ import privatemoviecollection.dal.MovieDbDAO;
  */
 public class PMCManager
 {
-private MovieDbDAO movieDbDAO;
-private CategoryDbDAO categoryDbDAO;
-private IMDBDbDAO imdbDbDAO;
+private final MovieDbDAO movieDbDAO;
+private final CategoryDbDAO categoryDbDAO;
+private final IMDBDbDAO imdbDbDAO;
 
 public PMCManager()
 {

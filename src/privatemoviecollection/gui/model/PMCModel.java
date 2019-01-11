@@ -28,7 +28,7 @@ public class PMCModel
 private final PMCManager pmcmanager;
 private final ObservableList<Movie> allMovies;
 private final ObservableList<Category> allCategories;
-private ObservableList<Movie> catMovies;
+private final ObservableList<Movie> catMovies;
 
  
 
@@ -41,7 +41,7 @@ public PMCModel() throws IOException, SQLException
     allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
     allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
     
-    ArrayList<Movie> Test= new ArrayList<Movie>();
+    ArrayList<Movie> Test= new ArrayList<>();
     catMovies = FXCollections.observableList(Test);
   
   
@@ -131,7 +131,7 @@ public PMCModel() throws IOException, SQLException
         // Converts it to days
         double days = dateTime/(1000*60*60*24);
         
-        ArrayList<Movie> badMovies = new ArrayList<Movie>();
+        ArrayList<Movie> badMovies = new ArrayList<>();
         
         
         for(Movie x: allMovies)

@@ -8,7 +8,6 @@ package privatemoviecollection.dal;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
@@ -18,7 +17,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;
 
 /**

@@ -6,7 +6,6 @@
 package privatemoviecollection.be;
 
 import java.util.Date;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -15,11 +14,11 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Movie
 {
-private int id;
-private SimpleStringProperty title;
-private SimpleStringProperty webrating;
-private SimpleStringProperty personalrating;
-private String filelink;
+private final int id;
+private final SimpleStringProperty title;
+private final SimpleStringProperty webrating;
+private final SimpleStringProperty personalrating;
+private final String filelink;
 private Date date;
 
 

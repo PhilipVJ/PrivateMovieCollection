@@ -11,8 +11,8 @@ package privatemoviecollection.be;
  */
 public class IMDBMovie
 {
-private String movieId;
-private String movieTitle;
+private final String movieId;
+private final String movieTitle;
 
 public IMDBMovie(String id, String title)
 {

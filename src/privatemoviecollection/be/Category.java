@@ -14,15 +14,15 @@ import javafx.scene.control.CheckBox;
  */
 public class Category
 {
-    private String name; 
-    private int id; 
-    private ArrayList<Integer> movieIdList;
+    private final String name; 
+    private final int id; 
+    private final ArrayList<Integer> movieIdList;
     private CheckBox select;
 
     public Category (String name, int id) {
         this.name = name;
         this.id = id; 
-        movieIdList = new ArrayList<Integer>();
+        movieIdList = new ArrayList<>();
         select= new CheckBox();
     }
     
