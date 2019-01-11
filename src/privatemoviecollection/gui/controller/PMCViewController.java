@@ -200,12 +200,26 @@ public class PMCViewController implements Initializable
         try
         {
             Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
+            Movie movToPlay = catmovies.getSelectionModel().getSelectedItem();
+            
+            
             if(movieToPlay!=null){
             String path = movieToPlay.getFileLink();
-            
+                  
             java.util.Date date=new java.util.Date();
             pmcmodel.setDate(movieToPlay, date);
             setLastSeenInfo(movieToPlay);
+            
+            Desktop.getDesktop().open(new File(path));
+            }
+            
+            else if(movToPlay!=null) 
+            {
+            String path = movToPlay.getFileLink();
+                  
+            java.util.Date date=new java.util.Date();
+            pmcmodel.setDate(movToPlay, date);
+            setLastSeenInfo(movToPlay);
             
             Desktop.getDesktop().open(new File(path));
             }
