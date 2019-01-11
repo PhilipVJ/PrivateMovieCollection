@@ -195,8 +195,8 @@ public class PMCViewController implements Initializable
     @FXML
     private void openMovie(ActionEvent event) 
     {
-         try
-        {
+         
+        
             
             Movie movToPlay = catmovies.getSelectionModel().getSelectedItem();
             Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
@@ -207,10 +207,24 @@ public class PMCViewController implements Initializable
             
             else if(chosenTableView==3 && movieToPlay!=null){
                 playChosenMovie(movieToPlay);
-        }
+            }
                     
-
+        
             
+
+    }
+       
+    
+
+    public void playChosenMovie(Movie movToPlay)
+    {
+        try
+        {
+            String path = movToPlay.getFileLink();
+            java.util.Date date=new java.util.Date();
+            pmcmodel.setDate(movToPlay, date);
+            setLastSeenInfo(movToPlay);
+            Desktop.getDesktop().open(new File(path));
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -223,17 +237,6 @@ public class PMCViewController implements Initializable
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("Could not locate mediafile");
         }
-        
-       
-    }
-
-    public void playChosenMovie(Movie movToPlay) throws IOException, SQLException
-    {
-        String path = movToPlay.getFileLink();
-        java.util.Date date=new java.util.Date();
-        pmcmodel.setDate(movToPlay, date);
-        setLastSeenInfo(movToPlay);
-        Desktop.getDesktop().open(new File(path));
     }
 
     @FXML
