@@ -28,9 +28,9 @@
             <Font name="Franklin Gothic Medium" size="48.0" />
          </font>
       </Label>
-      <Label fx:id="info" layoutX="172.0" layoutY="179.0" />
       <TextField fx:id="addCategoryName" layoutX="143.0" layoutY="137.0" prefHeight="31.0" prefWidth="262.0" />
-      <Button layoutX="274.0" layoutY="190.0" mnemonicParsing="false" onAction="#saveBtn" text="Save" />
-      <Button layoutX="341.0" layoutY="190.0" mnemonicParsing="false" onAction="#cancelBtn" text="Cancel" />
+      <Button layoutX="274.0" layoutY="221.0" mnemonicParsing="false" onAction="#saveBtn" text="Save" />
+      <Button layoutX="341.0" layoutY="221.0" mnemonicParsing="false" onAction="#cancelBtn" text="Cancel" />
+      <Label fx:id="info" layoutX="140.0" layoutY="185.0" />
    </children>
 </AnchorPane>
