@@ -70,6 +70,7 @@ public PMCModel() throws IOException, SQLException
     for(Movie x:allMovies){
         if(x.getId()==movieToRemove.getId()){
             allMovies.remove(x);
+            catMovies.remove(x);
             return;
         }
     }
@@ -236,9 +237,15 @@ public PMCModel() throws IOException, SQLException
     }
     
 
-    public List<Movie> IMDBintervalSearch (double low, double high) throws IOException, SQLException
+    public void IMDBintervalSearch (double low, double high) throws IOException, SQLException
     {
-        return pmcmanager.IMDBintervalSearch(low, high);
+        List<Movie> IMDBinterSearch = pmcmanager.IMDBintervalSearch(low, high);
+        allMovies.clear();
+        for(Movie x: IMDBinterSearch)
+        {
+            allMovies.add(x);
+        }
+        
     }
 
 

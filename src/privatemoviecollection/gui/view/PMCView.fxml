@@ -70,9 +70,9 @@
       <TextField fx:id="highRating" layoutX="854.0" layoutY="696.0" prefHeight="31.0" prefWidth="61.0" />
       <Button fx:id="searchRatings" layoutX="934.0" layoutY="696.0" mnemonicParsing="false" onAction="#searchIMDBRating" text="Search" />
       <Label layoutX="723.0" layoutY="668.0" text="Search by IMDB ratings here:" textFill="#fbda02" />
-      <Label fx:id="ratingWarning" layoutX="937.0" layoutY="237.0" />
       <TextField fx:id="searchField" layoutX="792.0" layoutY="104.0" prefHeight="31.0" prefWidth="151.0" promptText="Search by title" />
       <Button layoutX="700.0" layoutY="104.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
       <Button layoutX="424.0" layoutY="696.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
+      <Label fx:id="ratingWarning" layoutX="723.0" layoutY="738.0" textFill="#fbda02" />
    </children>
 </AnchorPane>

@@ -54,13 +54,13 @@ public class CategoryDbDAO
         DbConnection dc = new DbConnection();
         int CategoryId = catToRemove.getId();
         try(Connection con = dc.getConnection();  
-                PreparedStatement pstmt1 = con.prepareStatement("DELETE FROM CatMovie WHERE CategoryId= ?"); 
-                PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id= ?");)
+                PreparedStatement pstmt1 = con.prepareStatement("DELETE FROM CatMovie WHERE CategoryId= (?)"); 
+                PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Category WHERE id= (?)");)
         {
            
             pstmt1.setInt(1,CategoryId);
             pstmt1.execute();
-            pstmt2.setInt(1,CategoryId );
+            pstmt2.setInt(1,CategoryId);
             pstmt2.execute();
             System.out.println("Following Category has been deleted: "+CategoryId);
         } 

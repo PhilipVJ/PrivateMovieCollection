@@ -438,12 +438,17 @@ public class PMCViewController implements Initializable
             double lowS = Double.parseDouble(lowRating.getText());
             double highS = Double.parseDouble(highRating.getText());
             
-            
-            if(!lowRating.getSelectedText().isEmpty() && !highRating.getSelectedText().isEmpty())
+            if(lowS >= 0 && lowS <= 10 && highS >= 0 && highS <= 10 && lowS < highS)
             {
-                pmcmodel.IMDBintervalSearch(lowS, highS);
-                
+               pmcmodel.IMDBintervalSearch(lowS, highS);
+               ratingWarning.setText("");
             }
+            else
+            {
+                ratingWarning.setText("Please type a number from 0 - 10");
+            }
+                
+            
         } 
         catch (NumberFormatException ex) 
         {
