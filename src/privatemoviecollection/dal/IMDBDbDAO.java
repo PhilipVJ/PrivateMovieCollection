@@ -5,18 +5,14 @@
  */
 package privatemoviecollection.dal;
 
-import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +27,7 @@ import privatemoviecollection.be.IMDBMovie;
 public class IMDBDbDAO
 {
 /**
- * Returns the rating of the given IMDB url. Returns 1000 if no rating was found.
+ * Returns the rating of the given IMDB url. 
  * @param url
  * @return 
  */
@@ -57,7 +53,11 @@ for (String[] x: allRows)
 return "No rating found";
 
 }
-
+/**
+ * Returns all titles from the IMDB database file which contains the search word.
+ * @param movieSearch
+ * @return 
+ */
 public ArrayList<IMDBMovie> getTitles(String movieSearch)
 {
 TsvParserSettings settings = new TsvParserSettings(); 
@@ -83,7 +83,12 @@ while ((row = parser.parseNext()) != null) {
 
 return allSearches;
 }
-
+/**
+ * Downloads and updates the IMDB database files on the computer
+ * @return
+ * @throws MalformedURLException
+ * @throws IOException 
+ */
 public boolean updateIMDBDatabase() throws MalformedURLException, IOException
 {
         // Downloads and renames files
@@ -140,7 +145,9 @@ public boolean updateIMDBDatabase() throws MalformedURLException, IOException
         
         return true;
 }
-        
+/**
+ * Unzips the .gz files from the IMDB interface.
+ */        
 public void gunzipRating()
 {
  
@@ -188,6 +195,10 @@ public void gunzipTitles()
        ex.printStackTrace();   
     }
 }    
+/**
+ * Returns the last time the database files were updated.
+ * @return 
+ */
 public String getLastUpdatedInfo()
 {
     File data = new File("data/title.tsv");

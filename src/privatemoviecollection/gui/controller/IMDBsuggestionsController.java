@@ -33,7 +33,7 @@ public class IMDBsuggestionsController implements Initializable
     private PMCModel pmcmodel;
     @FXML
     private AnchorPane rootPane2;
-    private AddMovieController prevController;
+    private AddMovieController addMovieController;
     
     
 
@@ -63,7 +63,7 @@ public class IMDBsuggestionsController implements Initializable
     {
         IMDBMovie chosenMovie = suggestions.getSelectionModel().getSelectedItem();
         
-        prevController.setTitleAndRating(chosenMovie.getMovieTitle(), pmcmodel.getRating(chosenMovie.getMovieId()));
+        addMovieController.setTitleAndRating(chosenMovie.getMovieTitle(), pmcmodel.getRating(chosenMovie.getMovieId()));
         Stage stage = (Stage) rootPane2.getScene().getWindow();
         stage.close();
     }
@@ -75,9 +75,9 @@ public class IMDBsuggestionsController implements Initializable
     stage.close();
     }
     
-    public void setPrevController(AddMovieController controller)
+    public void setAddMovieController(AddMovieController controller)
     {
-        this.prevController=controller;
+        this.addMovieController=controller;
     }
     
 }

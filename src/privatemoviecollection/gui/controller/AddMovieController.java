@@ -86,7 +86,7 @@ private PMCModel pmcmodel;
             // If no IMDB has been typed it will be given a score of 1000
             boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, 1000);
             if(checker==false){
-                duplicateAlarm();
+                pmcmodel.duplicateAlarm();
                 return;
                 
             }
@@ -103,7 +103,7 @@ private PMCModel pmcmodel;
         
         boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
         if(checker==false){
-            duplicateAlarm();
+            pmcmodel.duplicateAlarm();
             return;
         }
         Stage stage = (Stage) rootPane2.getScene().getWindow();
@@ -120,7 +120,10 @@ private PMCModel pmcmodel;
 
     
     }
-
+/**
+ * This method verfies that textfields contains text.
+ * @return 
+ */
     public boolean verifyTextFields()
     {
         if (filelink.getText().length()==0)
@@ -165,12 +168,14 @@ private PMCModel pmcmodel;
     
     
     }
-
+    
     @FXML
     private void getRating(ActionEvent event)
     {
     if(imdbUrl.getText().length()!=0)
     {
+        // Formats the inserted URL
+        
         int size = imdbUrl.getText().length();
         
         char lastLetter = imdbUrl.getText().charAt(size-1);
@@ -208,7 +213,7 @@ private PMCModel pmcmodel;
                 IMDBsuggestionsController imdbController = loader.getController();
                 
                 imdbController.setModel(pmcmodel);
-                imdbController.setPrevController(this);
+                imdbController.setAddMovieController(this);
                 
                 imdbController.setSearch(title.getText());
                 
@@ -228,14 +233,7 @@ private PMCModel pmcmodel;
         IMDBrating.setText(rating);
     }
     
-    private void duplicateAlarm()
-    {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION);
-      alert.setTitle("Important information");
-      alert.setHeaderText("Duplicate movie");
-      alert.setContentText("You already have this movie in your database");
-      alert.showAndWait(); 
-    }
+
 
     @FXML
     private void updateIMDBdatabase(ActionEvent event)

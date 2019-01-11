@@ -60,7 +60,8 @@ public class PMCViewController implements Initializable
     private Label scoreLabel;
     @FXML
     private Slider ratingSlider;
-    
+    // This variable holds information about the last clicked tableview. 1 for the left, 2 for the middle
+    // and 3 for the one on the right.
     private int chosenTableView;
     @FXML
     private Button rateButton;
@@ -97,7 +98,7 @@ public class PMCViewController implements Initializable
         {
             pmcmodel = new PMCModel();
             
-            
+            // Initializes the tableviews
             
             allMovTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
             allMovIMDBRating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
@@ -106,15 +107,15 @@ public class PMCViewController implements Initializable
             allMovies.setItems(pmcmodel.getAllMovies());
             ratingSlider.setVisible(false);
             rateButton.setVisible(false);
-            checkForBadMovies();
-            
-            allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
-            
+          
+            allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));            
             categories.setItems(pmcmodel.getAllCategories());
             
             catTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
             catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
             catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
+            // Checks for old bad movies
+            checkForBadMovies();
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,12 +210,7 @@ public class PMCViewController implements Initializable
             pmcmodel.generateErrorAlarm("Could not locate mediafile");
         }
         
-        
-    
- 
-      
-        
-        
+       
     }
 
     @FXML
@@ -237,7 +233,9 @@ public class PMCViewController implements Initializable
         }
         
     }
-
+    /*
+    Sets the score on mouse clicks
+    */
     @FXML
     private void setScore(MouseEvent event)
     {
@@ -247,6 +245,10 @@ public class PMCViewController implements Initializable
 
         
     }
+    /**
+     * Sets the score on mouse drags
+     * @param event 
+     */
 
     @FXML
     private void ratingDrag(MouseEvent event) 
@@ -325,19 +327,7 @@ public class PMCViewController implements Initializable
 
     private void checkForBadMovies()
     {
-      ArrayList<Movie> badMovies = pmcmodel.checkForBadMovies();
-      if (badMovies.size()>0)
-      {
-          for(Movie x:badMovies)
-          {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Important information");
-                alert.setHeaderText("Bad movie detected");
-                alert.setContentText("You haven't seen "+x.getTitle()+
-                " in more than 2 years and you rated it 6 or less. You should consider deleting it");
-                alert.showAndWait();
-          }
-      }
+      pmcmodel.checkForBadMovies();
     }
 
     @FXML
@@ -394,7 +384,6 @@ public class PMCViewController implements Initializable
         if (chosenCategory!=null)
         {
             try {
-                System.out.println("Setting up category movies");
                 pmcmodel.setCatMovies(chosenCategory);
                 catmovies.setItems(pmcmodel.getCatMovies());
                 } catch (IOException ex){

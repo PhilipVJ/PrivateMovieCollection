@@ -115,10 +115,10 @@ public PMCModel() throws IOException, SQLException
     
     }
         /**
-     * Checks for movies with a personal score under 6.0 the user haven't seen in more than 2 years
+     * Checks for movies with a personal score under 6.0, which the user haven't seen in more than 2 years
      * @return 
      */
-    public ArrayList<Movie> checkForBadMovies()
+    public void checkForBadMovies()
     {
       
         Calendar calender = Calendar.getInstance();
@@ -130,7 +130,7 @@ public PMCModel() throws IOException, SQLException
         // Converts it to days
         double days = dateTime/(1000*60*60*24);
         
-        ArrayList<Movie> moviesToDelete = new ArrayList<Movie>();
+        ArrayList<Movie> badMovies = new ArrayList<Movie>();
         
         
         for(Movie x: allMovies)
@@ -151,13 +151,25 @@ public PMCModel() throws IOException, SQLException
                // Calculates if it has been 2 years since it was last seen.
                if(timeLapsed>730)
                {
-               moviesToDelete.add(x);
+               badMovies.add(x);
                }
            }
                     
         }
-
-        return moviesToDelete;
+        System.out.println("This many movies should be deleted: "+badMovies.size());
+      
+      if (badMovies.size()>0)
+      {
+          for(Movie x:badMovies)
+          {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Important information");
+                alert.setHeaderText("Bad movie detected");
+                alert.setContentText("You haven't seen "+x.getTitle()+
+                " in more than 2 years and you rated it 6 or less. You should consider deleting it");
+                alert.showAndWait();
+          }
+      }
     }
     
     public void addCategory(String name) throws IOException, SQLException
@@ -302,6 +314,15 @@ public PMCModel() throws IOException, SQLException
       alert.setTitle("Important information");
       alert.setHeaderText("An error has occured");
       alert.setContentText(""+message);
+      alert.showAndWait(); 
+    }
+
+      public void duplicateAlarm()
+    {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Important information");
+      alert.setHeaderText("Duplicate movie");
+      alert.setContentText("You already have this movie in your database");
       alert.showAndWait(); 
     }
     

@@ -31,14 +31,14 @@
       <Label layoutX="90.0" layoutY="238.0" text="IMDB Rating" textFill="#e4d900" />
       <TextField fx:id="title" layoutX="193.0" layoutY="103.0" />
       <TextField fx:id="filelink" editable="false" layoutX="193.0" layoutY="149.0" />
-      <TextField fx:id="IMDBrating" layoutX="193.0" layoutY="233.0" prefHeight="31.0" prefWidth="185.0" />
+      <TextField fx:id="IMDBrating" editable="false" layoutX="193.0" layoutY="233.0" prefHeight="31.0" prefWidth="185.0" />
       <Button layoutX="89.0" layoutY="348.0" mnemonicParsing="false" onAction="#saveMovie" text="Save" />
       <Button layoutX="255.0" layoutY="348.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
       <Label fx:id="info" layoutX="93.0" layoutY="311.0" prefHeight="21.0" prefWidth="293.0" textFill="#e4d900" />
       <Label layoutX="89.0" layoutY="190.0" text="IMDB Url" textFill="#e4d900" />
       <TextField fx:id="imdbUrl" layoutX="193.0" layoutY="185.0" />
       <Button layoutX="409.0" layoutY="185.0" mnemonicParsing="false" onAction="#getRating" text="Get rating from IMDB url" />
-      <Button layoutX="403.0" layoutY="103.0" mnemonicParsing="false" onAction="#findIMDBsuggestion" text="Find IMDB title suggestions" />
+      <Button layoutX="403.0" layoutY="103.0" mnemonicParsing="false" onAction="#findIMDBsuggestion" text="Get IMDB suggestions" />
       <Button fx:id="updateIMDBdatabaseId" layoutX="399.0" layoutY="348.0" mnemonicParsing="false" onAction="#updateIMDBdatabase" text="Update IMDB Database files" />
       <Label fx:id="updatedLabel" layoutX="404.0" layoutY="311.0" prefHeight="21.0" prefWidth="215.0" textFill="#e4d900" />
       <Label fx:id="lastUpdatedLabel" layoutX="246.0" layoutY="15.0" prefHeight="21.0" prefWidth="351.0" textFill="#e4d900" />

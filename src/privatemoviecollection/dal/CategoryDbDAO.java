@@ -7,11 +7,9 @@ package privatemoviecollection.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
