@@ -54,7 +54,6 @@ public Movie addMovie (String filelink, String titel, double IMDBrating) throws 
             if (generatedKeys.next())
             {
                 addedMovie= new Movie(generatedKeys.getInt(1), titel, filelink, IMDBrating);
-                System.out.println("Following movie has been added to the database: "+addedMovie.getTitle());
             }
     }
 
@@ -74,7 +73,6 @@ public void removeMovie(Movie movToRemove) throws IOException, SQLServerExceptio
                 pstmt1.execute();
                 pstmt2.setInt(1,movId); 
                 pstmt2.execute();
-                System.out.println("Following movie has been deleted: "+movToRemove.getTitle());
             }
 }
 
@@ -247,7 +245,6 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
             while (rs.next())
             {
                 String title = rs.getString("name");
-                System.out.println(""+title);
                 String path = rs.getString("filelink");
                 int id = rs.getInt("id");
                 BigDecimal IMDBratings = rs.getBigDecimal("IMDBrating");

@@ -43,7 +43,6 @@ public class CategoryDbDAO
             if (generatedKeys.next())
             {
                 addedCategory= new Category(name, generatedKeys.getInt(1));
-                System.out.println("Following Category has been added to the database: "+addedCategory.getName());
             }
         }
         return addedCategory;
@@ -62,7 +61,6 @@ public class CategoryDbDAO
             pstmt1.execute();
             pstmt2.setInt(1,CategoryId);
             pstmt2.execute();
-            System.out.println("Following Category has been deleted: "+CategoryId);
         } 
     }
 

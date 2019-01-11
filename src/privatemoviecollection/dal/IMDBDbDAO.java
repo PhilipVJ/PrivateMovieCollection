@@ -164,11 +164,7 @@ private void gunzipRating()
         while ((len = gzis.read(buffer)) > 0) {
             out.write(buffer, 0, len);
         }
-    
-    
     	out.close();
- 
-    	System.out.println("Done");
         
     } catch (IOException ex)
     {
@@ -194,10 +190,7 @@ private void gunzipTitles()
         while ((len = gzis.read(buffer)) > 0) {
             out.write(buffer, 0, len);
         }
-    
     	out.close();
- 
-    	System.out.println("Done");
     } catch (IOException ex)
     {
         Logger.getLogger(IMDBDbDAO.class.getName()).log(Level.SEVERE, null, ex);

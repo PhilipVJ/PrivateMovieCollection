@@ -84,17 +84,15 @@ public PMCModel() throws IOException, SQLException
       pmcmanager.rateMovie(movToRate, oneDigitRating);
        for(Movie x:allMovies){
         if(x.getId()==movToRate.getId()){
-            System.out.println("Sets rating in allMovies");
             x.setPersonalRating(oneDigitRating);
             break;
         }
        }
-           System.out.println("Next step");
+           
        if(catMovies!=null){
         for(Movie y:catMovies){
             if(y.getId()==movToRate.getId())
             {
-                System.out.println("Sets rating in catMovies");
                 y.setPersonalRating(oneDigitRating);
                 return;
             }
@@ -147,8 +145,7 @@ public PMCModel() throws IOException, SQLException
             double movieTime = x.getDate().getTime();
             double movieDays = movieTime/(1000*60*60*24);
             double timeLapsed = days-movieDays;
-              System.out.println(""+timeLapsed);
-           
+                         
                // Calculates if it has been 2 years since it was last seen.
                if(timeLapsed>730)
                {
@@ -157,8 +154,7 @@ public PMCModel() throws IOException, SQLException
            }
                     
         }
-        System.out.println("This many movies should be deleted: "+badMovies.size());
-      
+              
       if (badMovies.size()>0)
       {
           for(Movie x:badMovies)
@@ -246,7 +242,6 @@ public PMCModel() throws IOException, SQLException
           
             if(x.getId()==movToDelete.getId())
             {
-                System.out.println("Deletes from category");
                 catMovies.remove(x); 
                 break;
           
@@ -254,14 +249,11 @@ public PMCModel() throws IOException, SQLException
      
         }
         
-        System.out.println("Deletes from category object");
-        
+              
         for (Category y:allCategories){
             if(y.getId()==selectedCategory.getId())
             {
-                System.out.println("Found object");
                 y.removeMovieWithID(movToDelete.getId());
-                System.out.println("Deletes from object");
                 return;
             }
         }
@@ -338,8 +330,7 @@ public PMCModel() throws IOException, SQLException
                      }
              }
          }
-          System.out.println("Size: "+catMovies.size());
-        
+                  
       }
       
   
