@@ -75,5 +75,3 @@ nbdist/
 *.info
 data/
 docs/
-*.png
-*.jpg
