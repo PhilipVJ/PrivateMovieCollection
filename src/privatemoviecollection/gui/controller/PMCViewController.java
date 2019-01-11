@@ -25,7 +25,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -196,33 +195,22 @@ public class PMCViewController implements Initializable
     @FXML
     private void openMovie(ActionEvent event) 
     {
-        System.out.println("Opens movie");
-        try
+         try
         {
-            Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
+            
             Movie movToPlay = catmovies.getSelectionModel().getSelectedItem();
-            
-            
-            if(movieToPlay!=null){
-            String path = movieToPlay.getFileLink();
-                  
-            java.util.Date date=new java.util.Date();
-            pmcmodel.setDate(movieToPlay, date);
-            setLastSeenInfo(movieToPlay);
-            
-            Desktop.getDesktop().open(new File(path));
-            }
-            
-            else if(movToPlay!=null) 
+            Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
+            if (chosenTableView==2 && movToPlay!=null)
             {
-            String path = movToPlay.getFileLink();
-                  
-            java.util.Date date=new java.util.Date();
-            pmcmodel.setDate(movToPlay, date);
-            setLastSeenInfo(movToPlay);
-            
-            Desktop.getDesktop().open(new File(path));
+                playChosenMovie(movToPlay);
             }
+            
+            else if(chosenTableView==3 && movieToPlay!=null){
+                playChosenMovie(movieToPlay);
+        }
+                    
+
+            
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -237,6 +225,15 @@ public class PMCViewController implements Initializable
         }
         
        
+    }
+
+    public void playChosenMovie(Movie movToPlay) throws IOException, SQLException
+    {
+        String path = movToPlay.getFileLink();
+        java.util.Date date=new java.util.Date();
+        pmcmodel.setDate(movToPlay, date);
+        setLastSeenInfo(movToPlay);
+        Desktop.getDesktop().open(new File(path));
     }
 
     @FXML
