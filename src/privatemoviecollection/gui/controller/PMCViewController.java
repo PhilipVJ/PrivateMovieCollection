@@ -9,7 +9,6 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -119,13 +118,13 @@ public class PMCViewController implements Initializable
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("Database.info could not be located");
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
             
             
         } catch (SQLException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("A problem occurred with the SQL database");
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
      
      
@@ -151,7 +150,7 @@ public class PMCViewController implements Initializable
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("The AddMovie.fxml file could not be located");
+            pmcmodel.generateErrorAlarm("The AddMovie.fxml file could not be located");
         }
  
     }
@@ -170,10 +169,10 @@ public class PMCViewController implements Initializable
                 categories.setItems(pmcmodel.getAllCategories());
             } catch (IOException ex) {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Database.info could not be located");
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
             } catch (SQLException ex) {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("A problem occurred with the SQL database");
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
             }
            
             }
@@ -200,14 +199,14 @@ public class PMCViewController implements Initializable
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("Database.info could not be located");
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
         } catch (SQLException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("A problem occurred with the SQL database");
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         } catch (IllegalArgumentException ex){
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("Could not locate mediafile");
+            pmcmodel.generateErrorAlarm("Could not locate mediafile");
         }
         
         
@@ -230,11 +229,11 @@ public class PMCViewController implements Initializable
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("Database.info could not be located");
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
         } catch (SQLException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("A problem occurred with the SQL database");
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
         
     }
@@ -300,10 +299,10 @@ public class PMCViewController implements Initializable
                 return;
              } catch (IOException ex){
               Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-             generateErrorAlarm("Database.info could not be located");
+             pmcmodel.generateErrorAlarm("Database.info could not be located");
              } catch (SQLException ex){
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            generateErrorAlarm("Could not get access to the SQL database");
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
              }
         
         if(chosenTableView==2 && catmovies.getSelectionModel().getSelectedItem()!=null){
@@ -313,10 +312,10 @@ public class PMCViewController implements Initializable
                     catmovies.refresh();
                 } catch (IOException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Database.info could not be located");
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
                 } catch (SQLException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Could not get access to the SQL database");
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
                 }
               }
         }
@@ -359,7 +358,7 @@ public class PMCViewController implements Initializable
             } catch (IOException ex)
             {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("The AddCategory.fxml file could not be located");
+                pmcmodel.generateErrorAlarm("The AddCategory.fxml file could not be located");
             }
         }
     }
@@ -373,10 +372,10 @@ public class PMCViewController implements Initializable
                pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
                 } catch (IOException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Database.info could not be located");
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
                 } catch (SQLException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Could not get access to the SQL database");
+                pmcmodel.generateErrorAlarm("Could not get access to the SQL database");
            
                 }
        }
@@ -400,10 +399,10 @@ public class PMCViewController implements Initializable
                 catmovies.setItems(pmcmodel.getCatMovies());
                 } catch (IOException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Database.info could not be located");
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
                 } catch (SQLException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Could not get access to the SQL database");
+                pmcmodel.generateErrorAlarm("A problem occurred within the SQL database");
                 }
             
         }
@@ -432,16 +431,16 @@ public class PMCViewController implements Initializable
             pmcmodel.addMovieToCat(chosenCategory, chosenMovie);
                 } catch (IOException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Database.info could not be located");
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
                 } catch (SQLException ex){
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                generateErrorAlarm("Could not get access to the SQL database");
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
                 }
         }
     }
 
     @FXML
-    private void searchIMDBRating(ActionEvent event) throws IOException, SQLException
+    private void searchIMDBRating(ActionEvent event) 
     {
         
         
@@ -457,10 +456,16 @@ public class PMCViewController implements Initializable
                 
             }
         } 
-        catch (NumberFormatException nfe) 
+        catch (NumberFormatException ex) 
         {
             ratingWarning.setText("Try 3.0 - 6.0");
-        }
+                } catch (IOException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
+                } catch (SQLException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+                }
     }
     
     private void setLastSeenInfo(Movie chosenMov)
@@ -479,12 +484,21 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void searchButton(ActionEvent event) throws IOException, SQLException
+    private void searchButton(ActionEvent event)
     {
         String searchWord = searchField.getText();
         if (searchWord.length()!=0)
         {
-            pmcmodel.getMoviesWithSearchWord(searchWord);
+            try
+            {
+                pmcmodel.getMoviesWithSearchWord(searchWord);
+                } catch (IOException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
+                } catch (SQLException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+                }
             
         }
         
@@ -492,20 +506,22 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void clearSearches(ActionEvent event) throws IOException, SQLException
+    private void clearSearches(ActionEvent event)
     {
-        pmcmodel.clearSearches();
-        searchField.clear();
-        lowRating.clear();
-        highRating.clear();
+        try
+        {
+            pmcmodel.clearSearches();
+            searchField.clear();
+            lowRating.clear();
+            highRating.clear();
+                } catch (IOException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
+                } catch (SQLException ex){
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+                }
     }
     
-    private void generateErrorAlarm(String message)
-    {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION);
-      alert.setTitle("Important information");
-      alert.setHeaderText("An error has occured");
-      alert.setContentText(""+message);
-      alert.showAndWait(); 
-    }
+
 }

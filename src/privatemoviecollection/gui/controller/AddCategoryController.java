@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,19 +51,31 @@ public class AddCategoryController implements Initializable {
     }
     
     @FXML
-    private void saveBtn(ActionEvent event) throws IOException, SQLException 
+    private void saveBtn(ActionEvent event)
     {
-        if (addCategoryName.getText().length()==0)
+        try
         {
-            info.setText("Please write a Category name");
-            return;
+            if (addCategoryName.getText().length()==0)
+            {
+                info.setText("Please write a Category name");
+                return;
+            }
+            
+            String categoryName = addCategoryName.getText();
+            
+            pmcmodel.addCategory(categoryName);
+            Stage stage = (Stage) rootPane3.getScene().getWindow();
+            stage.close();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(AddCategoryController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(AddCategoryController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
         
-        String categoryName = addCategoryName.getText();
-        
-        pmcmodel.addCategory(categoryName);
-        Stage stage = (Stage) rootPane3.getScene().getWindow();
-        stage.close();
     }
 
     @FXML

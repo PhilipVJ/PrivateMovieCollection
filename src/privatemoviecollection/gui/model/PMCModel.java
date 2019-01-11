@@ -296,6 +296,15 @@ public PMCModel() throws IOException, SQLException
        }
     }
     
+     public void generateErrorAlarm(String message)
+    {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Important information");
+      alert.setHeaderText("An error has occured");
+      alert.setContentText(""+message);
+      alert.showAndWait(); 
+    }
+    
 
     
 
