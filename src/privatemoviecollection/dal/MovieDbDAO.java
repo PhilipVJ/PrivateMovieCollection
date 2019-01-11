@@ -68,11 +68,15 @@ public void removeMovie(Movie movToRemove) throws IOException, SQLServerExceptio
             int movId = movToRemove.getId();
             DbConnection dc = new DbConnection();
             
-            try(Connection con = dc.getConnection() ; PreparedStatement pstmt = con.prepareStatement("DELETE FROM Movie WHERE id=(?)");)
+            try(Connection con = dc.getConnection(); 
+                    PreparedStatement pstmt1 = con.prepareStatement("DELETE FROM CatMovie WHERE MovieId= (?)");
+                    PreparedStatement pstmt2 = con.prepareStatement("DELETE FROM Movie WHERE id=(?)");)
             { 
-            pstmt.setInt(1,movId); 
-            pstmt.execute();
-            System.out.println("Following movie has been deleted: "+movToRemove.getTitle());
+                pstmt1.setInt(1, movId);
+                pstmt1.execute();
+                pstmt2.setInt(1,movId); 
+                pstmt2.execute();
+                System.out.println("Following movie has been deleted: "+movToRemove.getTitle());
             }
 }
 
