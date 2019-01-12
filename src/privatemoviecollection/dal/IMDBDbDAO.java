@@ -30,11 +30,11 @@ import privatemoviecollection.be.IMDBMovie;
 public class IMDBDbDAO
 {
 /**
- * Returns the rating of the given IMDB url. 
+ * Returns the rating of the given IMDB id. 
  * @param url
  * @return 
  */
-public String getRating (String url)
+public String getRating (String id)
 {
 TsvParserSettings settings = new TsvParserSettings(); 
 settings.getFormat().setLineSeparator("\n");
@@ -47,7 +47,7 @@ File title = new File(source);
 List<String[]> allRows = parser.parseAll(title);
 for (String[] x: allRows)
 {
-    if(url.equals(x[0]))
+    if(id.equals(x[0]))
     {
         return x[1];
     }
@@ -92,7 +92,7 @@ return allSearches;
  * @throws MalformedURLException
  * @throws IOException 
  */
-public boolean updateIMDBDatabase() throws MalformedURLException, IOException
+public boolean updateIMDBDatabase() throws IOException
 {
         // Downloads and renames files
     
@@ -216,6 +216,68 @@ public String getLastUpdatedInfo()
     
     return lastMod;
 }
+/**
+ * Gets 10 random movies, tv-shows etc. with a rating above 8.5 and more than 100.000 votes
+ * @return 
+ */
+public List<IMDBMovie> getHighRatedMovies()
+{
+List<IMDBMovie> highRatedMovies = new ArrayList<>();
+TsvParserSettings settings = new TsvParserSettings(); 
+settings.getFormat().setLineSeparator("\n");
 
+TsvParser parser = new TsvParser(settings);
+String source = "data/rating.tsv";
+File title = new File(source);
+
+// parses all rows in one go.
+List<String[]> allHighRatedMovies = parser.parseAll(title);
+// removes the first String array since it only contains column titles
+allHighRatedMovies.remove(0);
+for (String[] x: allHighRatedMovies)
+{
+ 
+ double rating = Double.parseDouble(x[1]);
+ double numberOfVotes = Double.parseDouble(x[2]);
+    if((rating>8.5) && numberOfVotes>100000)
+    {
+        IMDBMovie toAdd = new IMDBMovie(x[0],"");
+        toAdd.setRating(x[1]);
+        highRatedMovies.add(toAdd);
+        
+    }
+}
+// Removes all objects except 10 random ones
+while(highRatedMovies.size()>10){
+    int randomNumber =(int) (Math.random() * highRatedMovies.size());
+    highRatedMovies.remove(randomNumber);
+}
+// Sets the title for all the IMDBMovie objects
+for(IMDBMovie x:highRatedMovies){
+    x.setMovieTitle(getTitleById(x.getMovieId()));
+}
+return highRatedMovies;
+ 
+}
+
+
+public String getTitleById(String id)
+{
+TsvParserSettings settings = new TsvParserSettings(); 
+settings.getFormat().setLineSeparator("\n");
+
+TsvParser parser = new TsvParser(settings);
+String source = "data/title.tsv";
+File title = new File(source);
+parser.beginParsing(title);
+String[] row;
+while ((row = parser.parseNext()) != null) {
+    if (row[0].equals(id)){
+       return row[3];
+   }     
+}
+
+return "No title found";
+}
 }
 

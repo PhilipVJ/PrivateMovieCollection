@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javafx.collections.ObservableList;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
@@ -119,6 +120,11 @@ public PMCManager()
     public List<Movie> getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
     {
      return movieDbDAO.getMoviesWithSearchWord(searchWord);
+    }
+
+    public List<IMDBMovie> getHighRatedMovies()
+    {
+    return imdbDbDAO.getHighRatedMovies();
     }
 
 }

@@ -221,6 +221,7 @@ private PMCModel pmcmodel;
                 stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("The IMDBsuggestions.fxml file could not be started");
                 
             }
         }

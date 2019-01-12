@@ -43,6 +43,7 @@ public PMCModel() throws IOException, SQLException
     
     ArrayList<Movie> Test= new ArrayList<>();
     catMovies = FXCollections.observableList(Test);
+   
   
   
    
@@ -332,6 +333,11 @@ public PMCModel() throws IOException, SQLException
          }
                   
       }
+
+    public ObservableList<IMDBMovie> getHighRatedMovies()
+    {
+       return FXCollections.observableList(pmcmanager.getHighRatedMovies());
+    }
       
   
     

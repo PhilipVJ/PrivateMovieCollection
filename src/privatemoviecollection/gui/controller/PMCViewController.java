@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
@@ -84,7 +85,7 @@ public class PMCViewController implements Initializable
     @FXML
     private TextField searchField;
     @FXML
-    private TableColumn<Category, Boolean> catCheck;
+    private TableColumn<Category, CheckBox> catCheck;
 
     /**
      * Initializes the controller class.
@@ -108,10 +109,14 @@ public class PMCViewController implements Initializable
             ratingSlider.setVisible(false);
             rateButton.setVisible(false);
           
-            allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));      
+            allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
+            
+            
             
             catCheck.setCellValueFactory( new PropertyValueFactory<>( "select" ));
             catCheck.setEditable(true);
+            
+            
             
       
             categories.setItems(pmcmodel.getAllCategories());
@@ -160,7 +165,7 @@ public class PMCViewController implements Initializable
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            pmcmodel.generateErrorAlarm("The AddMovie.fxml file could not be located");
+            pmcmodel.generateErrorAlarm("The AddMovie.fxml file could not be started");
         }
  
     }
@@ -374,7 +379,7 @@ public class PMCViewController implements Initializable
             } catch (IOException ex)
             {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("The AddCategory.fxml file could not be located");
+                pmcmodel.generateErrorAlarm("The AddCategory.fxml file could not be started");
             }
         }
     }
@@ -406,6 +411,7 @@ public class PMCViewController implements Initializable
         chosenTableView=1;
         makeRatingInvisible();
         makeLastSeenInfoInvisible();
+        
         
         
 
@@ -533,10 +539,35 @@ public class PMCViewController implements Initializable
                 }
     }
 
+
+
+    @FXML
+    private void getMovieRecommendations(ActionEvent event)
+    {
+        
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Recommendations.fxml"));
+            Parent root = (Parent)loader.load();
+            RecommendationsController recController = loader.getController();
+        
+            recController.setModel(pmcmodel);
+            recController.setTableView();
+        
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("The Recommendations.fxml file could not be started");
+        }
+    }
+
     @FXML
     private void refreshCatMovies(ActionEvent event)
     {
-        try
+       try
         {
             pmcmodel.setCategoryMovies();
                 } catch (IOException ex){
@@ -548,6 +579,8 @@ public class PMCViewController implements Initializable
                 }
         
     }
+
+
 
 
     

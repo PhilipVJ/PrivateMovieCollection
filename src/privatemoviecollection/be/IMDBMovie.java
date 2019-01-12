@@ -12,7 +12,8 @@ package privatemoviecollection.be;
 public class IMDBMovie
 {
 private final String movieId;
-private final String movieTitle;
+private String movieTitle;
+private double rating;
 
 public IMDBMovie(String id, String title)
 {
@@ -34,4 +35,24 @@ public String toString()
 {
     return movieTitle;
 }
+
+public double getRating()
+{
+    return rating;
+}
+
+public void setRating(String rating)
+{
+    this.rating = Double.parseDouble(rating);
+}
+
+public void setMovieTitle(String movieTitle)
+{
+    this.movieTitle = movieTitle;
+}
+
+
+
+
+
 }

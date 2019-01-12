@@ -75,6 +75,7 @@
       <Button layoutX="700.0" layoutY="104.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
       <Button layoutX="424.0" layoutY="696.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
       <Label fx:id="ratingWarning" layoutX="723.0" layoutY="738.0" textFill="#fbda02" />
-      <Button layoutX="69.0" layoutY="93.0" mnemonicParsing="false" onAction="#refreshCatMovies" text="Refresh" />
+      <Button layoutX="83.0" layoutY="690.0" mnemonicParsing="false" onAction="#getMovieRecommendations" text="Get movie recommendations" />
+      <Button layoutX="69.0" layoutY="93.0" mnemonicParsing="false" onAction="#refreshCatMovies" text="Refresh " />
    </children>
 </AnchorPane>
