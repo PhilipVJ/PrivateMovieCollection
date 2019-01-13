@@ -15,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="677.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemoviecollection.gui.controller.PMCViewController">
    <children>
-      <ImageView fitHeight="777.0" fitWidth="1109.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="777.0" fitWidth="1118.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/background.png" />
          </image>
@@ -28,33 +28,33 @@
             <Font name="System Bold" size="63.0" />
          </font>
       </Text>
-      <TableView fx:id="categories" layoutX="69.0" layoutY="142.0" onMouseClicked="#categoriesViewChosen" prefHeight="385.0" prefWidth="192.0">
+      <TableView fx:id="categories" layoutX="10.0" layoutY="142.0" onMouseClicked="#categoriesViewChosen" prefHeight="385.0" prefWidth="192.0">
         <columns>
           <TableColumn fx:id="allCategories" prefWidth="97.0" text="Categories" />
             <TableColumn fx:id="catCheck" prefWidth="146.0" text="View" />
         </columns>
       </TableView>
-      <TableView fx:id="catmovies" layoutX="321.0" layoutY="142.0" onMouseClicked="#categoryMovieViewChosen" prefHeight="385.0" prefWidth="319.0">
+      <TableView fx:id="catmovies" layoutX="220.0" layoutY="142.0" onMouseClicked="#categoryMovieViewChosen" prefHeight="385.0" prefWidth="319.0">
         <columns>
           <TableColumn fx:id="catTitle" prefWidth="140.0" text="Title" />
           <TableColumn fx:id="catIMDBrating" prefWidth="107.0" text="IMDB Rating" />
             <TableColumn fx:id="catPersonalrating" prefWidth="71.0" text="Rating" />
         </columns>
       </TableView>
-      <TableView fx:id="allMovies" layoutX="700.0" layoutY="142.0" onMouseClicked="#allMoviesChosen" prefHeight="385.0" prefWidth="302.0">
+      <TableView fx:id="allMovies" layoutX="717.0" layoutY="142.0" onMouseClicked="#allMoviesChosen" prefHeight="385.0" prefWidth="302.0">
         <columns>
           <TableColumn fx:id="allMovTitle" prefWidth="129.0" text="Title" />
           <TableColumn fx:id="allMovIMDBRating" prefWidth="97.0" text="IMDBRating" />
             <TableColumn fx:id="allMovRating" prefWidth="75.0" text="Rating" />
         </columns>
       </TableView>
-      <Button layoutX="89.0" layoutY="536.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="31.0" prefWidth="151.0" text="Add category" />
-      <Button layoutX="89.0" layoutY="579.0" mnemonicParsing="false" onAction="#removeCategory" prefHeight="31.0" prefWidth="151.0" text="Remove category" />
-      <Button layoutX="395.0" layoutY="536.0" mnemonicParsing="false" onAction="#addMovieToCategory" text="Add movie to category" />
-      <Button layoutX="700.0" layoutY="536.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="31.0" prefWidth="108.0" text="Add Movie" />
-      <Button layoutX="700.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" />
-      <Button layoutX="395.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteFromCategory" prefHeight="31.0" prefWidth="172.0" text="Delete from category" />
-      <Button layoutX="700.0" layoutY="615.0" mnemonicParsing="false" onAction="#openMovie" prefHeight="31.0" prefWidth="108.0" text="Play Movie" />
+      <Button layoutX="13.0" layoutY="536.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="31.0" prefWidth="151.0" text="Add category" />
+      <Button layoutX="13.0" layoutY="580.0" mnemonicParsing="false" onAction="#removeCategory" prefHeight="31.0" prefWidth="151.0" text="Remove category" />
+      <Button layoutX="309.0" layoutY="536.0" mnemonicParsing="false" onAction="#addMovieToCategory" text="Add movie to category" />
+      <Button layoutX="711.0" layoutY="536.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="31.0" prefWidth="108.0" text="Add Movie" />
+      <Button layoutX="711.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" />
+      <Button layoutX="309.0" layoutY="576.0" mnemonicParsing="false" onAction="#deleteFromCategory" prefHeight="31.0" prefWidth="172.0" text="Delete from category" />
+      <Button layoutX="711.0" layoutY="615.0" mnemonicParsing="false" onAction="#openMovie" prefHeight="31.0" prefWidth="108.0" text="Play Movie" />
       <Slider fx:id="ratingSlider" layoutX="867.0" layoutY="586.0" max="10.0" onMouseClicked="#setScore" onMouseDragged="#ratingDrag" />
       <Label fx:id="scoreLabel" layoutX="897.0" layoutY="536.0" prefHeight="21.0" prefWidth="75.0" textFill="#fbda02">
          <font>
@@ -71,11 +71,12 @@
       <TextField fx:id="highRating" layoutX="854.0" layoutY="696.0" prefHeight="31.0" prefWidth="61.0" />
       <Button fx:id="searchRatings" layoutX="934.0" layoutY="696.0" mnemonicParsing="false" onAction="#searchIMDBRating" text="Search" />
       <Label layoutX="723.0" layoutY="668.0" text="Search by IMDB ratings here:" textFill="#fbda02" />
-      <TextField fx:id="searchField" layoutX="792.0" layoutY="104.0" prefHeight="31.0" prefWidth="151.0" promptText="Search by title" />
-      <Button layoutX="700.0" layoutY="104.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
-      <Button layoutX="424.0" layoutY="696.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
+      <TextField fx:id="searchField" layoutX="840.0" layoutY="104.0" prefHeight="31.0" prefWidth="151.0" promptText="Search by title" />
+      <Button layoutX="717.0" layoutY="104.0" mnemonicParsing="false" onAction="#searchButton" text="Search" />
+      <Button layoutX="583.0" layoutY="104.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
       <Label fx:id="ratingWarning" layoutX="723.0" layoutY="738.0" textFill="#fbda02" />
-      <Button layoutX="83.0" layoutY="690.0" mnemonicParsing="false" onAction="#getMovieRecommendations" text="Get movie recommendations" />
-      <Button layoutX="69.0" layoutY="93.0" mnemonicParsing="false" onAction="#refreshCatMovies" text="Refresh " />
+      <Button layoutX="14.0" layoutY="681.0" mnemonicParsing="false" onAction="#getMovieRecommendations" text="Get movie recommendations" />
+      <Button layoutX="14.0" layoutY="104.0" mnemonicParsing="false" onAction="#refreshCatMovies" text="Refresh " />
+      <ImageView fx:id="posterView" fitHeight="173.0" fitWidth="140.0" layoutX="558.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

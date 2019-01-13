@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Category;
@@ -86,6 +87,8 @@ public class PMCViewController implements Initializable
     private TextField searchField;
     @FXML
     private TableColumn<Category, CheckBox> catCheck;
+    @FXML
+    private ImageView posterView;
 
     /**
      * Initializes the controller class.
@@ -297,9 +300,15 @@ public class PMCViewController implements Initializable
     {
         chosenTableView=3;
         if(allMovies.getSelectionModel().getSelectedItem()!=null){
-            makeRatingVisible();
-            Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
-            setLastSeenInfo(chosenMov);
+            try {
+                makeRatingVisible();
+                Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
+                setLastSeenInfo(chosenMov);
+                posterView.setImage(pmcmodel.getMoviePoster(chosenMov.getTitle()));
+            } catch (IOException ex) {
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                // Could not load poster - do nothing
+            }
             
 
         }
@@ -427,8 +436,14 @@ public class PMCViewController implements Initializable
         Movie chosenMovie= catmovies.getSelectionModel().getSelectedItem();
         if (chosenMovie!=null)
         {
-            setLastSeenInfo(chosenMovie);
-            makeRatingVisible();
+            try {
+                setLastSeenInfo(chosenMovie);
+                makeRatingVisible();
+                posterView.setImage(pmcmodel.getMoviePoster(chosenMovie.getTitle()));
+            } catch (IOException ex) {
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                // Could not load poster - do nothing
+            }
         }
     }
 
