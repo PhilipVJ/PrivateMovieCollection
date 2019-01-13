@@ -300,6 +300,7 @@ public class PMCViewController implements Initializable
             makeRatingVisible();
             Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
             setLastSeenInfo(chosenMov);
+            
 
         }
     }

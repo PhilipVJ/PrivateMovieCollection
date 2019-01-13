@@ -5,8 +5,13 @@
  */
 package privatemoviecollection.gui.controller;
 
+
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.gui.model.PMCModel;
@@ -37,6 +45,10 @@ public class RecommendationsController implements Initializable
     private TableView<IMDBMovie> recommendations;
     @FXML
     private Label nowShowing;
+    @FXML
+    private ImageView imageView;
+    @FXML
+    private ImageView backGround;
 
     /**
      * Initializes the controller class.
@@ -76,6 +88,26 @@ public class RecommendationsController implements Initializable
         recommendations.setItems(top250);
         nowShowing.setText("Here is the IMDB Top 250 list");
         nowShowing.setAlignment(Pos.CENTER);
+    }
+
+    @FXML
+    private void findPoster(MouseEvent event)
+    {
+        if(recommendations.getSelectionModel().getSelectedItem()!=null){
+            try {
+                Image toShow = pmcmodel.getMoviePoster(recommendations.getSelectionModel().getSelectedItem().getMovieTitle());
+                System.out.println(""+ toShow.getHeight());
+                System.out.println(""+toShow.getWidth());
+                imageView.setImage(toShow);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(RecommendationsController.class.getName()).log(Level.SEVERE, null, ex);
+                // Could not get poster - nothing should happen
+
+            }
+
+        }
+
     }
     
 }

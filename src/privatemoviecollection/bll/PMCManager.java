@@ -5,12 +5,15 @@
  */
 package privatemoviecollection.bll;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
@@ -130,5 +133,10 @@ public PMCManager()
     public List<IMDBMovie> getTop250Movies()
     {
     return imdbDbDAO.getIMDBTop250();
+    }
+
+    public Image getMoviePoster(String movieId) throws IOException
+    {
+     return imdbDbDAO.getMoviePoster(movieId);
     }
 }

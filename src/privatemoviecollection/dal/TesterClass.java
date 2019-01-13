@@ -5,6 +5,7 @@
  */
 package privatemoviecollection.dal;
 
+import java.io.IOException;
 import java.util.List;
 import privatemoviecollection.be.IMDBMovie;
 
@@ -14,13 +15,11 @@ import privatemoviecollection.be.IMDBMovie;
  */
 public class TesterClass
 {
-public static void main(String[] args) {
+public static void main(String[] args) throws IOException {
     IMDBDbDAO tester = new IMDBDbDAO();
-    List<IMDBMovie> test = tester.getIMDBTop250();
-    System.out.println(""+test.size());
-    for(IMDBMovie x:test){
-        System.out.println(""+x.getMovieId()+"    "+x.getRating()+"    "+x.getMovieTitle());
+    tester.getMoviePoster("The Dark Knight");
+    
     }
    
-}
+
 }

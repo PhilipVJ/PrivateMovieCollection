@@ -5,6 +5,7 @@
  */
 package privatemoviecollection.gui.model;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
@@ -342,6 +345,11 @@ public PMCModel() throws IOException, SQLException
     public ObservableList<IMDBMovie> getTop250Movies()
     {
        return FXCollections.observableList(pmcmanager.getTop250Movies());
+    }
+
+    public Image getMoviePoster(String movieId) throws IOException
+    {
+      return pmcmanager.getMoviePoster(movieId);
     }
       
   
