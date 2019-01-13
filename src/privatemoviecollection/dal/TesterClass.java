@@ -16,14 +16,11 @@ public class TesterClass
 {
 public static void main(String[] args) {
     IMDBDbDAO tester = new IMDBDbDAO();
-    
-
-    List<IMDBMovie> highR = tester.getHighRatedMovies();
-
-    for(IMDBMovie x:highR){
-        System.out.println(""+x.getMovieId()+"   "+x.getRating()+"    "+x.getMovieTitle());
+    List<IMDBMovie> test = tester.getIMDBTop250();
+    System.out.println(""+test.size());
+    for(IMDBMovie x:test){
+        System.out.println(""+x.getMovieId()+"    "+x.getRating()+"    "+x.getMovieTitle());
     }
-    
    
 }
 }

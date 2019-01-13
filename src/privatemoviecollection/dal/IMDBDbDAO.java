@@ -15,6 +15,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -222,62 +225,138 @@ public String getLastUpdatedInfo()
  */
 public List<IMDBMovie> getHighRatedMovies()
 {
-List<IMDBMovie> highRatedMovies = new ArrayList<>();
-TsvParserSettings settings = new TsvParserSettings(); 
-settings.getFormat().setLineSeparator("\n");
+    List<IMDBMovie> highRatedMovies = new ArrayList<>();
+    TsvParserSettings settings = new TsvParserSettings(); 
+    settings.getFormat().setLineSeparator("\n");
 
-TsvParser parser = new TsvParser(settings);
-String source = "data/rating.tsv";
-File title = new File(source);
+    TsvParser parser = new TsvParser(settings);
+    String source = "data/rating.tsv";
+    File title = new File(source);
 
-// parses all rows in one go.
-List<String[]> allHighRatedMovies = parser.parseAll(title);
-// removes the first String array since it only contains column titles
-allHighRatedMovies.remove(0);
-for (String[] x: allHighRatedMovies)
-{
- 
- double rating = Double.parseDouble(x[1]);
- double numberOfVotes = Double.parseDouble(x[2]);
-    if((rating>8.5) && numberOfVotes>100000)
+    // parses all rows in one go.
+    List<String[]> allHighRatedMovies = parser.parseAll(title);
+    // removes the first String array since it only contains column titles
+    allHighRatedMovies.remove(0);
+    for (String[] x: allHighRatedMovies)
     {
-        IMDBMovie toAdd = new IMDBMovie(x[0],"");
-        toAdd.setRating(x[1]);
-        highRatedMovies.add(toAdd);
         
+    double rating = Double.parseDouble(x[1]);
+    double numberOfVotes = Double.parseDouble(x[2]);
+    String category = x[3];
+        if((rating>8.5) && numberOfVotes>100000)
+        {
+            IMDBMovie toAdd = new IMDBMovie(x[0],"");
+            toAdd.setRating(x[1]);
+            highRatedMovies.add(toAdd);
+        
+        }
     }
-}
-// Removes all objects except 10 random ones
-while(highRatedMovies.size()>10){
-    int randomNumber =(int) (Math.random() * highRatedMovies.size());
-    highRatedMovies.remove(randomNumber);
-}
-// Sets the title for all the IMDBMovie objects
-for(IMDBMovie x:highRatedMovies){
-    x.setMovieTitle(getTitleById(x.getMovieId()));
-}
-return highRatedMovies;
+    // Removes all objects except 10 random ones
+    while(highRatedMovies.size()>10){
+        int randomNumber =(int) (Math.random() * highRatedMovies.size());
+        highRatedMovies.remove(randomNumber);
+        }
+    // Sets the title for all the IMDBMovie objects
+    for(IMDBMovie x:highRatedMovies){
+        x.setMovieTitle(getTitleById(x.getMovieId()));
+    }
+    return highRatedMovies;
  
-}
+    }
 
 
 public String getTitleById(String id)
 {
-TsvParserSettings settings = new TsvParserSettings(); 
-settings.getFormat().setLineSeparator("\n");
+    TsvParserSettings settings = new TsvParserSettings(); 
+    settings.getFormat().setLineSeparator("\n");
 
-TsvParser parser = new TsvParser(settings);
-String source = "data/title.tsv";
-File title = new File(source);
-parser.beginParsing(title);
-String[] row;
-while ((row = parser.parseNext()) != null) {
-    if (row[0].equals(id)){
-       return row[3];
-   }     
+    TsvParser parser = new TsvParser(settings);
+    String source = "data/title.tsv";
+    File title = new File(source);
+    parser.beginParsing(title);
+    String[] row;
+    while ((row = parser.parseNext()) != null) {
+        if (row[0].equals(id)){
+            parser.stopParsing();
+            return row[3];
+           }     
+    }
+
+    return "No title found";
 }
 
-return "No title found";
+public List<IMDBMovie> getIMDBTop250()
+{
+    List<IMDBMovie> top250Movies = new ArrayList<>();
+    TsvParserSettings settings = new TsvParserSettings(); 
+    settings.getFormat().setLineSeparator("\n");
+
+    TsvParser parser = new TsvParser(settings);
+    String source = "data/rating.tsv";
+    File title = new File(source);
+
+    // parses all rows in one go.
+    List<String[]> allRatedMovies = parser.parseAll(title);
+    // removes the first String array since it only contains column titles
+    allRatedMovies.remove(0);
+    // Gets all movies with more than 25.000 votes
+    double averageRatingScore=0;
+    for (String[] x: allRatedMovies)
+    {
+    double numberOfVotes = Double.parseDouble(x[2]);
+    String rating = x[1];
+    double rat = Double.parseDouble(rating);
+    averageRatingScore+=rat;
+        if(numberOfVotes>=25000)
+        {
+            IMDBMovie toAdd = new IMDBMovie(x[0],"");
+            toAdd.setRating(rating);
+            toAdd.setNumberOfVotes(numberOfVotes);
+            top250Movies.add(toAdd);
+        
+        }
+    }
+    double averageRat=averageRatingScore/(allRatedMovies.size()+1);
+       
+    parser.stopParsing();
+    // Removes all movies which isn't categorized as a movie in the IMDB database
+    String source2 = "data/title.tsv";
+    File cat = new File(source2);
+    String[] row;
+    parser.beginParsing(cat);
+    
+    HashMap<String, String> hashMap = new HashMap<>();
+     while ((row = parser.parseNext()) != null) { 
+        String category=row[1];
+        if(category.equals("movie")){
+             String movTitle=row[3];
+             String movId=row[0];
+             hashMap.put(movId, movTitle);
+        }
+      }
+     
+     List<IMDBMovie> sortedMovies = new ArrayList<>();
+     for(IMDBMovie x:top250Movies)
+     {
+         String titleOfMovie = hashMap.get(x.getMovieId());
+         if(titleOfMovie!=null)
+         {
+             x.setMovieTitle(titleOfMovie);
+             x.calculateWeightedRating(averageRat);
+             sortedMovies.add(x);          
+         }
+     }
+
+    sortedMovies.sort(Comparator.comparing( IMDBMovie::getWeightedRating ));
+    Collections.reverse(sortedMovies);
+    int size = sortedMovies.size();
+    int counter = 1;
+    while(sortedMovies.size()!=250){
+        sortedMovies.remove(size-counter);
+        counter++;
+    }
+    return sortedMovies;    
+
 }
 }
 
