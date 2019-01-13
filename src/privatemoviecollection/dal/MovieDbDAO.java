@@ -8,6 +8,7 @@ package privatemoviecollection.dal;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
@@ -17,6 +18,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javafx.scene.image.Image;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import privatemoviecollection.be.Movie;
 
 /**
@@ -273,4 +279,45 @@ public void setDate(Movie movieToDate, Date thisDate) throws SQLServerException,
             return searchedMovies;
         }
     }
+    
+/**
+ * Returns the first image from Bings Image Search engine
+ * @param movieTitle
+ * @return
+ * @throws IOException 
+ */
+public Image getMoviePoster(String movieTitle) throws IOException
+{
+    String url = "https://www.bing.com/images/search?q="+movieTitle+"%20poster";
+    System.setProperty("http.agent", "Chrome");
+    Document doc = Jsoup.connect(url).get();
+    Elements links = doc.select("a[href]");
+    String url2="";
+    for(Element x:links)
+    {
+        if(x.toString().contains(movieTitle) && x.toString().contains("view=detailV2")){
+//        System.out.println(""+x.toString());
+          url2 = x.absUrl("href");
+          break;
+        }
+    }
+    doc = Jsoup.connect(url2).get();
+    links = doc.select("a[href]");
+    String finalUrl = "";
+    for (Element y:links){
+        if(y.toString().contains("mediaurl=")){
+        finalUrl=y.toString();
+        break;
+        }
+    }
+    int lastIndex = finalUrl.lastIndexOf("mediaurl=");
+    int lastIndex2 = finalUrl.lastIndexOf("&amp;exph");
+    String subStringURL = finalUrl.substring(lastIndex+9, lastIndex2);
+    String urlDecoded = "" + URLDecoder.decode(subStringURL, "UTF-8");
+     Image poster = new Image(urlDecoded);
+    return poster;
+}
+
+
+
 }

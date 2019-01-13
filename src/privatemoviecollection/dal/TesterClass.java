@@ -16,8 +16,7 @@ import privatemoviecollection.be.IMDBMovie;
 public class TesterClass
 {
 public static void main(String[] args) throws IOException {
-    IMDBDbDAO tester = new IMDBDbDAO();
-    tester.getMoviePoster("The Dark Knight");
+
     
     }
    

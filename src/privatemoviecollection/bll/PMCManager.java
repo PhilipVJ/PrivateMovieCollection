@@ -137,6 +137,6 @@ public PMCManager()
 
     public Image getMoviePoster(String movieId) throws IOException
     {
-     return imdbDbDAO.getMoviePoster(movieId);
+     return movieDbDAO.getMoviePoster(movieId);
     }
 }
