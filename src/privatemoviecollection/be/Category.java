@@ -6,6 +6,8 @@
 package privatemoviecollection.be;
 
 import java.util.ArrayList;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.CheckBox;
 
 /**
@@ -18,12 +20,16 @@ public class Category
     private final int id; 
     private final ArrayList<Integer> movieIdList;
     private CheckBox select;
+    private StringProperty test;
+
+
 
     public Category (String name, int id) {
         this.name = name;
         this.id = id; 
         movieIdList = new ArrayList<>();
         select= new CheckBox();
+        test= new SimpleStringProperty();
     }
     
     public String getName()
@@ -69,6 +75,13 @@ public class Category
         
         this.select = select;
         
+        test.set(Boolean.toString(select.isSelected()));
+        
+    }
+    
+        public StringProperty getTest()
+    {
+        return test;
     }
     
     

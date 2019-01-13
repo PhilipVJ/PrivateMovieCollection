@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -44,10 +46,7 @@ public PMCModel() throws IOException, SQLException
     allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
     allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
     catMovies = FXCollections.observableList(new ArrayList<Movie>());
-   
-  
-  
-   
+
 }
 
     public boolean addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
@@ -75,10 +74,17 @@ public PMCModel() throws IOException, SQLException
     for(Movie x:allMovies){
         if(x.getId()==movieToRemove.getId()){
             allMovies.remove(x);
-            catMovies.remove(x);
-            return;
+            break;
         }
     }
+  
+    for(Movie x:catMovies){
+        if(x.getId()==movieToRemove.getId()){
+            catMovies.remove(x);
+            break;
+        }
+    }
+    
     }
 
     public void rateMovie(Movie movToRate, double oneDigitRating) throws IOException, SQLException
@@ -186,7 +192,7 @@ public PMCModel() throws IOException, SQLException
     {
        pmcmanager.removeCategory(selectedItem);
        allCategories.remove(selectedItem);
-       catMovies.clear();
+       setCategoryMovies();
         
         
     }
@@ -205,6 +211,7 @@ public PMCModel() throws IOException, SQLException
                return;
            }
        }
+       
     }
 
     public String getRating(String formattedMovieCode)
