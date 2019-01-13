@@ -322,17 +322,32 @@ public PMCModel() throws IOException, SQLException
     
       public void setCategoryMovies() throws IOException, SQLException
       {
-//       ArrayList<Movie> catMoviesChosen = new ArrayList<>();
-       
+
        catMovies.clear();
+       List<Movie>allCatMovies = new ArrayList<>();
          for(Category x:allCategories){
              if(x.getSelect().isSelected()==true){
              for(Integer y:x.getMovies()){
-             catMovies.add(pmcmanager.getMovie(y));
+             allCatMovies.add(pmcmanager.getMovie(y));
                      }
              }
          }
-                  
+        //Removes duplicates
+        List<Movie>allCatMovies2 = new ArrayList<>();
+        for(Movie y:allCatMovies){
+          boolean found=false;
+            for(Movie k:allCatMovies2){
+                if(y.getId()==k.getId())
+                    found=true;
+            }
+          
+          if(found==false){
+              allCatMovies2.add(y);
+              catMovies.add(y);
+               
+          }
+        }
+            
       }
 
     public ObservableList<IMDBMovie> getHighRatedMovies()
