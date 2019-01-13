@@ -43,9 +43,7 @@ public PMCModel() throws IOException, SQLException
     pmcmanager = new PMCManager();
     allMovies=FXCollections.observableList(pmcmanager.getAllMovies());
     allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
-    
-    ArrayList<Movie> Test= new ArrayList<>();
-    catMovies = FXCollections.observableList(Test);
+    catMovies = FXCollections.observableList(new ArrayList<Movie>());
    
   
   

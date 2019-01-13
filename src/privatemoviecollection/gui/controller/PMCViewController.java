@@ -113,21 +113,15 @@ public class PMCViewController implements Initializable
             rateButton.setVisible(false);
           
             allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
-            
-            
-            
             catCheck.setCellValueFactory( new PropertyValueFactory<>( "select" ));
             catCheck.setEditable(true);
             
-            
-            
-      
+
             categories.setItems(pmcmodel.getAllCategories());
             
             catmovies.setItems(pmcmodel.getCatMovies());
             
-            
-            
+
             catTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
             catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
             catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
