@@ -242,7 +242,7 @@ public List<IMDBMovie> getHighRatedMovies()
         
     double rating = Double.parseDouble(x[1]);
     double numberOfVotes = Double.parseDouble(x[2]);
-    String category = x[3];
+    
         if((rating>8.5) && numberOfVotes>100000)
         {
             IMDBMovie toAdd = new IMDBMovie(x[0],"");

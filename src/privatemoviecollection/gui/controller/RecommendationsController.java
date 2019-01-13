@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +35,8 @@ public class RecommendationsController implements Initializable
     private PMCModel pmcmodel;
     @FXML
     private TableView<IMDBMovie> recommendations;
+    @FXML
+    private Label nowShowing;
 
     /**
      * Initializes the controller class.
@@ -60,10 +64,18 @@ public class RecommendationsController implements Initializable
     
     public void setTableView()
     {
-        ObservableList<IMDBMovie> test = pmcmodel.getHighRatedMovies();
-        recommendations.setItems(test);
+        ObservableList<IMDBMovie> highR = pmcmodel.getHighRatedMovies();
+        recommendations.setItems(highR);
         
     }
-   
+
+    @FXML
+    private void showTop250(ActionEvent event)
+    {
+        ObservableList<IMDBMovie> top250 = pmcmodel.getTop250Movies();
+        recommendations.setItems(top250);
+        nowShowing.setText("Here is the IMDB Top 250 list");
+        nowShowing.setAlignment(Pos.CENTER);
+    }
     
 }

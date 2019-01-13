@@ -338,6 +338,11 @@ public PMCModel() throws IOException, SQLException
     {
        return FXCollections.observableList(pmcmanager.getHighRatedMovies());
     }
+
+    public ObservableList<IMDBMovie> getTop250Movies()
+    {
+       return FXCollections.observableList(pmcmanager.getTop250Movies());
+    }
       
   
     

@@ -127,4 +127,8 @@ public PMCManager()
     return imdbDbDAO.getHighRatedMovies();
     }
 
+    public List<IMDBMovie> getTop250Movies()
+    {
+    return imdbDbDAO.getIMDBTop250();
+    }
 }
