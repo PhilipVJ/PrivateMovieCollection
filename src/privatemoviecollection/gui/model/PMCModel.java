@@ -373,4 +373,9 @@ public class PMCModel
     {
         return pmcmanager.getMoviePoster(movieId);
     }
+
+    public String getTrailerURL(String title) throws IOException
+    {
+       return pmcmanager.getTrailerURL(title);
+    }
 }

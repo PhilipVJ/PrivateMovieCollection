@@ -330,4 +330,35 @@ public class MovieDbDAO
         Image poster = new Image(urlDecoded);
         return poster;
     }
+/**
+ * Gets the URL for the IMDB trailer of the specific movie
+ * @param title
+ * @return
+ * @throws IOException 
+ */
+    public String getTrailerURL(String title) throws IOException
+    {
+        String url = "https://www.imdb.com/title/" + title;
+        System.setProperty("http.agent", "Chrome");
+        Document doc = Jsoup.connect(url).get();
+        Elements links = doc.select("a[href]");
+        String preparedSearch = title + "/videoplayer";
+        String fullURL = "https://www.imdb.com/";
+        String preFormat = "";
+        for (Element x : links)
+        {
+            if (x.toString().contains(preparedSearch))
+            {
+                preFormat = x.toString();
+                break;
+            }
+
+        }
+        int firstIndex = preFormat.indexOf("title");
+        String formatted = preFormat.substring(firstIndex);
+        int firstIndex2 = formatted.indexOf(" ");
+        String moreFormatted = formatted.substring(0, firstIndex2 - 1);
+
+        return fullURL+moreFormatted;
+    }
 }

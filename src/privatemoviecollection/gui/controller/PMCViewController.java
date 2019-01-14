@@ -29,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.Movie;

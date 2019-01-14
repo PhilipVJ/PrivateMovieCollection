@@ -136,4 +136,9 @@ public class PMCManager
     {
         return movieDbDAO.getMoviePoster(movieId);
     }
+
+    public String getTrailerURL(String title) throws IOException
+    {
+        return movieDbDAO.getTrailerURL(title);
+    }
 }
