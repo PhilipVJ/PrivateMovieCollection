@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class PrivateMovieCollection extends Application
 {
-    
+
     @Override
     public void start(Stage stage) throws IOException
     {
@@ -30,7 +30,6 @@ public class PrivateMovieCollection extends Application
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
 
     }
 
@@ -41,5 +40,5 @@ public class PrivateMovieCollection extends Application
     {
         launch(args);
     }
-    
+
 }

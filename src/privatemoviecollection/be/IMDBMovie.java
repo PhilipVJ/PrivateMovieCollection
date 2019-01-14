@@ -11,71 +11,69 @@ package privatemoviecollection.be;
  */
 public class IMDBMovie
 {
-private final String movieId;
-private String movieTitle;
-private double rating;
-private double weightedRating;
-private double numberOfVotes;
 
-public IMDBMovie(String id, String title)
-{
-    this.movieId=id;
-    this.movieTitle=title;
-}
+    private final String movieId;
+    private String movieTitle;
+    private double rating;
+    private double weightedRating;
+    private double numberOfVotes;
 
-public String getMovieId()
-{
-    return movieId;
-}
+    public IMDBMovie(String id, String title)
+    {
+        this.movieId = id;
+        this.movieTitle = title;
+    }
 
-public String getMovieTitle()
-{
-    return movieTitle;
-}
+    public String getMovieId()
+    {
+        return movieId;
+    }
 
-public String toString()
-{
-    return movieTitle;
-}
+    public String getMovieTitle()
+    {
+        return movieTitle;
+    }
 
-public double getRating()
-{
-    return rating;
-}
+    public String toString()
+    {
+        return movieTitle;
+    }
 
-public void setRating(String rating)
-{
-    this.rating = Double.parseDouble(rating);
-}
+    public double getRating()
+    {
+        return rating;
+    }
 
-public void setMovieTitle(String movieTitle)
-{
-    this.movieTitle = movieTitle;
-}
+    public void setRating(String rating)
+    {
+        this.rating = Double.parseDouble(rating);
+    }
 
-public double getWeightedRating()
- {     
-    return weightedRating;
- }
+    public void setMovieTitle(String movieTitle)
+    {
+        this.movieTitle = movieTitle;
+    }
 
-
+    public double getWeightedRating()
+    {
+        return weightedRating;
+    }
 
     public void setNumberOfVotes(double numberOfVotes)
     {
         this.numberOfVotes = numberOfVotes;
     }
-/**
- * Uses an IMDB calculation to calculate the weighted rating used to rank the top movies.
- * @param averageRat 
- */
+
+    /**
+     * Uses an IMDB calculation to calculate the weighted rating used to rank
+     * the top movies.
+     *
+     * @param averageRat
+     */
     public void calculateWeightedRating(double averageRat)
     {
-    weightedRating=(numberOfVotes/(numberOfVotes+25000)*rating+(25000/(numberOfVotes+25000))*averageRat);    
-       
+        weightedRating = (numberOfVotes / (numberOfVotes + 25000) * rating + (25000 / (numberOfVotes + 25000)) * averageRat);
+
     }
-
-
-
-
 
 }

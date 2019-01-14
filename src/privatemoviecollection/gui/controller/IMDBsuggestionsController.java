@@ -29,15 +29,12 @@ public class IMDBsuggestionsController implements Initializable
 
     @FXML
     private ListView<IMDBMovie> suggestions;
-    
+
     private PMCModel pmcmodel;
     @FXML
     private AnchorPane rootPane2;
     private TextField title;
     private TextField IMDBrating;
-    
-    
-    
 
     /**
      * Initializes the controller class.
@@ -46,16 +43,15 @@ public class IMDBsuggestionsController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }   
-    
+    }
+
     public void setModel(PMCModel currentModel)
     {
-        pmcmodel=currentModel;
+        pmcmodel = currentModel;
     }
 
     void setSearch(String text)
     {
-        
         ObservableList<IMDBMovie> allSuggestions = FXCollections.observableList(pmcmodel.getMovieSuggestions(text));
         suggestions.setItems(allSuggestions);
     }
@@ -64,7 +60,6 @@ public class IMDBsuggestionsController implements Initializable
     private void save(ActionEvent event)
     {
         IMDBMovie chosenMovie = suggestions.getSelectionModel().getSelectedItem();
-        
         title.setText(chosenMovie.getMovieTitle());
         IMDBrating.setText(pmcmodel.getRating(chosenMovie.getMovieId()));
         Stage stage = (Stage) rootPane2.getScene().getWindow();
@@ -74,15 +69,14 @@ public class IMDBsuggestionsController implements Initializable
     @FXML
     private void cancel(ActionEvent event)
     {
-    Stage stage = (Stage) rootPane2.getScene().getWindow();
-    stage.close();
+        Stage stage = (Stage) rootPane2.getScene().getWindow();
+        stage.close();
     }
-    
-    
+
     public void SetTextFields(TextField title, TextField IMDBrating)
     {
-        this.title=title;
-        this.IMDBrating=IMDBrating;
+        this.title = title;
+        this.IMDBrating = IMDBrating;
     }
-    
+
 }

@@ -33,7 +33,8 @@ import privatemoviecollection.gui.model.PMCModel;
  */
 public class AddMovieController implements Initializable
 {
-private PMCModel pmcmodel;
+
+    private PMCModel pmcmodel;
     @FXML
     private TextField title;
     @FXML
@@ -53,84 +54,87 @@ private PMCModel pmcmodel;
     @FXML
     private Label lastUpdatedLabel;
 
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-      
-    }    
-    
+
+    }
+
     public void setModel(PMCModel model)
     {
-    pmcmodel=model;
-    lastUpdatedLabel.setText(pmcmodel.getLastUpdatedData());
+        pmcmodel = model;
+        lastUpdatedLabel.setText(pmcmodel.getLastUpdatedData());
     }
 
     @FXML
-    private void saveMovie(ActionEvent event) 
+    private void saveMovie(ActionEvent event)
     {
-   
-    try
-    {
-        if (verifyTextFields()==false){
-            return;
-        }
-        // Saves movie without IMDB rating
-        if (IMDBrating.getText().equals("No rating found") || IMDBrating.getText().length()==0){
+        try
+        {
+            if (verifyTextFields() == false)
+            {
+                return;
+            }
+            // Saves movie without IMDB rating
+            if (IMDBrating.getText().equals("No rating found") || IMDBrating.getText().length() == 0)
+            {
+                String movieTitle = title.getText();
+                String movieFilelink = filelink.getText();
+                // If no IMDB has been typed it will be given a score of 1000
+                boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, 1000);
+                if (checker == false)
+                {
+                    pmcmodel.duplicateAlarm();
+                    return;
+
+                }
+                Stage stage = (Stage) rootPane2.getScene().getWindow();
+                stage.close();
+                return;
+            }
+
+            // Saves movie with a real IMDB score
+            String rat = IMDBrating.getText();
+            double ratDouble = Double.parseDouble(rat);
             String movieTitle = title.getText();
             String movieFilelink = filelink.getText();
-            // If no IMDB has been typed it will be given a score of 1000
-            boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, 1000);
-            if(checker==false){
+
+            boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
+            if (checker == false)
+            {
                 pmcmodel.duplicateAlarm();
                 return;
-                
             }
             Stage stage = (Stage) rootPane2.getScene().getWindow();
             stage.close();
-            return;
+        } catch (IOException ex)
+        {
+            Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
-        
-        // Saves movie with a real IMDB score
-        String rat = IMDBrating.getText();
-        double ratDouble = Double.parseDouble(rat);
-        String movieTitle = title.getText();
-        String movieFilelink = filelink.getText();
-        
-        boolean checker = pmcmodel.addMovie(movieFilelink, movieTitle, ratDouble);
-        if(checker==false){
-            pmcmodel.duplicateAlarm();
-            return;
-        }
-        Stage stage = (Stage) rootPane2.getScene().getWindow();
-        stage.close();
-    } catch (IOException ex)
-    {
-        Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
-        pmcmodel.generateErrorAlarm("Database.info could not be located");
-    } catch (SQLException ex)
-    {
-        Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
-        pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+
     }
 
-    
-    }
-/**
- * This method verfies that textfields contains text.
- * @return 
- */
+    /**
+     * This method verfies that textfields contains text.
+     *
+     * @return
+     */
     public boolean verifyTextFields()
     {
-        if (filelink.getText().length()==0)
+        if (filelink.getText().length() == 0)
         {
             info.setText("Please select a movie");
             return false;
         }
-        if (title.getText().length()==0)
+        if (title.getText().length() == 0)
         {
             info.setText("Please type in a title");
             return false;
@@ -141,118 +145,115 @@ private PMCModel pmcmodel;
     @FXML
     private void cancel(ActionEvent event)
     {
-    Stage stage = (Stage) rootPane2.getScene().getWindow();
-    stage.close();
+        Stage stage = (Stage) rootPane2.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void findMovie(ActionEvent event)
     {
-    FileChooser fileChooser = new FileChooser();
-    // Adds filters to the FileChooser
-    FileChooser.ExtensionFilter mp4filter = new FileChooser.ExtensionFilter("MP4 files (*.mp4)", "*.mp4");
-    FileChooser.ExtensionFilter mpeg4filter = new FileChooser.ExtensionFilter("MPEG4 files (*.mpeg4)", "*.mpeg4");
-    fileChooser.getExtensionFilters().add(mp4filter);
-    fileChooser.getExtensionFilters().add(mpeg4filter);
-    
-    fileChooser.setTitle("Open Movie File");
-    Stage stage = (Stage) rootPane2.getScene().getWindow();
-    File mediafile = fileChooser.showOpenDialog(stage);
-    if (mediafile!=null){
-       
-    String path = mediafile.getAbsolutePath();
-        
-    filelink.setText(path);
+        FileChooser fileChooser = new FileChooser();
+        // Adds filters to the FileChooser
+        FileChooser.ExtensionFilter mp4filter = new FileChooser.ExtensionFilter("MP4 files (*.mp4)", "*.mp4");
+        FileChooser.ExtensionFilter mpeg4filter = new FileChooser.ExtensionFilter("MPEG4 files (*.mpeg4)", "*.mpeg4");
+        fileChooser.getExtensionFilters().add(mp4filter);
+        fileChooser.getExtensionFilters().add(mpeg4filter);
+
+        fileChooser.setTitle("Open Movie File");
+        Stage stage = (Stage) rootPane2.getScene().getWindow();
+        File mediafile = fileChooser.showOpenDialog(stage);
+        if (mediafile != null)
+        {
+
+            String path = mediafile.getAbsolutePath();
+
+            filelink.setText(path);
+        }
     }
-    
-    
-    }
-    
+
     @FXML
     private void getRating(ActionEvent event)
     {
-    if(imdbUrl.getText().length()!=0)
-    {
-        // Formats the inserted URL
-        
-        int size = imdbUrl.getText().length();
-        
-        char lastLetter = imdbUrl.getText().charAt(size-1);
-        String lastLetter2=String.valueOf(lastLetter);  
-        if(lastLetter2.equals("/")){
-            String deleteSlash = imdbUrl.getText().substring(0, size-1);
-            int lastIndexOfSlash = deleteSlash.lastIndexOf("/");
-            String formattedMovieCode = deleteSlash.substring(lastIndexOfSlash+1);
-            IMDBrating.setText(pmcmodel.getRating(formattedMovieCode));
-            
+        if (imdbUrl.getText().length() != 0)
+        {
+            // Formats the inserted URL
+            int size = imdbUrl.getText().length();
+            char lastLetter = imdbUrl.getText().charAt(size - 1);
+            String lastLetter2 = String.valueOf(lastLetter);
+            if (lastLetter2.equals("/"))
+            {
+                String deleteSlash = imdbUrl.getText().substring(0, size - 1);
+                int lastIndexOfSlash = deleteSlash.lastIndexOf("/");
+                String formattedMovieCode = deleteSlash.substring(lastIndexOfSlash + 1);
+                IMDBrating.setText(pmcmodel.getRating(formattedMovieCode));
+
+            } else
+            {
+                int lastIndexOfSlash = imdbUrl.getText().lastIndexOf("/");
+                String formattedMovieCode = imdbUrl.getText().substring(lastIndexOfSlash + 1);
+                IMDBrating.setText(pmcmodel.getRating(formattedMovieCode));
+            }
         }
-        else{
-            int lastIndexOfSlash = imdbUrl.getText().lastIndexOf("/");
-            String formattedMovieCode = imdbUrl.getText().substring(lastIndexOfSlash+1);
-            IMDBrating.setText(pmcmodel.getRating(formattedMovieCode));
-        }
-        
-    }
     }
 
     @FXML
     private void findIMDBsuggestion(ActionEvent event)
-    {    
+    {
         String textIMDB = title.getText();
-        if(textIMDB.length() == 0)
+        if (textIMDB.length() == 0)
         {
             title.setText("Please write something");
             return;
-        }    
-        if(!textIMDB.isEmpty())
+        }
+        if (!textIMDB.isEmpty())
         {
-            try {
+            try
+            {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/IMDBsuggestions.fxml"));
-                Parent root = (Parent)loader.load();
+                Parent root = (Parent) loader.load();
                 IMDBsuggestionsController imdbController = loader.getController();
-                
+
                 imdbController.setModel(pmcmodel);
                 imdbController.SetTextFields(title, IMDBrating);
-                
+
                 imdbController.setSearch(title.getText());
-                
+
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.show();
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("The IMDBsuggestions.fxml file could not be started");
-                
+
             }
         }
     }
-    
+
     public void setTitleAndRating(String foundTitle, String rating)
     {
         title.setText(foundTitle);
         IMDBrating.setText(rating);
     }
-    
-
 
     @FXML
     private void updateIMDBdatabase(ActionEvent event)
     {
-    try
-    {
-        boolean done = pmcmodel.updateIMDBdatabase();
-        if (done == true)
+        try
         {
-            updatedLabel.setText("IMDB data has been updated");
-            updateIMDBdatabaseId.setVisible(false);
-            lastUpdatedLabel.setText(pmcmodel.getLastUpdatedData());
+            boolean done = pmcmodel.updateIMDBdatabase();
+            if (done == true)
+            {
+                updatedLabel.setText("IMDB data has been updated");
+                updateIMDBdatabaseId.setVisible(false);
+                lastUpdatedLabel.setText(pmcmodel.getLastUpdatedData());
+            }
+        } catch (IOException ex)
+        {
+            Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("Could not update IMDB database");
         }
-    } catch (IOException ex)
-    {
-        Logger.getLogger(AddMovieController.class.getName()).log(Level.SEVERE, null, ex);
-        pmcmodel.generateErrorAlarm("Could not update IMDB database");
-    }
-        
+
     }
 
 }

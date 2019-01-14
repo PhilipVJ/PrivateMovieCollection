@@ -48,7 +48,7 @@ public class PMCViewController implements Initializable
     private TableView<Movie> catmovies;
     @FXML
     private TableView<Movie> allMovies;
-    
+
     private PMCModel pmcmodel;
     @FXML
     private TableColumn<Movie, String> allMovTitle;
@@ -96,66 +96,53 @@ public class PMCViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
-        
         try
         {
             pmcmodel = new PMCModel();
-            
+
             // Initializes the tableviews
-            
             allMovTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
             allMovIMDBRating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
             allMovRating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
-            
+
             allMovies.setItems(pmcmodel.getAllMovies());
             ratingSlider.setVisible(false);
             rateButton.setVisible(false);
-          
+
             allCategories.setCellValueFactory(new PropertyValueFactory<>("name"));
-            catCheck.setCellValueFactory( new PropertyValueFactory<>( "select" ));
+            catCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
             catCheck.setEditable(true);
-            
 
             categories.setItems(pmcmodel.getAllCategories());
-            
             catmovies.setItems(pmcmodel.getCatMovies());
-            
 
             catTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
             catIMDBrating.setCellValueFactory(new PropertyValueFactory<>("webrating"));
             catPersonalrating.setCellValueFactory(new PropertyValueFactory<>("personalrating"));
             // Checks for old bad movies
-            checkForBadMovies();
+            pmcmodel.checkForBadMovies();
         } catch (IOException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("Database.info could not be located");
-            
-            
         } catch (SQLException ex)
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
-     
-     
-        
-      
-    }    
+    }
 
     @FXML
     private void addMovie(ActionEvent event)
     {
-       
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/AddMovie.fxml"));
-            Parent root = (Parent)loader.load();
+            Parent root = (Parent) loader.load();
             AddMovieController addMovieCon = loader.getController();
-        
+
             addMovieCon.setModel(pmcmodel);
-        
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -164,66 +151,53 @@ public class PMCViewController implements Initializable
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("The AddMovie.fxml file could not be started");
         }
- 
     }
 
     @FXML
     private void deleteFromCategory(ActionEvent event)
     {
-        if ( catmovies.getSelectionModel().getSelectedItem()!=null)
+        if (catmovies.getSelectionModel().getSelectedItem() != null)
+        {
+            try
             {
-            
-            try {
                 Category selectedCategory = categories.getSelectionModel().getSelectedItem();
                 Movie movToDelete = catmovies.getSelectionModel().getSelectedItem();
-                
+
                 pmcmodel.deleteMovieFromCategory(selectedCategory, movToDelete);
                 categories.setItems(pmcmodel.getAllCategories());
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("Database.info could not be located");
-            } catch (SQLException ex) {
+            } catch (SQLException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
             }
-           
-            }
-                
-                
-            
-        
-    }
-    
-    @FXML
-    private void openMovie(ActionEvent event) 
-    {
-         
-        
-            
-            Movie movToPlay = catmovies.getSelectionModel().getSelectedItem();
-            Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
-            if (chosenTableView==2 && movToPlay!=null)
-            {
-                playChosenMovie(movToPlay);
-            }
-            
-            else if(chosenTableView==3 && movieToPlay!=null){
-                playChosenMovie(movieToPlay);
-            }
-                    
-        
-            
+        }
 
     }
-       
-    
+
+    @FXML
+    private void openMovie(ActionEvent event)
+    {
+        Movie movToPlay = catmovies.getSelectionModel().getSelectedItem();
+        Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
+        if (chosenTableView == 2 && movToPlay != null)
+        {
+            playChosenMovie(movToPlay);
+        } else if (chosenTableView == 3 && movieToPlay != null)
+        {
+            playChosenMovie(movieToPlay);
+        }
+    }
 
     public void playChosenMovie(Movie movToPlay)
     {
         try
         {
             String path = movToPlay.getFileLink();
-            java.util.Date date=new java.util.Date();
+            java.util.Date date = new java.util.Date();
             pmcmodel.setDate(movToPlay, date);
             setLastSeenInfo(movToPlay);
             Desktop.getDesktop().open(new File(path));
@@ -235,7 +209,8 @@ public class PMCViewController implements Initializable
         {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-        } catch (IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex)
+        {
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("Could not locate mediafile");
         }
@@ -247,8 +222,9 @@ public class PMCViewController implements Initializable
         try
         {
             Movie movieToRemove = allMovies.getSelectionModel().getSelectedItem();
-            if(movieToRemove!=null){
-            pmcmodel.removeMovie(movieToRemove);
+            if (movieToRemove != null)
+            {
+                pmcmodel.removeMovie(movieToRemove);
             }
         } catch (IOException ex)
         {
@@ -259,52 +235,51 @@ public class PMCViewController implements Initializable
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
-        
+
     }
+
     /*
     Sets the score on mouse clicks
-    */
+     */
     @FXML
     private void setScore(MouseEvent event)
     {
-      double rating = ratingSlider.getValue();
-        double oneDigitRating = Math.round(rating * 10) / 10.0;
-        scoreLabel.setText(Double.toString(oneDigitRating)); 
-
-        
-    }
-    /**
-     * Sets the score on mouse drags
-     * @param event 
-     */
-
-    @FXML
-    private void ratingDrag(MouseEvent event) 
-    {
-        
         double rating = ratingSlider.getValue();
         double oneDigitRating = Math.round(rating * 10) / 10.0;
         scoreLabel.setText(Double.toString(oneDigitRating));
-        
-        
+    }
+
+    /**
+     * Sets the score on mouse drags
+     *
+     * @param event
+     */
+
+    @FXML
+    private void ratingDrag(MouseEvent event)
+    {
+        double rating = ratingSlider.getValue();
+        double oneDigitRating = Math.round(rating * 10) / 10.0;
+        scoreLabel.setText(Double.toString(oneDigitRating));
     }
 
     @FXML
     private void allMoviesChosen(MouseEvent event)
     {
-        chosenTableView=3;
-        if(allMovies.getSelectionModel().getSelectedItem()!=null){
-            try {
+        chosenTableView = 3;
+        if (allMovies.getSelectionModel().getSelectedItem() != null)
+        {
+            try
+            {
                 makeRatingVisible();
                 Movie chosenMov = allMovies.getSelectionModel().getSelectedItem();
                 setLastSeenInfo(chosenMov);
                 posterView.setImage(pmcmodel.getMoviePoster(chosenMov.getTitle()));
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 // Could not load poster - do nothing
             }
-            
-
         }
     }
 
@@ -313,70 +288,71 @@ public class PMCViewController implements Initializable
         ratingSlider.setVisible(true);
         rateButton.setVisible(true);
         scoreLabel.setVisible(true);
-        
+
     }
+
     public void makeRatingInvisible()
     {
         ratingSlider.setVisible(false);
         rateButton.setVisible(false);
         scoreLabel.setVisible(false);
     }
-  
 
     @FXML
     private void rateMovie(ActionEvent event)
     {
         double rating = ratingSlider.getValue();
         double oneDigitRating = Math.round(rating * 10) / 10.0;
-        if(chosenTableView==3 && allMovies.getSelectionModel().getSelectedItem()!=null){
-            try {
+        if (chosenTableView == 3 && allMovies.getSelectionModel().getSelectedItem() != null)
+        {
+            try
+            {
                 pmcmodel.rateMovie(allMovies.getSelectionModel().getSelectedItem(), oneDigitRating);
                 allMovies.refresh();
                 catmovies.refresh();
                 return;
-             } catch (IOException ex){
-              Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-             pmcmodel.generateErrorAlarm("Database.info could not be located");
-             } catch (SQLException ex){
-            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-             }
-        
-        if(chosenTableView==2 && catmovies.getSelectionModel().getSelectedItem()!=null){
-                try {
+            } catch (IOException ex)
+            {
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("Database.info could not be located");
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+            }
+
+            if (chosenTableView == 2 && catmovies.getSelectionModel().getSelectedItem() != null)
+            {
+                try
+                {
                     pmcmodel.rateMovie(catmovies.getSelectionModel().getSelectedItem(), oneDigitRating);
                     allMovies.refresh();
                     catmovies.refresh();
-                } catch (IOException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    pmcmodel.generateErrorAlarm("Database.info could not be located");
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
                 }
-              }
+            }
         }
     }
 
-    
-
-    private void checkForBadMovies()
-    {
-      pmcmodel.checkForBadMovies();
-    }
-
     @FXML
-    private void addCategory(ActionEvent event) 
+    private void addCategory(ActionEvent event)
     {
         {
             try
             {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/AddCategory.fxml"));
-                Parent root = (Parent)loader.load();
+                Parent root = (Parent) loader.load();
                 AddCategoryController addCategoryCon = loader.getController();
-                
+
                 addCategoryCon.setModel(pmcmodel);
-                
+
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -391,50 +367,46 @@ public class PMCViewController implements Initializable
     @FXML
     private void removeCategory(ActionEvent event)
     {
-       if (chosenTableView==1 && categories.getSelectionModel().getSelectedItem()!=null){
-           try
-           {
-               pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
-                } catch (IOException ex){
+        if (chosenTableView == 1 && categories.getSelectionModel().getSelectedItem() != null)
+        {
+            try
+            {
+                pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
+            } catch (IOException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
+            } catch (SQLException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("Could not get access to the SQL database");
-           
-                }
-       }
-    
 
-    
-}
+            }
+        }
+    }
 
     @FXML
-    private void categoriesViewChosen(MouseEvent event) 
+    private void categoriesViewChosen(MouseEvent event)
     {
-        chosenTableView=1;
+        chosenTableView = 1;
         makeRatingInvisible();
         makeLastSeenInfoInvisible();
-        
-        
-        
-
-
-        
     }
 
     @FXML
     private void categoryMovieViewChosen(MouseEvent event)
     {
-        chosenTableView=2;
-        Movie chosenMovie= catmovies.getSelectionModel().getSelectedItem();
-        if (chosenMovie!=null)
+        chosenTableView = 2;
+        Movie chosenMovie = catmovies.getSelectionModel().getSelectedItem();
+        if (chosenMovie != null)
         {
-            try {
+            try
+            {
                 setLastSeenInfo(chosenMovie);
                 makeRatingVisible();
                 posterView.setImage(pmcmodel.getMoviePoster(chosenMovie.getTitle()));
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 // Could not load poster - do nothing
             }
@@ -444,66 +416,66 @@ public class PMCViewController implements Initializable
     @FXML
     private void addMovieToCategory(ActionEvent event)
     {
-    Category chosenCategory= categories.getSelectionModel().getSelectedItem();
-    Movie chosenMovie=allMovies.getSelectionModel().getSelectedItem();
-        if (chosenCategory!=null && chosenMovie!=null){
-        try
+        Category chosenCategory = categories.getSelectionModel().getSelectedItem();
+        Movie chosenMovie = allMovies.getSelectionModel().getSelectedItem();
+        if (chosenCategory != null && chosenMovie != null)
         {
-            pmcmodel.addMovieToCat(chosenCategory, chosenMovie);
-                } catch (IOException ex){
+            try
+            {
+                pmcmodel.addMovieToCat(chosenCategory, chosenMovie);
+            } catch (IOException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
+            } catch (SQLException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-                }
+            }
         }
     }
 
     @FXML
-    private void searchIMDBRating(ActionEvent event) 
+    private void searchIMDBRating(ActionEvent event)
     {
-        
-        
-        try 
+        try
         {
             double lowS = Double.parseDouble(lowRating.getText());
             double highS = Double.parseDouble(highRating.getText());
-            
-            if(lowS >= 0 && lowS <= 10 && highS >= 0 && highS <= 10 && lowS < highS)
+
+            if (lowS >= 0 && lowS <= 10 && highS >= 0 && highS <= 10 && lowS < highS)
             {
-               pmcmodel.IMDBintervalSearch(lowS, highS);
-               ratingWarning.setText("");
-            }
-            else
+                pmcmodel.IMDBintervalSearch(lowS, highS);
+                ratingWarning.setText("");
+            } else
             {
                 ratingWarning.setText("Please type a number from 0 - 10");
             }
-                
-            
-        } 
-        catch (NumberFormatException ex) 
+        } catch (NumberFormatException ex)
         {
             ratingWarning.setText("Try 3.0 - 6.0");
-                } catch (IOException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-                }
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+        }
     }
-    
+
     private void setLastSeenInfo(Movie chosenMov)
     {
-            if(chosenMov.getDate()!=null){
-            lastSeenLabel.setText(chosenMov.getTitle()+" was last seen: "+chosenMov.getDate());
-            }
-            else{
+        if (chosenMov.getDate() != null)
+        {
+            lastSeenLabel.setText(chosenMov.getTitle() + " was last seen: " + chosenMov.getDate());
+        } else
+        {
             lastSeenLabel.setText("You haven't seen this movie yet");
-            }
+        }
     }
-    
+
     private void makeLastSeenInfoInvisible()
     {
         lastSeenLabel.setText("");
@@ -513,22 +485,22 @@ public class PMCViewController implements Initializable
     private void searchButton(ActionEvent event)
     {
         String searchWord = searchField.getText();
-        if (searchWord.length()!=0)
+        if (searchWord.length() != 0)
         {
             try
             {
                 pmcmodel.getMoviesWithSearchWord(searchWord);
-                } catch (IOException ex){
+            } catch (IOException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
+            } catch (SQLException ex)
+            {
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-                }
-            
+            }
+
         }
-        
-        
     }
 
     @FXML
@@ -540,30 +512,29 @@ public class PMCViewController implements Initializable
             searchField.clear();
             lowRating.clear();
             highRating.clear();
-                } catch (IOException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-                }
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+        }
     }
-
-
 
     @FXML
     private void getMovieRecommendations(ActionEvent event)
     {
-        
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Recommendations.fxml"));
-            Parent root = (Parent)loader.load();
+            Parent root = (Parent) loader.load();
             RecommendationsController recController = loader.getController();
-        
+
             recController.setModel(pmcmodel);
             recController.setTableView();
-        
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -577,22 +548,19 @@ public class PMCViewController implements Initializable
     @FXML
     private void refreshCatMovies(ActionEvent event)
     {
-       try
+        try
         {
             pmcmodel.setCategoryMovies();
-                } catch (IOException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("Database.info could not be located");
-                } catch (SQLException ex){
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-                }
-        
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("Database.info could not be located");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
+        }
+
     }
-
-
-
-
-    
 
 }

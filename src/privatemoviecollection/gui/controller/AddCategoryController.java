@@ -25,13 +25,14 @@ import privatemoviecollection.gui.model.PMCModel;
  *
  * @author Henrik Ferrari
  */
-public class AddCategoryController implements Initializable {
+public class AddCategoryController implements Initializable
+{
 
     @FXML
     private AnchorPane rootPane3;
-    
+
     private PMCModel pmcmodel;
-    
+
     @FXML
     private Label info;
     @FXML
@@ -41,28 +42,27 @@ public class AddCategoryController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO
-    }    
+    }
 
     public void setModel(PMCModel model)
     {
-    pmcmodel=model;
+        pmcmodel = model;
     }
-    
+
     @FXML
     private void saveBtn(ActionEvent event)
     {
         try
         {
-            if (addCategoryName.getText().length()==0)
+            if (addCategoryName.getText().length() == 0)
             {
                 info.setText("Please write a Category name");
                 return;
             }
-            
             String categoryName = addCategoryName.getText();
-            
             pmcmodel.addCategory(categoryName);
             Stage stage = (Stage) rootPane3.getScene().getWindow();
             stage.close();
@@ -75,7 +75,6 @@ public class AddCategoryController implements Initializable {
             Logger.getLogger(AddCategoryController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
-        
     }
 
     @FXML
@@ -84,9 +83,4 @@ public class AddCategoryController implements Initializable {
         Stage stage = (Stage) rootPane3.getScene().getWindow();
         stage.close();
     }
-    
-    
-
-
-    
 }

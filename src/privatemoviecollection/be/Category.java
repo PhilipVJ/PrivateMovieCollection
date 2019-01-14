@@ -7,7 +7,6 @@ package privatemoviecollection.be;
 
 import java.util.ArrayList;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.CheckBox;
 
 /**
@@ -16,22 +15,21 @@ import javafx.scene.control.CheckBox;
  */
 public class Category
 {
-    private final String name; 
-    private final int id; 
+
+    private final String name;
+    private final int id;
     private final ArrayList<Integer> movieIdList;
     private CheckBox select;
-    private StringProperty test;
 
-
-
-    public Category (String name, int id) {
+    public Category(String name, int id)
+    {
         this.name = name;
-        this.id = id; 
+        this.id = id;
         movieIdList = new ArrayList<>();
-        select= new CheckBox();
-        test= new SimpleStringProperty();
+        select = new CheckBox();
+
     }
-    
+
     public String getName()
     {
         return name;
@@ -44,19 +42,20 @@ public class Category
 
     public void addMovieWithID(int movieId)
     {
-      movieIdList.add(movieId);
+        movieIdList.add(movieId);
     }
 
     public ArrayList<Integer> getMovies()
     {
         return movieIdList;
     }
-    
+
     public void removeMovieWithID(int movieId)
     {
-        for (Integer x:movieIdList)
+        for (Integer x : movieIdList)
         {
-            if(x==movieId){
+            if (x == movieId)
+            {
                 movieIdList.remove(x);
                 return;
             }
@@ -65,26 +64,14 @@ public class Category
 
     public CheckBox getSelect()
     {
-        
+
         return select;
-        
+
     }
 
     public void setSelect(CheckBox select)
     {
-        
         this.select = select;
-        
-        test.set(Boolean.toString(select.isSelected()));
-        
     }
-    
-        public StringProperty getTest()
-    {
-        return test;
-    }
-    
-    
-    
-    
+
 }

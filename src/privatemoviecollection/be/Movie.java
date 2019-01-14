@@ -14,73 +14,71 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Movie
 {
-private final int id;
-private final SimpleStringProperty title;
-private final SimpleStringProperty webrating;
-private final SimpleStringProperty personalrating;
-private final String filelink;
-private Date date;
 
+    private final int id;
+    private final SimpleStringProperty title;
+    private final SimpleStringProperty webrating;
+    private final SimpleStringProperty personalrating;
+    private final String filelink;
+    private Date date;
 
-public Movie(int id, String title, String filelink, double IMDBrating)
-{
-    this.id=id;
-    this.title=new SimpleStringProperty(title);
-    this.filelink=filelink;
-    String imdbrating = String.valueOf(IMDBrating);
-    this.webrating=new SimpleStringProperty(imdbrating);
-    this.personalrating = new SimpleStringProperty("Not rated yet");
-}
+    public Movie(int id, String title, String filelink, double IMDBrating)
+    {
+        this.id = id;
+        this.title = new SimpleStringProperty(title);
+        this.filelink = filelink;
+        String imdbrating = String.valueOf(IMDBrating);
+        this.webrating = new SimpleStringProperty(imdbrating);
+        this.personalrating = new SimpleStringProperty("Not rated yet");
+    }
 
+    public String getTitle()
+    {
+        return title.get();
+    }
 
+    public void setDate(Date date)
+    {
 
-public String getTitle()
-{
-   return title.get();
-}
+        this.date = date;
+    }
 
-public void setDate(Date date)
-{
-    
-    this.date=date;
-}
-public String getFileLink()
-{
-    return filelink;
-}
+    public String getFileLink()
+    {
+        return filelink;
+    }
 
-public void setPersonalRating(double rating)
-{
-    personalrating.set(Double.toString(rating));
+    public void setPersonalRating(double rating)
+    {
+        personalrating.set(Double.toString(rating));
 
-}
+    }
 
-public String getWebrating()
- {
-     if(webrating.get().equals("1000.0"))
-     {
-         return "No IMDB rating";
-     }
-     else{
-     return webrating.get(); 
-     }
- }
+    public String getWebrating()
+    {
+        if (webrating.get().equals("1000.0"))
+        {
+            return "No IMDB rating";
+        } else
+        {
+            return webrating.get();
+        }
+    }
 
- 
-public String getPersonalrating()
- {
-     
-     return personalrating.get();
- }
+    public String getPersonalrating()
+    {
 
-public int getId()
-{
-    return id;
-}
+        return personalrating.get();
+    }
 
-public Date getDate()
-{
-    return date;
-}
+    public int getId()
+    {
+        return id;
+    }
+
+    public Date getDate()
+    {
+        return date;
+    }
 
 }

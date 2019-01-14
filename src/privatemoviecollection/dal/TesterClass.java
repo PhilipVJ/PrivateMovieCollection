@@ -6,9 +6,6 @@
 package privatemoviecollection.dal;
 
 import java.io.IOException;
-import java.util.List;
-import privatemoviecollection.be.IMDBMovie;
-
 /**
  *
  * @author Philip

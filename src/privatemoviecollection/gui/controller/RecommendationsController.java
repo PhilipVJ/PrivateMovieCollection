@@ -65,8 +65,7 @@ public class RecommendationsController implements Initializable
     private void cancel(ActionEvent event)
     {
         Stage stageToClose = (Stage) recommendations.getScene().getWindow();
-        stageToClose.close();
-        
+        stageToClose.close();    
     }
 
     public void setModel(PMCModel pmcmodel)
@@ -78,7 +77,7 @@ public class RecommendationsController implements Initializable
     {
         ObservableList<IMDBMovie> highR = pmcmodel.getHighRatedMovies();
         recommendations.setItems(highR);
-        
+  
     }
 
     @FXML

@@ -5,13 +5,11 @@
  */
 package privatemoviecollection.bll;
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 import privatemoviecollection.be.Category;
@@ -27,22 +25,23 @@ import privatemoviecollection.dal.MovieDbDAO;
  */
 public class PMCManager
 {
-private final MovieDbDAO movieDbDAO;
-private final CategoryDbDAO categoryDbDAO;
-private final IMDBDbDAO imdbDbDAO;
 
-public PMCManager()
-{
-    movieDbDAO=new MovieDbDAO();
-    categoryDbDAO=new CategoryDbDAO(); 
-    imdbDbDAO = new IMDBDbDAO();
-}
+    private final MovieDbDAO movieDbDAO;
+    private final CategoryDbDAO categoryDbDAO;
+    private final IMDBDbDAO imdbDbDAO;
+
+    public PMCManager()
+    {
+        movieDbDAO = new MovieDbDAO();
+        categoryDbDAO = new CategoryDbDAO();
+        imdbDbDAO = new IMDBDbDAO();
+    }
 
     public Movie addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
         return movieDbDAO.addMovie(filelink, title, IMDBrating);
     }
-    
+
     public List<Movie> getAllMovies() throws IOException, SQLException
     {
         return movieDbDAO.getAllMovies();
@@ -60,49 +59,47 @@ public PMCManager()
 
     public Movie getMovie(int movID) throws IOException, SQLException
     {
-       return movieDbDAO.getMovie(movID);
+        return movieDbDAO.getMovie(movID);
     }
-    
+
     public Category addCategory(String name) throws IOException, SQLException
     {
-        return categoryDbDAO.addCategory(name); 
+        return categoryDbDAO.addCategory(name);
     }
-    
+
     public List<Category> getAllCategories() throws SQLException, IOException
     {
-        return categoryDbDAO.getAllCategories(); 
+        return categoryDbDAO.getAllCategories();
     }
-    
-    public void removeCategory (Category categoryToRemove) throws SQLException, IOException
+
+    public void removeCategory(Category categoryToRemove) throws SQLException, IOException
     {
         categoryDbDAO.removeCategory(categoryToRemove);
     }
-    
+
     public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
     {
         categoryDbDAO.deleteMovieFromCategory(selectedCategory, movToDelete);
     }
-    
-
 
     public void setDate(Movie movieToPlay, Date date) throws IOException, SQLException
     {
-   movieDbDAO.setDate(movieToPlay, date);
+        movieDbDAO.setDate(movieToPlay, date);
     }
 
     public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
     {
-  categoryDbDAO.addMovieToCat(chosenMovie, chosenCategory);
+        categoryDbDAO.addMovieToCat(chosenMovie, chosenCategory);
     }
 
     public String getRating(String formattedMovieCode)
     {
-     return imdbDbDAO.getRating(formattedMovieCode);
+        return imdbDbDAO.getRating(formattedMovieCode);
     }
 
     public ArrayList<IMDBMovie> getMovieSuggestions(String text)
     {
-      return imdbDbDAO.getTitles(text);
+        return imdbDbDAO.getTitles(text);
     }
 
     public List<Movie> IMDBintervalSearch(double low, double high) throws IOException, SQLException
@@ -112,31 +109,31 @@ public PMCManager()
 
     public boolean updateIMDBdatabase() throws IOException
     {
-      return imdbDbDAO.updateIMDBDatabase();
+        return imdbDbDAO.updateIMDBDatabase();
     }
 
     public String getLastUpdatedData()
     {
-     return imdbDbDAO.getLastUpdatedInfo();
+        return imdbDbDAO.getLastUpdatedInfo();
     }
 
     public List<Movie> getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
     {
-     return movieDbDAO.getMoviesWithSearchWord(searchWord);
+        return movieDbDAO.getMoviesWithSearchWord(searchWord);
     }
 
     public List<IMDBMovie> getHighRatedMovies()
     {
-    return imdbDbDAO.getHighRatedMovies();
+        return imdbDbDAO.getHighRatedMovies();
     }
 
     public List<IMDBMovie> getTop250Movies()
     {
-    return imdbDbDAO.getIMDBTop250();
+        return imdbDbDAO.getIMDBTop250();
     }
 
     public Image getMoviePoster(String movieId) throws IOException
     {
-     return movieDbDAO.getMoviePoster(movieId);
+        return movieDbDAO.getMoviePoster(movieId);
     }
 }
