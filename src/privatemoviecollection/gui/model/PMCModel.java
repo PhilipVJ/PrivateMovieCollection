@@ -117,7 +117,15 @@ public class PMCModel
             {
                 java.sql.Date sDate = new java.sql.Date(date.getTime());
                 x.setDate(sDate);
-                return;
+                break;
+            }
+        }
+        for (Movie y : catMovies)
+        {
+            if (y.getId() == movieToPlay.getId())
+            {
+                java.sql.Date sDate = new java.sql.Date(date.getTime());
+                y.setDate(sDate);
             }
         }
 
