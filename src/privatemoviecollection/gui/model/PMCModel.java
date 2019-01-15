@@ -43,6 +43,9 @@ public class PMCModel
         catMovies = FXCollections.observableList(new ArrayList<Movie>());
     }
 
+    /**
+     *  Movie methods
+    */
     public boolean addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
         for (Movie x : allMovies)
@@ -87,7 +90,6 @@ public class PMCModel
                 break;
             }
         }
-
     }
 
     public void rateMovie(Movie movToRate, double oneDigitRating) throws IOException, SQLException
@@ -113,7 +115,6 @@ public class PMCModel
                 }
             }
         }
-
     }
 
     public void setDate(Movie movieToPlay, Date date) throws IOException, SQLException
@@ -136,7 +137,6 @@ public class PMCModel
                 y.setDate(sDate);
             }
         }
-
     }
 
     /**
@@ -147,7 +147,6 @@ public class PMCModel
      */
     public void checkForBadMovies()
     {
-
         Calendar calender = Calendar.getInstance();
 
         // Saves the number of miliseconds since January 1. 1970
@@ -197,6 +196,29 @@ public class PMCModel
         }
     }
 
+    public void getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
+    {
+        List<Movie> searchResults = pmcmanager.getMoviesWithSearchWord(searchWord);
+        allMovies.clear();
+        for (Movie x : searchResults)
+        {
+            allMovies.add(x);
+        }
+    }
+    
+    public Image getMoviePoster(String movieId) throws IOException
+    {
+        return pmcmanager.getMoviePoster(movieId);
+    }
+
+    public String getTrailerURL(String title) throws IOException
+    {
+        return pmcmanager.getTrailerURL(title);
+    }
+    
+    /**
+     * Category methods
+    */
     public void addCategory(String name) throws IOException, SQLException
     {
         Category categoryToAdd = pmcmanager.addCategory(name);
@@ -213,7 +235,6 @@ public class PMCModel
         pmcmanager.removeCategory(selectedItem);
         allCategories.remove(selectedItem);
         setCategoryMovies();
-
     }
 
     public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
@@ -228,34 +249,13 @@ public class PMCModel
                 return;
             }
         }
-
     }
-
-    public String getRating(String formattedMovieCode)
-    {
-        return pmcmanager.getRating(formattedMovieCode);
-    }
-
-    public ArrayList<IMDBMovie> getMovieSuggestions(String text)
-    {
-        return pmcmanager.getMovieSuggestions(text);
-    }
-
+    
     public ObservableList<Movie> getCatMovies()
     {
         return catMovies;
     }
-
-    public void IMDBintervalSearch(double low, double high) throws IOException, SQLException
-    {
-        List<Movie> IMDBinterSearch = pmcmanager.IMDBintervalSearch(low, high);
-        allMovies.clear();
-        for (Movie x : IMDBinterSearch)
-        {
-            allMovies.add(x);
-        }
-    }
-
+    
     public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
     {
         pmcmanager.deleteMovieFromCategory(selectedCategory, movToDelete);
@@ -278,60 +278,7 @@ public class PMCModel
             }
         }
     }
-
-    public boolean updateIMDBdatabase() throws IOException
-    {
-        return pmcmanager.updateIMDBdatabase();
-    }
-
-    public String getLastUpdatedData()
-    {
-        return pmcmanager.getLastUpdatedData();
-    }
-
-    public void getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
-    {
-        List<Movie> searchResults = pmcmanager.getMoviesWithSearchWord(searchWord);
-        allMovies.clear();
-        for (Movie x : searchResults)
-        {
-            allMovies.add(x);
-        }
-    }
-
-    public void clearSearches() throws IOException, SQLException
-    {
-        allMovies.clear();
-        List<Movie> clearedSearch = pmcmanager.getAllMovies();
-        for (Movie x : clearedSearch)
-        {
-            allMovies.add(x);
-        }
-    }
-
-    /**
-     * Generates an alert with the specified String
-     *
-     * @param message
-     */
-    public void generateErrorAlarm(String message)
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Important information");
-        alert.setHeaderText("An error has occured");
-        alert.setContentText("" + message);
-        alert.showAndWait();
-    }
-
-    public void duplicateAlarm()
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Important information");
-        alert.setHeaderText("Duplicate movie");
-        alert.setContentText("You already have this movie in your database");
-        alert.showAndWait();
-    }
-
+    
     public void setCategoryMovies() throws IOException, SQLException
     {
         catMovies.clear();
@@ -364,9 +311,41 @@ public class PMCModel
                 catMovies.add(y);
             }
         }
-
+    }
+    
+    /**
+     * IMDB methods
+    */
+    public String getRating(String formattedMovieCode)
+    {
+        return pmcmanager.getRating(formattedMovieCode);
     }
 
+    public ArrayList<IMDBMovie> getMovieSuggestions(String text)
+    {
+        return pmcmanager.getMovieSuggestions(text);
+    }
+
+    public void IMDBintervalSearch(double low, double high) throws IOException, SQLException
+    {
+        List<Movie> IMDBinterSearch = pmcmanager.IMDBintervalSearch(low, high);
+        allMovies.clear();
+        for (Movie x : IMDBinterSearch)
+        {
+            allMovies.add(x);
+        }
+    }
+
+    public boolean updateIMDBdatabase() throws IOException
+    {
+        return pmcmanager.updateIMDBdatabase();
+    }
+
+    public String getLastUpdatedData()
+    {
+        return pmcmanager.getLastUpdatedData();
+    }
+    
     public ObservableList<IMDBMovie> getHighRatedMovies()
     {
         return FXCollections.observableList(pmcmanager.getHighRatedMovies());
@@ -376,15 +355,41 @@ public class PMCModel
     {
         return FXCollections.observableList(pmcmanager.getTop250Movies());
     }
-
-    public Image getMoviePoster(String movieId) throws IOException
+    
+    /**
+     *  Clear search fields
+    */
+    public void clearSearches() throws IOException, SQLException
     {
-        return pmcmanager.getMoviePoster(movieId);
+        allMovies.clear();
+        List<Movie> clearedSearch = pmcmanager.getAllMovies();
+        for (Movie x : clearedSearch)
+        {
+            allMovies.add(x);
+        }
     }
 
-    public String getTrailerURL(String title) throws IOException
+    /**
+     * Generates an alert with the specified String
+     *
+     * @param message
+     */
+    public void generateErrorAlarm(String message)
     {
-        return pmcmanager.getTrailerURL(title);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Important information");
+        alert.setHeaderText("An error has occured");
+        alert.setContentText("" + message);
+        alert.showAndWait();
+    }
+
+    public void duplicateAlarm()
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Important information");
+        alert.setHeaderText("Duplicate movie");
+        alert.setContentText("You already have this movie in your database");
+        alert.showAndWait();
     }
 
     /**

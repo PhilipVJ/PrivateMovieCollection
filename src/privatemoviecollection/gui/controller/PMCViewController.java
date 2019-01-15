@@ -62,6 +62,7 @@ public class PMCViewController implements Initializable
     private Label scoreLabel;
     @FXML
     private Slider ratingSlider;
+    
     // This variable holds information about the last clicked tableview. 1 for the left, 2 for the middle
     // and 3 for the one on the right.
     private int chosenTableView;
@@ -133,7 +134,8 @@ public class PMCViewController implements Initializable
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
     }
-// Here are the movie related methods
+    
+    // Here are the movie related methods
 
     private void setLastSeenInfo(Movie chosenMov)
     {
@@ -252,7 +254,6 @@ public class PMCViewController implements Initializable
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
-
     }
 
     // Here are the rating related methods
@@ -285,7 +286,6 @@ public class PMCViewController implements Initializable
         ratingSlider.setVisible(true);
         rateButton.setVisible(true);
         scoreLabel.setVisible(true);
-
     }
 
     public void makeRatingInvisible()
@@ -361,7 +361,6 @@ public class PMCViewController implements Initializable
                 pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
             }
         }
-
     }
 
     @FXML
@@ -379,29 +378,26 @@ public class PMCViewController implements Initializable
             Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
-
     }
 
     @FXML
     private void addCategory(ActionEvent event)
     {
+        try
         {
-            try
-            {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/AddCategory.fxml"));
-                Parent root = (Parent) loader.load();
-                AddCategoryController addCategoryCon = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/AddCategory.fxml"));
+            Parent root = (Parent) loader.load();
+            AddCategoryController addCategoryCon = loader.getController();
 
-                addCategoryCon.setModel(pmcmodel);
+            addCategoryCon.setModel(pmcmodel);
 
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException ex)
-            {
-                Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-                pmcmodel.generateErrorAlarm("The AddCategory.fxml file could not be started");
-            }
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+            pmcmodel.generateErrorAlarm("The AddCategory.fxml file could not be started");
         }
     }
 
@@ -497,7 +493,7 @@ public class PMCViewController implements Initializable
         }
     }
 
-// Here are the search related methods
+    // Here are the search related methods
     @FXML
     private void searchIMDBRating(ActionEvent event)
     {
@@ -546,7 +542,6 @@ public class PMCViewController implements Initializable
                 Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
                 pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
             }
-
         }
     }
 
@@ -569,6 +564,5 @@ public class PMCViewController implements Initializable
             pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
         }
     }
-
-
+    
 }

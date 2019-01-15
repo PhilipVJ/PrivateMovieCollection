@@ -25,7 +25,6 @@ import privatemoviecollection.dal.MovieDbDAO;
  */
 public class PMCManager
 {
-
     private final MovieDbDAO movieDbDAO;
     private final CategoryDbDAO categoryDbDAO;
     private final IMDBDbDAO imdbDbDAO;
@@ -37,6 +36,15 @@ public class PMCManager
         imdbDbDAO = new IMDBDbDAO();
     }
 
+    /**
+     *  Movie methods
+     * @param filelink
+     * @param title
+     * @param IMDBrating
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
     public Movie addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
         return movieDbDAO.addMovie(filelink, title, IMDBrating);
@@ -61,7 +69,39 @@ public class PMCManager
     {
         return movieDbDAO.getMovie(movID);
     }
+    
+    public void setDate(Movie movieToPlay, Date date) throws IOException, SQLException
+    {
+        movieDbDAO.setDate(movieToPlay, date);
+    }
+    
+    public List<Movie> IMDBintervalSearch(double low, double high) throws IOException, SQLException
+    {
+        return movieDbDAO.IMDBintervalSearch(low, high);
+    }
+    
+    public List<Movie> getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
+    {
+        return movieDbDAO.getMoviesWithSearchWord(searchWord);
+    }
+    
+    public Image getMoviePoster(String movieId) throws IOException
+    {
+        return movieDbDAO.getMoviePoster(movieId);
+    }
 
+    public String getTrailerURL(String title) throws IOException
+    {
+        return movieDbDAO.getTrailerURL(title);
+    }
+    
+    /**
+     * Category methods
+     * @param name
+     * @return
+     * @throws IOException
+     * @throws SQLException 
+     */
     public Category addCategory(String name) throws IOException, SQLException
     {
         return categoryDbDAO.addCategory(name);
@@ -82,16 +122,16 @@ public class PMCManager
         categoryDbDAO.deleteMovieFromCategory(selectedCategory, movToDelete);
     }
 
-    public void setDate(Movie movieToPlay, Date date) throws IOException, SQLException
-    {
-        movieDbDAO.setDate(movieToPlay, date);
-    }
-
     public void addMovieToCat(Category chosenCategory, Movie chosenMovie) throws IOException, SQLException
     {
         categoryDbDAO.addMovieToCat(chosenMovie, chosenCategory);
     }
-
+    
+    /**
+     *  IMDB methods
+     * @param formattedMovieCode
+     * @return 
+     */
     public String getRating(String formattedMovieCode)
     {
         return imdbDbDAO.getRating(formattedMovieCode);
@@ -100,11 +140,6 @@ public class PMCManager
     public ArrayList<IMDBMovie> getMovieSuggestions(String text)
     {
         return imdbDbDAO.getTitles(text);
-    }
-
-    public List<Movie> IMDBintervalSearch(double low, double high) throws IOException, SQLException
-    {
-        return movieDbDAO.IMDBintervalSearch(low, high);
     }
 
     public boolean updateIMDBdatabase() throws IOException
@@ -117,11 +152,6 @@ public class PMCManager
         return imdbDbDAO.getLastUpdatedInfo();
     }
 
-    public List<Movie> getMoviesWithSearchWord(String searchWord) throws IOException, SQLException
-    {
-        return movieDbDAO.getMoviesWithSearchWord(searchWord);
-    }
-
     public List<IMDBMovie> getHighRatedMovies()
     {
         return imdbDbDAO.getHighRatedMovies();
@@ -130,15 +160,5 @@ public class PMCManager
     public List<IMDBMovie> getTop250Movies()
     {
         return imdbDbDAO.getIMDBTop250();
-    }
-
-    public Image getMoviePoster(String movieId) throws IOException
-    {
-        return movieDbDAO.getMoviePoster(movieId);
-    }
-
-    public String getTrailerURL(String title) throws IOException
-    {
-        return movieDbDAO.getTrailerURL(title);
     }
 }
