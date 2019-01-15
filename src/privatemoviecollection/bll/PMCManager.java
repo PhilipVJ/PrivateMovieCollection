@@ -90,7 +90,7 @@ public class PMCManager
         return movieDbDAO.getMoviePoster(movieId);
     }
 
-    public String getTrailerURL(String title) throws IOException
+    public String getTrailerURL(String title) throws IOException, StringIndexOutOfBoundsException
     {
         return movieDbDAO.getTrailerURL(title);
     }

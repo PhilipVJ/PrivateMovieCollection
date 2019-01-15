@@ -336,7 +336,7 @@ public class MovieDbDAO
  * @return
  * @throws IOException 
  */
-    public String getTrailerURL(String title) throws IOException
+    public String getTrailerURL(String title) throws IOException, StringIndexOutOfBoundsException
     {
         String url = "https://www.imdb.com/title/" + title;
         System.setProperty("http.agent", "Chrome");

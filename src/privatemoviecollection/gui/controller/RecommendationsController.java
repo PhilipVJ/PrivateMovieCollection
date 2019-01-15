@@ -143,7 +143,7 @@ public class RecommendationsController implements Initializable
                     }
                 });
             }
-        } catch (IOException ex)
+        } catch (IOException | StringIndexOutOfBoundsException ex)
         {
             Logger.getLogger(RecommendationsController.class.getName()).log(Level.SEVERE, null, ex);
             pmcmodel.generateErrorAlarm("Could not find a trailer for this movie");

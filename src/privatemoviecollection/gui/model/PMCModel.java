@@ -211,7 +211,7 @@ public class PMCModel
         return pmcmanager.getMoviePoster(movieId);
     }
 
-    public String getTrailerURL(String title) throws IOException
+    public String getTrailerURL(String title) throws IOException, StringIndexOutOfBoundsException
     {
         return pmcmanager.getTrailerURL(title);
     }
