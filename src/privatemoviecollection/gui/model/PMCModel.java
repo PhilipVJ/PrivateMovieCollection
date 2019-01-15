@@ -14,7 +14,10 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import org.apache.commons.text.similarity.LevenshteinDetailedDistance;
+import org.apache.commons.text.similarity.LevenshteinResults;
 import privatemoviecollection.be.Category;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
@@ -45,6 +48,11 @@ public class PMCModel
         for (Movie x : allMovies)
         {
             if (x.getTitle().equals(title))
+            {
+                return false;
+            }
+
+            if (checkForSimularities(title, x.getTitle()) == false)
             {
                 return false;
             }
@@ -376,6 +384,38 @@ public class PMCModel
 
     public String getTrailerURL(String title) throws IOException
     {
-       return pmcmanager.getTrailerURL(title);
+        return pmcmanager.getTrailerURL(title);
+    }
+
+    /**
+     * Uses the levenshtein distance to check how simular the new title and a
+     * title from the database are. Returns true if a save is approved.
+     *
+     * @param title
+     * @param title2
+     * @return
+     */
+    private Boolean checkForSimularities(String title, String title2)
+    {
+        LevenshteinDetailedDistance i = LevenshteinDetailedDistance.getDefaultInstance();
+        LevenshteinResults k = i.apply(title, title2);
+        int levenshteinDistance = k.getDistance();
+
+        if (levenshteinDistance <= 2)
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Did you mean " + title2 + "?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.YES)
+            {
+                return false;
+            }
+
+            if (alert.getResult() == ButtonType.NO)
+            {
+                return true;
+            }
+        }
+        return true;
     }
 }
