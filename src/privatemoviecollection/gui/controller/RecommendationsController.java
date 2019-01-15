@@ -120,7 +120,12 @@ public class RecommendationsController implements Initializable
         try
         {
             WebView webview = new WebView();
-            String url = pmcmodel.getTrailerURL(recommendations.getSelectionModel().getSelectedItem().getMovieId());
+            IMDBMovie chosenMovie = recommendations.getSelectionModel().getSelectedItem();
+            if(chosenMovie==null)
+            {
+                return;
+            }
+            String url = pmcmodel.getTrailerURL(chosenMovie.getMovieId());
             if (!"No trailer found".equals(url))
             {
                 webview.getEngine().load(url);
