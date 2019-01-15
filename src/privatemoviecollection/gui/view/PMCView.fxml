@@ -61,7 +61,7 @@
             <Font size="32.0" />
          </font></Label>
       <Button fx:id="rateButton" layoutX="912.0" layoutY="615.0" mnemonicParsing="false" onAction="#rateMovie" text="Rate" />
-      <Label fx:id="lastSeenLabel" layoutX="321.0" layoutY="98.0" prefHeight="18.0" prefWidth="319.0" textFill="#fbda02" />
+      <Label fx:id="lastSeenLabel" layoutX="150.0" layoutY="104.0" prefHeight="18.0" prefWidth="319.0" textFill="#fbda02" />
       <TextField fx:id="lowRating" layoutX="723.0" layoutY="696.0" prefHeight="31.0" prefWidth="61.0" />
       <Label layoutX="810.0" layoutY="672.0" prefHeight="64.0" prefWidth="19.0" text="-">
          <font>
