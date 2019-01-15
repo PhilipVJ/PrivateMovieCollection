@@ -6,7 +6,6 @@
 package privatemoviecollection.be;
 
 import java.util.ArrayList;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.CheckBox;
 
 /**
@@ -64,14 +63,14 @@ public class Category
 
     public CheckBox getSelect()
     {
-
         return select;
 
     }
-
-    public void setSelect(CheckBox select)
-    {
-        this.select = select;
-    }
+//
+//    public void setSelect(CheckBox select)
+//    {
+//        this.select = select;
+//       
+//    }
 
 }
