@@ -6,6 +6,8 @@
 package privatemoviecollection.be;
 
 import java.util.ArrayList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.CheckBox;
 
 /**
@@ -27,7 +29,10 @@ public class Category
         movieIdList = new ArrayList<>();
         select = new CheckBox();
 
+
     }
+    
+    
 
     public String getName()
     {

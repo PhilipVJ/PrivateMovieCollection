@@ -76,7 +76,6 @@
       <Button layoutX="583.0" layoutY="104.0" mnemonicParsing="false" onAction="#clearSearches" text="Clear searches" />
       <Label fx:id="ratingWarning" layoutX="723.0" layoutY="738.0" textFill="#fbda02" />
       <Button layoutX="14.0" layoutY="681.0" mnemonicParsing="false" onAction="#getMovieRecommendations" text="Get movie recommendations" />
-      <Button layoutX="14.0" layoutY="104.0" mnemonicParsing="false" onAction="#refreshCatMovies" text="Refresh " />
       <ImageView fx:id="posterView" fitHeight="173.0" fitWidth="140.0" layoutX="558.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="548.0" layoutY="142.0" prefHeight="21.0" prefWidth="151.0" text="Poster:" textFill="#cd8d0d" />
    </children>

@@ -364,23 +364,6 @@ public class PMCViewController implements Initializable
     }
 
     @FXML
-    private void refreshCatMovies(ActionEvent event)
-    {
-        try
-        {
-            pmcmodel.setCategoryMovies();
-        } catch (IOException ex)
-        {
-            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            pmcmodel.generateErrorAlarm("Database.info could not be located");
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
-            pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
-        }
-    }
-
-    @FXML
     private void addCategory(ActionEvent event)
     {
         try

@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -22,6 +26,7 @@ import privatemoviecollection.be.Category;
 import privatemoviecollection.be.IMDBMovie;
 import privatemoviecollection.be.Movie;
 import privatemoviecollection.bll.PMCManager;
+import privatemoviecollection.gui.controller.PMCViewController;
 
 /**
  *
@@ -40,12 +45,33 @@ public class PMCModel
         pmcmanager = new PMCManager();
         allMovies = FXCollections.observableList(pmcmanager.getAllMovies());
         allCategories = FXCollections.observableList(pmcmanager.getAllCategories());
+        for (Category x : allCategories)
+        {
+            x.getSelect().selectedProperty().addListener(new ChangeListener<Boolean>()
+            {
+
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+                {
+                    try
+                    {
+                        setCategoryMovies();
+                    } catch (IOException ex)
+                    {
+                        Logger.getLogger(PMCModel.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex)
+                    {
+                        Logger.getLogger(PMCModel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+        }
         catMovies = FXCollections.observableList(new ArrayList<Movie>());
     }
 
     /**
-     *  Movie methods
-    */
+     * Movie methods
+     */
     public boolean addMovie(String filelink, String title, double IMDBrating) throws IOException, SQLException
     {
         for (Movie x : allMovies)
@@ -205,7 +231,7 @@ public class PMCModel
             allMovies.add(x);
         }
     }
-    
+
     public Image getMoviePoster(String movieId) throws IOException
     {
         return pmcmanager.getMoviePoster(movieId);
@@ -215,13 +241,34 @@ public class PMCModel
     {
         return pmcmanager.getTrailerURL(title);
     }
-    
+
     /**
      * Category methods
-    */
+     */
     public void addCategory(String name) throws IOException, SQLException
     {
         Category categoryToAdd = pmcmanager.addCategory(name);
+        categoryToAdd.getSelect().selectedProperty().addListener(new ChangeListener<Boolean>()
+        {
+
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
+            {
+                try
+                {
+                    setCategoryMovies();
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    generateErrorAlarm("Database.info could not be located");
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    generateErrorAlarm("A problem occurred with the SQL database");
+                }
+            }
+        });
+
         allCategories.add(categoryToAdd);
     }
 
@@ -250,12 +297,12 @@ public class PMCModel
             }
         }
     }
-    
+
     public ObservableList<Movie> getCatMovies()
     {
         return catMovies;
     }
-    
+
     public void deleteMovieFromCategory(Category selectedCategory, Movie movToDelete) throws SQLException, IOException
     {
         pmcmanager.deleteMovieFromCategory(selectedCategory, movToDelete);
@@ -278,7 +325,7 @@ public class PMCModel
             }
         }
     }
-    
+
     public void setCategoryMovies() throws IOException, SQLException
     {
         catMovies.clear();
@@ -312,10 +359,10 @@ public class PMCModel
             }
         }
     }
-    
+
     /**
      * IMDB methods
-    */
+     */
     public String getRating(String formattedMovieCode)
     {
         return pmcmanager.getRating(formattedMovieCode);
@@ -345,7 +392,7 @@ public class PMCModel
     {
         return pmcmanager.getLastUpdatedData();
     }
-    
+
     public ObservableList<IMDBMovie> getHighRatedMovies()
     {
         return FXCollections.observableList(pmcmanager.getHighRatedMovies());
@@ -355,10 +402,10 @@ public class PMCModel
     {
         return FXCollections.observableList(pmcmanager.getTop250Movies());
     }
-    
+
     /**
-     *  Clear search fields
-    */
+     * Clear search fields
+     */
     public void clearSearches() throws IOException, SQLException
     {
         allMovies.clear();
