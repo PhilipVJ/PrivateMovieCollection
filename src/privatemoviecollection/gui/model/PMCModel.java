@@ -58,10 +58,12 @@ public class PMCModel
                         setCategoryMovies();
                     } catch (IOException ex)
                     {
-                        Logger.getLogger(PMCModel.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        generateErrorAlarm("Database.info could not be located");
                     } catch (SQLException ex)
                     {
-                        Logger.getLogger(PMCModel.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(PMCViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        generateErrorAlarm("A problem occurred with the SQL database");
                     }
                 }
             });
