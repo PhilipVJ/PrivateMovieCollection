@@ -241,24 +241,23 @@ public class IMDBDbDAO
         String source = "data/rating.tsv";
         File title = new File(source);
 
-        // parses all rows in one go.
-        List<String[]> allHighRatedMovies = parser.parseAll(title);
-        // removes the first String array since it only contains column titles
-        allHighRatedMovies.remove(0);
-        for (String[] x : allHighRatedMovies)
+        parser.beginParsing(title);
+        String[] row;
+        // Skips the first line since it only contains column names
+        row = parser.parseNext();
+        while ((row = parser.parseNext()) != null)
         {
+            double rating = Double.parseDouble(row[1]);
+            double numberOfVotes = Double.parseDouble(row[2]);
 
-            double rating = Double.parseDouble(x[1]);
-            double numberOfVotes = Double.parseDouble(x[2]);
-
-            if ((rating > 8.5) && numberOfVotes > 100000)
+            if (rating > 8.5 && numberOfVotes > 100000)
             {
-                IMDBMovie toAdd = new IMDBMovie(x[0]);
-                toAdd.setRating(x[1]);
-                highRatedMovies.add(toAdd);
-
+                IMDBMovie movToAdd = new IMDBMovie(row[0]);
+                movToAdd.setRating(row[1]);
+                highRatedMovies.add(movToAdd);
             }
         }
+
         // Removes all objects except 10 random ones
         while (highRatedMovies.size() > 10)
         {
@@ -270,6 +269,7 @@ public class IMDBDbDAO
         {
             x.setMovieTitle(getTitleById(x.getMovieId()));
         }
+
         return highRatedMovies;
 
     }
@@ -280,7 +280,7 @@ public class IMDBDbDAO
      * @param id
      * @return
      */
-    public String getTitleById(String id)
+    private String getTitleById(String id)
     {
         TsvParserSettings settings = new TsvParserSettings();
         settings.getFormat().setLineSeparator("\n");

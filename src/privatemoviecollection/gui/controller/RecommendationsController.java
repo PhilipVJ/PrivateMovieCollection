@@ -77,9 +77,7 @@ public class RecommendationsController implements Initializable
 
     public void setTableView()
     {
-        ObservableList<IMDBMovie> highR = pmcmodel.getHighRatedMovies();
-        recommendations.setItems(highR);
-
+        recommendations.setItems(pmcmodel.getHighRatedMovies());
     }
 
     @FXML
