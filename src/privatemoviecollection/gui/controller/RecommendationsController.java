@@ -99,8 +99,6 @@ public class RecommendationsController implements Initializable
             try
             {
                 Image toShow = pmcmodel.getMoviePoster(recommendations.getSelectionModel().getSelectedItem().getMovieTitle());
-                System.out.println("" + toShow.getHeight());
-                System.out.println("" + toShow.getWidth());
                 imageView.setImage(toShow);
 
             } catch (IOException ex)

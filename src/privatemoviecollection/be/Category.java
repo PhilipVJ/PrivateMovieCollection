@@ -6,8 +6,6 @@
 package privatemoviecollection.be;
 
 import java.util.ArrayList;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.CheckBox;
 
 /**

@@ -23,6 +23,11 @@ public class IMDBMovie
         this.movieId = id;
         this.movieTitle = title;
     }
+    
+    public IMDBMovie(String id)
+    {
+        this.movieId = id;
+    }
 
     public String getMovieId()
     {

@@ -253,7 +253,7 @@ public class IMDBDbDAO
 
             if ((rating > 8.5) && numberOfVotes > 100000)
             {
-                IMDBMovie toAdd = new IMDBMovie(x[0], "");
+                IMDBMovie toAdd = new IMDBMovie(x[0]);
                 toAdd.setRating(x[1]);
                 highRatedMovies.add(toAdd);
 
@@ -326,7 +326,7 @@ public class IMDBDbDAO
             averageRatingScore += rat;
             if (numberOfVotes >= 25000)
             {
-                IMDBMovie toAdd = new IMDBMovie(x[0], "");
+                IMDBMovie toAdd = new IMDBMovie(x[0]);
                 toAdd.setRating(rating);
                 toAdd.setNumberOfVotes(numberOfVotes);
                 top250Movies.add(toAdd);
