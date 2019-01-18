@@ -238,9 +238,7 @@ public class IMDBDbDAO
         settings.getFormat().setLineSeparator("\n");
 
         TsvParser parser = new TsvParser(settings);
-        String source = "data/rating.tsv";
-        File title = new File(source);
-
+        File title = new File("data/rating.tsv");
         parser.beginParsing(title);
         
         String[] row;
