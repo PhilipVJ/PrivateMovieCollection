@@ -157,7 +157,7 @@ public class PMCViewController implements Initializable
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/privatemoviecollection/gui/view/Recommendations.fxml"));
-            Parent root = (Parent) loader.load();
+            Parent root = loader.load();
             RecommendationsController recController = loader.getController();
 
             recController.setModel(pmcmodel);

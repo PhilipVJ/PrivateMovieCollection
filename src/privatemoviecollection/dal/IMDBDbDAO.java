@@ -242,6 +242,7 @@ public class IMDBDbDAO
         File title = new File(source);
 
         parser.beginParsing(title);
+        
         String[] row;
         // Skips the first line since it only contains column names
         row = parser.parseNext();
