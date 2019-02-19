@@ -41,10 +41,7 @@ public class IMDBDbDAO
      */
     public String getRating(String id)
     {
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/rating.tsv";
         File title = new File(source);
 
@@ -71,10 +68,7 @@ public class IMDBDbDAO
      */
     public ArrayList<IMDBMovie> getTitles(String movieSearch)
     {
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/title.tsv";
         File title = new File(source);
 
@@ -129,30 +123,45 @@ public class IMDBDbDAO
         File f4 = new File("data/update/title.tsv");
         f3.renameTo(f4);
 
-        // Delete old files
-        File f5 = new File("data/rating.tsv");
-        File f6 = new File("data/title.tsv");
-        f5.delete();
-        f6.delete();
+        removeOldDBFiles();
 
-        //Move new updated files
-        File f7 = new File("data/update/title.tsv");
-        File f8 = new File("data/title.tsv");
+        moveDBFiles();
 
-        FileUtils.moveFile(f7, f8);
+        deleteZipFiles();
 
-        File f9 = new File("data/update/rating.tsv");
-        File f10 = new File("data/rating.tsv");
+        return true;
+    }
 
-        FileUtils.moveFile(f9, f10);
-
+    private void deleteZipFiles()
+    {
         // Delete zip containers
         File f11 = new File("data/update/title.basics.tsv.gz");
         File f12 = new File("data/update/title.ratings.tsv.gz");
         f11.delete();
         f12.delete();
+    }
 
-        return true;
+    private void moveDBFiles() throws IOException
+    {
+        //Move new updated files
+        File f7 = new File("data/update/title.tsv");
+        File f8 = new File("data/title.tsv");
+        
+        FileUtils.moveFile(f7, f8);
+        
+        File f9 = new File("data/update/rating.tsv");
+        File f10 = new File("data/rating.tsv");
+        
+        FileUtils.moveFile(f9, f10);
+    }
+
+    private void removeOldDBFiles()
+    {
+        // Delete old files
+        File f5 = new File("data/rating.tsv");
+        File f6 = new File("data/title.tsv");
+        f5.delete();
+        f6.delete();
     }
 
     /**
@@ -234,10 +243,7 @@ public class IMDBDbDAO
     public List<IMDBMovie> getHighRatedMovies()
     {
         List<IMDBMovie> highRatedMovies = new ArrayList<>();
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         File title = new File("data/rating.tsv");
         parser.beginParsing(title);
         
@@ -281,10 +287,7 @@ public class IMDBDbDAO
      */
     private String getTitleById(String id)
     {
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/title.tsv";
         File title = new File(source);
         parser.beginParsing(title);
@@ -301,13 +304,18 @@ public class IMDBDbDAO
         return "No title found";
     }
 
+    private TsvParser createParser()
+    {
+        TsvParserSettings settings = new TsvParserSettings();
+        settings.getFormat().setLineSeparator("\n");
+        TsvParser parser = new TsvParser(settings);
+        return parser;
+    }
+
     public List<IMDBMovie> getIMDBTop250()
     {
         List<IMDBMovie> top250Movies = new ArrayList<>();
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/rating.tsv";
         File title = new File(source);
 
