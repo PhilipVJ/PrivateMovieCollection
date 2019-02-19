@@ -53,7 +53,7 @@ public class AddCategoryController implements Initializable
     }
 
     @FXML
-    private void saveBtn(ActionEvent event)
+    private void saveCategory(ActionEvent event)
     {
         try
         {

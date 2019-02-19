@@ -29,7 +29,7 @@
          </font>
       </Label>
       <TextField fx:id="addCategoryName" layoutX="143.0" layoutY="137.0" prefHeight="31.0" prefWidth="262.0" />
-      <Button layoutX="274.0" layoutY="221.0" mnemonicParsing="false" onAction="#saveBtn" text="Save" />
+      <Button layoutX="274.0" layoutY="221.0" mnemonicParsing="false" onAction="#saveCategory" text="Save" />
       <Button layoutX="341.0" layoutY="221.0" mnemonicParsing="false" onAction="#cancelBtn" text="Cancel" />
       <Label fx:id="info" layoutX="140.0" layoutY="185.0" />
    </children>
