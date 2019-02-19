@@ -78,8 +78,7 @@ public class PMCViewController implements Initializable
     private TableColumn<Movie, String> catPersonalrating;
     @FXML
     private TextField lowRating;
-    @FXML
-    private Button searchRatings;
+
     @FXML
     private TextField highRating;
     @FXML
