@@ -41,10 +41,7 @@ public class IMDBDbDAO
      */
     public String getRating(String id)
     {
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/rating.tsv";
         File title = new File(source);
 
@@ -71,10 +68,7 @@ public class IMDBDbDAO
      */
     public ArrayList<IMDBMovie> getTitles(String movieSearch)
     {
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/title.tsv";
         File title = new File(source);
 
@@ -249,10 +243,7 @@ public class IMDBDbDAO
     public List<IMDBMovie> getHighRatedMovies()
     {
         List<IMDBMovie> highRatedMovies = new ArrayList<>();
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         File title = new File("data/rating.tsv");
         parser.beginParsing(title);
         
@@ -296,10 +287,7 @@ public class IMDBDbDAO
      */
     private String getTitleById(String id)
     {
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/title.tsv";
         File title = new File(source);
         parser.beginParsing(title);
@@ -316,13 +304,18 @@ public class IMDBDbDAO
         return "No title found";
     }
 
+    private TsvParser createParser()
+    {
+        TsvParserSettings settings = new TsvParserSettings();
+        settings.getFormat().setLineSeparator("\n");
+        TsvParser parser = new TsvParser(settings);
+        return parser;
+    }
+
     public List<IMDBMovie> getIMDBTop250()
     {
         List<IMDBMovie> top250Movies = new ArrayList<>();
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
-
-        TsvParser parser = new TsvParser(settings);
+        TsvParser parser = createParser();
         String source = "data/rating.tsv";
         File title = new File(source);
 

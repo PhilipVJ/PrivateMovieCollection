@@ -61,9 +61,11 @@ public class PMCViewController implements Initializable
     @FXML
     private Slider ratingSlider;
     
-    // This variable holds information about the last clicked tableview. 1 for the left, 2 for the middle
-    // and 3 for the one on the right.
-    private int chosenTableView;
+    private enum TableChoice{
+        LEFT, MIDDLE, RIGHT
+    }
+    
+    private TableChoice chosenTableView;
     @FXML
     private Button rateButton;
     @FXML
@@ -96,6 +98,7 @@ public class PMCViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+
         try
         {
             pmcmodel = new PMCModel();
@@ -198,10 +201,10 @@ public class PMCViewController implements Initializable
     {
         Movie movToPlay = catmovies.getSelectionModel().getSelectedItem();
         Movie movieToPlay = allMovies.getSelectionModel().getSelectedItem();
-        if (chosenTableView == 2 && movToPlay != null)
+        if (chosenTableView == TableChoice.MIDDLE && movToPlay != null)
         {
             playChosenMovie(movToPlay);
-        } else if (chosenTableView == 3 && movieToPlay != null)
+        } else if (chosenTableView == TableChoice.RIGHT && movieToPlay != null)
         {
             playChosenMovie(movieToPlay);
         }
@@ -297,7 +300,7 @@ public class PMCViewController implements Initializable
     {
         double rating = ratingSlider.getValue();
         double oneDigitRating = Math.round(rating * 10) / 10.0;
-        if (chosenTableView == 3 && allMovies.getSelectionModel().getSelectedItem() != null)
+        if (chosenTableView == TableChoice.RIGHT && allMovies.getSelectionModel().getSelectedItem() != null)
         {
             try
             {
@@ -315,7 +318,7 @@ public class PMCViewController implements Initializable
                 pmcmodel.generateErrorAlarm("A problem occurred with the SQL database");
             }
 
-            if (chosenTableView == 2 && catmovies.getSelectionModel().getSelectedItem() != null)
+            if (chosenTableView == TableChoice.MIDDLE && catmovies.getSelectionModel().getSelectedItem() != null)
             {
                 try
                 {
@@ -384,8 +387,10 @@ public class PMCViewController implements Initializable
     @FXML
     private void removeCategory(ActionEvent event)
     {
-        if (chosenTableView == 1 && categories.getSelectionModel().getSelectedItem() != null)
+      
+        if (chosenTableView==TableChoice.LEFT && categories.getSelectionModel().getSelectedItem() != null)
         {
+   
             try
             {
                 pmcmodel.removeCategory(categories.getSelectionModel().getSelectedItem());
@@ -428,7 +433,7 @@ public class PMCViewController implements Initializable
     @FXML
     private void allMoviesChosen(MouseEvent event)
     {
-        chosenTableView = 3;
+        chosenTableView=TableChoice.RIGHT;
         if (allMovies.getSelectionModel().getSelectedItem() != null)
         {
             try
@@ -448,7 +453,7 @@ public class PMCViewController implements Initializable
     @FXML
     private void categoriesViewChosen(MouseEvent event)
     {
-        chosenTableView = 1;
+        chosenTableView = TableChoice.LEFT;
         makeRatingInvisible();
         makeLastSeenInfoInvisible();
     }
@@ -456,7 +461,7 @@ public class PMCViewController implements Initializable
     @FXML
     private void categoryMovieViewChosen(MouseEvent event)
     {
-        chosenTableView = 2;
+        chosenTableView = TableChoice.MIDDLE;
         Movie chosenMovie = catmovies.getSelectionModel().getSelectedItem();
         if (chosenMovie != null)
         {
